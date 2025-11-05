@@ -17,6 +17,18 @@ const imageBuilder = createImageUrlBuilder({
   dataset,
 });
 
-export const urlFor = (source: SanityImageSource) =>
-  imageBuilder.image(source).auto("format").fit("max").format("webp");
+// Accepts multiple source shapes:
+// - Standard SanityImageSource (image object or asset)
+// - Our projection shape: { id: string, crop?, hotspot?, alt? }
+// - String asset id
+export const urlFor = (
+  source: SanityImageSource | { id?: string; crop?: unknown; hotspot?: unknown } | string
+) => {
+  const ref = typeof source === "string" ? source : (source as any)?.id ?? source;
+  return imageBuilder
+    .image(ref as SanityImageSource)
+    .auto("format")
+    .fit("max")
+    .format("webp");
+};
 
