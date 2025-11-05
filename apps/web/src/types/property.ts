@@ -1,4 +1,5 @@
 // Mirror the GROQ query response structure for type safety
+import type { PortableTextBlock } from "next-sanity";
 
 export type PropertyImage = {
   id: string;
@@ -63,7 +64,7 @@ export type PropertyCardData = {
 };
 
 export type PropertyDetailData = Omit<PropertyCardData, "mainImage"> & {
-  richText?: Array<unknown>; // Sanity block content
+  richText?: PortableTextBlock[]; // Sanity block content
   images?: PropertyImage[];
   amenities?: string[];
   agent?: PropertyAgent;

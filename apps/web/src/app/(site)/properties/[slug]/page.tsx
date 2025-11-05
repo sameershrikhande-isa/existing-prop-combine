@@ -10,6 +10,7 @@ import {
 } from "@/lib/sanity/queries";
 import type { PropertyDetailData } from "@/types/property";
 import { RichText } from "@/components/shared/RichText";
+import { PortableTextBlock } from '@portabletext/types';
 import { testimonials } from "@/app/api/testimonial";
 
 // Enable ISR with 1 hour revalidation
@@ -78,15 +79,15 @@ export default async function PropertyDetailPage({
     agent,
   } = property;
 
-  return (
+    return (
     <section className="!pt-44 pb-20 relative">
-      <div className="container mx-auto max-w-8xl px-5 2xl:px-0">
-        <div className="grid grid-cols-12 items-end gap-6">
-          <div className="lg:col-span-8 col-span-12">
+            <div className="container mx-auto max-w-8xl px-5 2xl:px-0">
+                <div className="grid grid-cols-12 items-end gap-6">
+                    <div className="lg:col-span-8 col-span-12">
             <h1 className="lg:text-52 text-40 font-semibold text-dark dark:text-white">
               {title}
             </h1>
-            <div className="flex gap-2.5">
+                        <div className="flex gap-2.5">
               <Icon
                 icon="ph:map-pin"
                 width={24}
@@ -97,53 +98,53 @@ export default async function PropertyDetailPage({
                 {location.address}, {location.city}
                 {location.state && `, ${location.state}`}
               </p>
-            </div>
-          </div>
-          <div className="lg:col-span-4 col-span-12">
+                        </div>
+                    </div>
+                    <div className="lg:col-span-4 col-span-12">
             <div className="flex">
               <div className="flex flex-col gap-2 border-e border-black/10 dark:border-white/20 pr-2 xs:pr-4 mobile:pr-8">
                 <Icon icon="solar:bed-linear" width={20} height={20} />
                 <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
                   {features.bedrooms} Bedrooms
-                </p>
-              </div>
+                                </p>
+                            </div>
               <div className="flex flex-col gap-2 border-e border-black/10 dark:border-white/20 px-2 xs:px-4 mobile:px-8">
                 <Icon icon="solar:bath-linear" width={20} height={20} />
                 <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
                   {features.bathrooms} Bathrooms
-                </p>
-              </div>
+                                </p>
+                            </div>
               <div className="flex flex-col gap-2 pl-2 xs:pl-4 mobile:pl-8">
-                <Icon
+                                <Icon
                   icon="lineicons:arrow-all-direction"
-                  width={20}
-                  height={20}
-                />
+                                    width={20}
+                                    height={20}
+                                />
                 <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
                   {features.areaSqM}m<sup>2</sup>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
         {/* Image Gallery */}
-        <div className="grid grid-cols-12 mt-8 gap-8">
-          <div className="lg:col-span-8 col-span-12 row-span-2">
+                <div className="grid grid-cols-12 mt-8 gap-8">
+                    <div className="lg:col-span-8 col-span-12 row-span-2">
             {images && images[0] && (
               <div>
-                <Image
+                                <Image
                   src={urlFor(images[0]).width(800).height(600).url()}
                   alt={images[0].alt || title}
                   width={800}
                   height={600}
                   className="rounded-2xl w-full h-540 object-cover"
-                  unoptimized={true}
-                />
-              </div>
-            )}
-          </div>
-          <div className="lg:col-span-4 lg:block hidden">
+                                    unoptimized={true}
+                                />
+                            </div>
+                        )}
+                    </div>
+                    <div className="lg:col-span-4 lg:block hidden">
             {images && images[1] && (
               <Image
                 src={urlFor(images[1]).width(400).height(500).url()}
@@ -153,9 +154,9 @@ export default async function PropertyDetailPage({
                 className="rounded-2xl w-full h-full object-cover"
                 unoptimized={true}
               />
-            )}
-          </div>
-          <div className="lg:col-span-2 col-span-6">
+                        )}
+                    </div>
+                    <div className="lg:col-span-2 col-span-6">
             {images && images[2] && (
               <Image
                 src={urlFor(images[2]).width(400).height(500).url()}
@@ -165,9 +166,9 @@ export default async function PropertyDetailPage({
                 className="rounded-2xl w-full h-full object-cover"
                 unoptimized={true}
               />
-            )}
-          </div>
-          <div className="lg:col-span-2 col-span-6">
+                        )}
+                    </div>
+                    <div className="lg:col-span-2 col-span-6">
             {images && images[3] && (
               <Image
                 src={urlFor(images[3]).width(400).height(500).url()}
@@ -177,16 +178,16 @@ export default async function PropertyDetailPage({
                 className="rounded-2xl w-full h-full object-cover"
                 unoptimized={true}
               />
-            )}
-          </div>
-        </div>
+                        )}
+                    </div>
+                </div>
 
-        <div className="grid grid-cols-12 gap-8 mt-10">
-          <div className="lg:col-span-8 col-span-12">
+                <div className="grid grid-cols-12 gap-8 mt-10">
+                    <div className="lg:col-span-8 col-span-12">
             <h3 className="text-xl font-medium">Property details</h3>
-            <div className="py-8 my-8 border-y border-dark/10 dark:border-white/20 flex flex-col gap-8">
-              <div className="flex items-center gap-6">
-                <div>
+                        <div className="py-8 my-8 border-y border-dark/10 dark:border-white/20 flex flex-col gap-8">
+                            <div className="flex items-center gap-6">
+                                <div>
                   <Image
                     src="/images/SVGs/property-details.svg"
                     width={32}
@@ -203,18 +204,18 @@ export default async function PropertyDetailPage({
                     className="w-8 h-8 dark:block hidden"
                     unoptimized={true}
                   />
-                </div>
-                <div>
+                                </div>
+                                <div>
                   <h3 className="text-dark dark:text-white text-xm">
                     Property details
                   </h3>
                   <p className="text-base text-dark/50 dark:text-white/50">
-                    One of the few homes in the area with a private pool.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-6">
-                <div>
+                                        One of the few homes in the area with a private pool.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-6">
+                                <div>
                   <Image
                     src="/images/SVGs/smart-home-access.svg"
                     width={32}
@@ -231,18 +232,18 @@ export default async function PropertyDetailPage({
                     className="w-8 h-8 dark:block hidden"
                     unoptimized={true}
                   />
-                </div>
-                <div>
+                                </div>
+                                <div>
                   <h3 className="text-dark dark:text-white text-xm">
                     Smart home access
                   </h3>
                   <p className="text-base text-dark/50 dark:text-white/50">
-                    Easily check yourself in with a modern keypad system.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-6">
-                <div>
+                                        Easily check yourself in with a modern keypad system.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-6">
+                                <div>
                   <Image
                     src="/images/SVGs/energyefficient.svg"
                     width={32}
@@ -259,20 +260,20 @@ export default async function PropertyDetailPage({
                     className="w-8 h-8 dark:block hidden"
                     unoptimized={true}
                   />
-                </div>
-                <div>
+                                </div>
+                                <div>
                   <h3 className="text-dark dark:text-white text-xm">
                     Energy efficient
                   </h3>
                   <p className="text-base text-dark/50 dark:text-white/50">
-                    Built in 2025 with sustainable and smart-home features.
-                  </p>
-                </div>
-              </div>
-            </div>
+                                        Built in 2025 with sustainable and smart-home features.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
 
             {/* Rich Text Description */}
-            <RichText richText={richText} />
+            <RichText richText={richText as PortableTextBlock[] | undefined} />
 
             {/* Amenities */}
             {amenities && amenities.length > 0 && (
@@ -289,16 +290,16 @@ export default async function PropertyDetailPage({
                       />
                       <p className="text-base dark:text-white text-dark">
                         {amenity}
-                      </p>
-                    </div>
+                            </p>
+                        </div>
                   ))}
-                </div>
-              </div>
+                                </div>
+                            </div>
             )}
 
             {/* Map */}
             {location.latitude && location.longitude && (
-              <iframe
+                        <iframe
                 src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3!2d${location.longitude}!3d${location.latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM!5e0!3m2!1sen!2sin!4v1715676641521!5m2!1sen!2sin`}
                 width="1114"
                 height="400"
@@ -308,21 +309,21 @@ export default async function PropertyDetailPage({
                 title="Property location map"
               />
             )}
-          </div>
+                    </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-4 col-span-12">
-            <div className="bg-primary/10 p-8 rounded-2xl relative z-10 overflow-hidden">
+                    <div className="lg:col-span-4 col-span-12">
+                        <div className="bg-primary/10 p-8 rounded-2xl relative z-10 overflow-hidden">
               <h4 className="text-dark text-3xl font-medium dark:text-white">
                 {price}
-              </h4>
+                            </h4>
               <Link
                 href="#"
                 className="py-4 px-8 bg-primary text-white rounded-full w-full block text-center hover:bg-dark duration-300 text-base mt-8 hover:cursor-pointer"
               >
-                Get in touch
-              </Link>
-              <div className="absolute right-0 top-4 -z-[1]">
+                                Get in touch
+                            </Link>
+                            <div className="absolute right-0 top-4 -z-[1]">
                 <Image
                   src="/images/properties/vector.svg"
                   width={400}
@@ -381,12 +382,12 @@ export default async function PropertyDetailPage({
                       </p>
                     )}
                   </div>
-                </div>
-              </div>
+                            </div>
+                        </div>
             )}
 
             {/* Testimonial - Keep static for now */}
-            {testimonials.slice(0, 1).map((item, index) => (
+                        {testimonials.slice(0, 1).map((item, index) => (
               <div
                 key={index}
                 className="border p-10 rounded-2xl border-dark/10 dark:border-white/20 mt-10 flex flex-col gap-6"
@@ -400,7 +401,7 @@ export default async function PropertyDetailPage({
                 <p className="text-xm text-dark dark:text-white">
                   {item.review}
                 </p>
-                <div className="flex items-center gap-6">
+                                <div className="flex items-center gap-6">
                   <Image
                     src={item.image}
                     alt={item.name}
@@ -416,13 +417,13 @@ export default async function PropertyDetailPage({
                     <h4 className="text-base text-dark/50 dark:text-white/50">
                       {item.position}
                     </h4>
-                  </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+            </div>
+        </section>
+    );
 }

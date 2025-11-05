@@ -93,6 +93,9 @@ importers:
       '@iconify/react':
         specifier: ^5.2.0
         version: 5.2.1(react@19.2.0)
+      '@portabletext/types':
+        specifier: ^3.0.0
+        version: 3.0.0
       '@radix-ui/react-accordion':
         specifier: ^1.2.3
         version: 1.2.12(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)

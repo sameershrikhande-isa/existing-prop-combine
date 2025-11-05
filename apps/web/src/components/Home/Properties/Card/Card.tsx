@@ -1,23 +1,34 @@
 import type { PropertyCardData } from "@/types/property";
+import type { PropertyHomes } from "@/types/properyHomes";
 import { urlFor } from "@/lib/sanity/client";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import Link from "next/link";
 
-const PropertyCard: React.FC<{ item: PropertyCardData }> = ({ item }) => {
-  const {
-    title,
-    slug,
-    price,
-    location,
-    features,
-    mainImage,
-  } = item;
+type PropertyCardItem = PropertyCardData | PropertyHomes;
 
-  // Generate Sanity image URL
-  const imageUrl = mainImage
-    ? urlFor(mainImage).width(440).height(300).url()
-    : null;
+const isSanityItem = (i: PropertyCardItem): i is PropertyCardData =>
+  (i as PropertyCardData)._id !== undefined;
+
+const PropertyCard: React.FC<{ item: PropertyCardItem }> = ({ item }) => {
+  const title = isSanityItem(item) ? item.title : item.name;
+  const slug = item.slug;
+  const price = isSanityItem(item) ? item.price : item.rate;
+  const bedrooms = isSanityItem(item) ? item.features.bedrooms : item.beds;
+  const bathrooms = isSanityItem(item) ? item.features.bathrooms : item.baths;
+  const areaSqM = isSanityItem(item) ? item.features.areaSqM : item.area;
+
+  const locationText = isSanityItem(item)
+    ? `${item.location.address}, ${item.location.city}${item.location.state ? `, ${item.location.state}` : ""}`
+    : item.location;
+
+  // Generate image URL for Sanity or use static src for legacy items
+  const imageUrl = isSanityItem(item)
+    ? item.mainImage
+      ? urlFor(item.mainImage).width(440).height(300).url()
+      : null
+    : item.images?.[0]?.src ?? null;
+  const imageAlt = isSanityItem(item) ? item.mainImage?.alt || title : title;
 
   return (
     <div>
@@ -27,7 +38,7 @@ const PropertyCard: React.FC<{ item: PropertyCardData }> = ({ item }) => {
             {imageUrl && (
               <Image
                 src={imageUrl}
-                alt={mainImage?.alt || title}
+                alt={imageAlt}
                 width={440}
                 height={300}
                 className="w-full rounded-t-2xl group-hover:brightness-50 group-hover:scale-125 transition duration-300 delay-75"
@@ -53,7 +64,7 @@ const PropertyCard: React.FC<{ item: PropertyCardData }> = ({ item }) => {
                 </h3>
               </Link>
               <p className="text-base font-normal text-black/50 dark:text-white/50">
-                {location.address}, {location.city}
+                {locationText}
               </p>
             </div>
             <div>
@@ -69,13 +80,13 @@ const PropertyCard: React.FC<{ item: PropertyCardData }> = ({ item }) => {
             <div className="flex flex-col gap-2 border-e border-black/10 dark:border-white/20 pr-2 xs:pr-4 mobile:pr-8">
               <Icon icon="solar:bed-linear" width={20} height={20} />
               <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
-                {features.bedrooms} Bedrooms
+                {bedrooms} Bedrooms
               </p>
             </div>
             <div className="flex flex-col gap-2 border-e border-black/10 dark:border-white/20 px-2 xs:px-4 mobile:px-8">
               <Icon icon="solar:bath-linear" width={20} height={20} />
               <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
-                {features.bathrooms} Bathrooms
+                {bathrooms} Bathrooms
               </p>
             </div>
             <div className="flex flex-col gap-2 pl-2 xs:pl-4 mobile:pl-8">
@@ -85,7 +96,7 @@ const PropertyCard: React.FC<{ item: PropertyCardData }> = ({ item }) => {
                 height={20}
               />
               <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
-                {features.areaSqM}m<sup>2</sup>
+                {areaSqM}m<sup>2</sup>
               </p>
             </div>
           </div>

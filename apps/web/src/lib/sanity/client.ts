@@ -21,14 +21,19 @@ const imageBuilder = createImageUrlBuilder({
 // - Standard SanityImageSource (image object or asset)
 // - Our projection shape: { id: string, crop?, hotspot?, alt? }
 // - String asset id
+type ImageIdObject = { id: string; crop?: unknown; hotspot?: unknown };
+
+const isImageIdObject = (value: unknown): value is ImageIdObject => {
+  if (typeof value !== "object" || value === null) return false;
+  const record = value as Record<string, unknown>;
+  return typeof record.id === "string";
+};
+
 export const urlFor = (
-  source: SanityImageSource | { id?: string; crop?: unknown; hotspot?: unknown } | string
+  source: SanityImageSource | ImageIdObject | string
 ) => {
-  const ref = typeof source === "string" ? source : (source as any)?.id ?? source;
-  return imageBuilder
-    .image(ref as SanityImageSource)
-    .auto("format")
-    .fit("max")
-    .format("webp");
+  const ref: SanityImageSource =
+    typeof source === "string" ? source : isImageIdObject(source) ? source.id : source;
+  return imageBuilder.image(ref).auto("format").fit("max").format("webp");
 };
 
