@@ -136,6 +136,12 @@ export const queryPropertyBySlugData = defineQuery(`
       name,
       "slug": slug.current
     },
+    // brochures and mapLink
+    "brochures": brochures[]{
+      title,
+      url
+    },
+    mapLink,
     ${agentFragment},
     publishedAt
   }

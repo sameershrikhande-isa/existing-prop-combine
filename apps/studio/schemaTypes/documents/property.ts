@@ -219,6 +219,43 @@ export const property = defineType({
       ],
     }),
     defineField({
+      name: "brochures",
+      type: "array",
+      title: "Brochures",
+      description:
+        "Add one or more downloadable brochure links for this property",
+      group: GROUP.MAIN_CONTENT,
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              type: "string",
+              title: "Title",
+              description:
+                "Optional display title for this brochure link. Defaults to 'Link n' if left blank.",
+            }),
+            defineField({
+              name: "url",
+              type: "url",
+              title: "URL",
+              description: "Direct download or external brochure URL (https://)",
+              validation: (Rule) => Rule.required().uri({ allowRelative: false }),
+            }),
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: "mapLink",
+      type: "url",
+      title: "Map link",
+      description: "Google Maps share URL to view this property's location",
+      group: GROUP.MAIN_CONTENT,
+      validation: (Rule) => Rule.uri({ allowRelative: false }),
+    }),
+    defineField({
       name: "agent",
       type: "reference",
       title: "Agent",

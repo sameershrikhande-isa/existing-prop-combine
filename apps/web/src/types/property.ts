@@ -68,5 +68,12 @@ export type PropertyDetailData = Omit<PropertyCardData, "mainImage"> & {
   images?: PropertyImage[];
   amenities?: string[];
   agent?: PropertyAgent;
+  brochures?: PropertyBrochure[];
+  mapLink?: string;
+};
+
+export type PropertyBrochure = {
+  title?: string;
+  url: string;
 };
 

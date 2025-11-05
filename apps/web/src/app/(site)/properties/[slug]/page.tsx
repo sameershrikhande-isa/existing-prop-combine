@@ -10,8 +10,8 @@ import {
 } from "@/lib/sanity/queries";
 import type { PropertyDetailData } from "@/types/property";
 import { RichText } from "@/components/shared/RichText";
-import { PortableTextBlock } from '@portabletext/types';
 import { testimonials } from "@/app/api/testimonial";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 // Enable ISR with 1 hour revalidation
 export const revalidate = 3600;
@@ -77,6 +77,8 @@ export default async function PropertyDetailPage({
     amenities,
     price,
     agent,
+    brochures,
+    mapLink,
   } = property;
 
     return (
@@ -273,7 +275,7 @@ export default async function PropertyDetailPage({
                         </div>
 
             {/* Rich Text Description */}
-            <RichText richText={richText as PortableTextBlock[] | undefined} />
+            <RichText richText={richText} />
 
             {/* Amenities */}
             {amenities && amenities.length > 0 && (
@@ -333,6 +335,52 @@ export default async function PropertyDetailPage({
                 />
               </div>
             </div>
+
+            {/* Brochures and Location actions */}
+            {(brochures?.length || mapLink) && (
+              <div className="mt-6 flex flex-col gap-3">
+                {brochures && brochures.length > 0 && (
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <button
+                        type="button"
+                        aria-controls="brochures-popover"
+                        className="py-3 px-4 bg-dark/90 text-white rounded-full w-full text-center hover:bg-dark duration-300"
+                      >
+                        View brochures
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent id="brochures-popover" className="w-80 max-h-64 overflow-y-auto">
+                      <ul className="space-y-2">
+                        {brochures.map((b, i) => (
+                          <li key={`${b.url}-${i}`} className="text-sm">
+                            <Link
+                              href={b.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-primary underline hover:text-primary/80"
+                            >
+                              {b.title?.trim() ? b.title : `Link ${i + 1}`}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </PopoverContent>
+                  </Popover>
+                )}
+
+                {mapLink && (
+                  <Link
+                    href={mapLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-3 px-4 bg-white text-dark rounded-full w-full text-center border hover:bg-primary/10 duration-300"
+                  >
+                    View location
+                  </Link>
+                )}
+              </div>
+            )}
 
             {/* Agent Card */}
             {agent && (
