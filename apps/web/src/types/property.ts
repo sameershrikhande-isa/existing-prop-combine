@@ -1,0 +1,71 @@
+// Mirror the GROQ query response structure for type safety
+
+export type PropertyImage = {
+  id: string;
+  preview: string;
+  hotspot?: {
+    x: number;
+    y: number;
+  };
+  crop?: {
+    bottom: number;
+    left: number;
+    right: number;
+    top: number;
+  };
+  alt?: string;
+};
+
+export type PropertyAgent = {
+  _id: string;
+  name: string;
+  position: string;
+  email: string;
+  phone?: string;
+  bio?: string;
+  image?: PropertyImage;
+};
+
+export type PropertyType = {
+  name: string;
+  slug: string;
+};
+
+export type PropertyLocation = {
+  address: string;
+  city: string;
+  state?: string;
+  country?: string;
+  latitude?: number;
+  longitude?: number;
+};
+
+export type PropertyFeatures = {
+  bedrooms: number;
+  bathrooms: number;
+  areaSqM: number;
+};
+
+export type PropertyCardData = {
+  _id: string;
+  _type: string;
+  title: string;
+  slug: string;
+  description?: string;
+  price: string;
+  status: "available" | "sold" | "pending";
+  location: PropertyLocation;
+  features: PropertyFeatures;
+  mainImage?: PropertyImage;
+  propertyType?: PropertyType;
+  publishedAt?: string;
+  orderRank?: string;
+};
+
+export type PropertyDetailData = Omit<PropertyCardData, "mainImage"> & {
+  richText?: Array<unknown>; // Sanity block content
+  images?: PropertyImage[];
+  amenities?: string[];
+  agent?: PropertyAgent;
+};
+

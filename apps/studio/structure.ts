@@ -1,6 +1,7 @@
 import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
 import {
   BookMarked,
+  Building2,
   CogIcon,
   File,
   FileText,
@@ -12,6 +13,7 @@ import {
   Settings2,
   TrendingUpDown,
   User,
+  UserCircle,
 } from "lucide-react";
 import type {
   StructureBuilder,
@@ -117,6 +119,22 @@ export const structure = (
         list: { type: "blog", title: "Blogs", icon: FileText },
         context,
       }),
+      S.divider(),
+      orderableDocumentListDeskItem({
+        type: "property",
+        S,
+        context,
+        icon: Building2,
+        title: "Properties",
+      }),
+      createList({
+        S,
+        type: "propertyType",
+        title: "Property Types",
+        icon: HomeIcon,
+      }),
+      createList({ S, type: "agent", title: "Agents", icon: UserCircle }),
+      S.divider(),
       createList({
         S,
         type: "faq",
