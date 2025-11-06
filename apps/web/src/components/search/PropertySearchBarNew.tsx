@@ -7,6 +7,7 @@ import {
   IconBuildingSkyscraper,
   IconKey,
   IconHomeDollar,
+  IconChevronRight,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -190,11 +191,11 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
 
   if (loading) {
     return (
-      <div
-        className={`relative w-full rounded-2xl bg-white/90 dark:bg-black/80 backdrop-blur border border-black/20 dark:border-white/20 p-8 ${className ?? ""}`}
-      >
-        <div className="text-center text-black/50 dark:text-white/50">
-          Loading filters...
+      <div className={cn("rounded-2xl bg-black/10 dark:bg-white/5 p-3 md:p-4 backdrop-blur-md", className)}>
+        <div
+          className="relative w-full rounded-3xl bg-white/90 dark:bg-black/80 backdrop-blur border-[0.5px] border-black/10 dark:border-white/10 p-4"
+        >
+          <div className="text-center text-black/50 dark:text-white/50">Loading filters...</div>
         </div>
       </div>
     );
@@ -275,8 +276,9 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
   };
 
   return (
+    <div className={cn("rounded-3xl bg-black/10 dark:bg-white/5 p-2 backdrop-blur-md", className)}>
     <div
-      className={`relative z-0 w-full overflow-hidden rounded-2xl bg-gray-50 dark:bg-gray-900 ring-1 ring-black/5 dark:ring-white/5 shadow-2xl shadow-black/10 ${className ?? ""}`}
+      className={"relative z-0 w-full overflow-hidden rounded-2xl bg-gray-50 dark:bg-gray-900 border-[0.5px] border-black/8 dark:border-white/8 shadow-2xl shadow-black/10"}
     >
       <span
         aria-hidden
@@ -561,11 +563,13 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
       <div className="px-4 sm:px-6 pb-4">
         <Button
           onClick={handleSearch}
-          className="w-full bg-primary hover:bg-primary/90 text-white rounded-full py-6 text-base font-medium"
+          className="w-full bg-primary hover:bg-primary/90 text-white rounded-2xl md:rounded-xl py-6 text-base font-medium group inline-flex items-center justify-center gap-2"
         >
-          Search Properties
+          <span>Search Properties</span>
+          <IconChevronRight size={28} aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5" />
         </Button>
       </div>
+    </div>
     </div>
   );
 };
