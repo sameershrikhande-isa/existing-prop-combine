@@ -39,7 +39,8 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
   const [selectedPropertyTypeId, setSelectedPropertyTypeId] = useState<string>("");
   const [selectedPurposeId, setSelectedPurposeId] = useState<string>("");
   const [selectedAmenityIds, setSelectedAmenityIds] = useState<string[]>([]);
-  const [isAmenitiesOpen, setIsAmenitiesOpen] = useState(false);
+  const [isAmenitiesOpenInline, setIsAmenitiesOpenInline] = useState(false);
+  const [isAmenitiesOpenMobile, setIsAmenitiesOpenMobile] = useState(false);
 
   // Filter ranges state
   const [budgetRanges, setBudgetRanges] = useState<FilterRange[]>([]);
@@ -228,16 +229,20 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
     return (
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
-          <Button
+          <button
             type="button"
-            variant="outline"
             role="combobox"
             aria-expanded={open}
-            className={cn("justify-between w-full", className)}
+            className={cn(
+              "w-full flex items-center justify-between gap-2 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 text-sm text-left transition-colors hover:bg-black/5 dark:hover:bg-white/5",
+              className
+            )}
           >
-            {selected || placeholder}
-            <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
-          </Button>
+            <span className={selected ? "text-black dark:text-white" : "text-black/70 dark:text-white/70"}>
+              {selected || placeholder}
+            </span>
+            <ChevronsUpDown className="size-4 shrink-0 opacity-50" />
+          </button>
         </PopoverTrigger>
         <PopoverContent 
           align="start"
@@ -271,7 +276,7 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
 
   return (
     <div
-      className={`relative z-0 w-full rounded-2xl bg-white/90 dark:bg-black/80 backdrop-blur border border-black/20 dark:border-white/20 shadow-[inset_0_1.5px_0_rgba(255,255,255,0.9)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] ${className ?? ""} `}
+      className={`relative z-0 w-full overflow-hidden rounded-2xl bg-gray-50 dark:bg-gray-900 ring-1 ring-black/5 dark:ring-white/5 shadow-2xl shadow-black/10 ${className ?? ""}`}
     >
       <span
         aria-hidden
@@ -282,10 +287,8 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
         [-webkit-mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] [-webkit-mask-composite:xor]  "
       />
 
-      <div className="px-4 sm:px-6 pt-4 ">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 
-        col-span-1 overflow-hidden rounded-b rounded-t-2xl bg-gray-50 p- shadow-2xl shadow-black/10 ring-1 ring-black/5 dark:bg-gray-900 dark:ring-white/5 lg:col-span-2 lg:rounded-l-2xl lg:rounded-r
-        ">
+      <div className="px-4 sm:px-6 pt-4">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
           {/* Property Type Selection */}
           <div className="flex items-center gap-2">
             <span className="text-[11px] font-medium text-black/60 dark:text-white/60 uppercase tracking-wide">
@@ -401,18 +404,20 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
               {/* Amenities inline on md+ */}
               <div className="hidden md:flex flex-col gap-2">
                 <span className="text-xs font-medium text-black/70 dark:text-white/70">Amenities</span>
-                <Popover open={isAmenitiesOpen} onOpenChange={setIsAmenitiesOpen}>
+                <Popover open={isAmenitiesOpenInline} onOpenChange={setIsAmenitiesOpenInline}>
                   <PopoverTrigger asChild>
                     <button
                       type="button"
-                      aria-expanded={isAmenitiesOpen}
-                      className="inline-flex items-center justify-center gap-2 rounded-full border border-black/10 dark:border-white/10 px-4 py-2 bg-white dark:bg-black text-sm"
+                      aria-expanded={isAmenitiesOpenInline}
+                      className="w-full flex items-center justify-between gap-2 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 text-sm transition-colors hover:bg-black/5 dark:hover:bg-white/5"
                     >
-                      <span className="text-black/70 dark:text-white/70">Amenities</span>
-                      {selectedAmenityIds.length > 0 && (
+                      <span className="text-black dark:text-white">Amenities</span>
+                      {selectedAmenityIds.length > 0 ? (
                         <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/90 text-white text-xs px-1">
                           {selectedAmenityIds.length}
                         </span>
+                      ) : (
+                        <ChevronsUpDown className="size-4 shrink-0 opacity-50" />
                       )}
                     </button>
                   </PopoverTrigger>
@@ -459,7 +464,7 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
                       </Button>
                       <Button
                         size="sm"
-                        onClick={() => setIsAmenitiesOpen(false)}
+                        onClick={() => setIsAmenitiesOpenInline(false)}
                         className="bg-primary text-white hover:bg-primary/90 dark:bg-primary dark:text-white"
                       >
                         Done
@@ -480,18 +485,20 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
             <Separator className="my-3 md:my-4 bg-black/10 dark:bg-white/10" />
           </div>
           <div className="px-4 sm:px-6 pb-4 md:hidden">
-            <Popover open={isAmenitiesOpen} onOpenChange={setIsAmenitiesOpen}>
+            <Popover open={isAmenitiesOpenMobile} onOpenChange={setIsAmenitiesOpenMobile}>
               <PopoverTrigger asChild>
                 <button
                   type="button"
-                  aria-expanded={isAmenitiesOpen}
-                  className="inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 px-4 py-2 bg-white dark:bg-black text-sm"
+                  aria-expanded={isAmenitiesOpenMobile}
+                  className="w-full flex items-center justify-between gap-2 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 text-sm transition-colors hover:bg-black/5 dark:hover:bg-white/5"
                 >
-                  <span className="text-black/70 dark:text-white/70">Amenities</span>
-                  {selectedAmenityIds.length > 0 && (
+                  <span className="text-black dark:text-white">Amenities</span>
+                  {selectedAmenityIds.length > 0 ? (
                     <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/90 text-white text-xs px-1">
                       {selectedAmenityIds.length}
                     </span>
+                  ) : (
+                    <ChevronsUpDown className="size-4 shrink-0 opacity-50" />
                   )}
                 </button>
               </PopoverTrigger>
@@ -538,7 +545,7 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
                   </Button>
                   <Button
                     size="sm"
-                    onClick={() => setIsAmenitiesOpen(false)}
+                    onClick={() => setIsAmenitiesOpenMobile(false)}
                     className="bg-primary text-white hover:bg-primary/90 dark:bg-primary dark:text-white"
                   >
                     Done
