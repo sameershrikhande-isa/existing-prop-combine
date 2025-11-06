@@ -260,3 +260,15 @@ export const queryAllPurposes = defineQuery(`
   }
 `);
 
+/**
+ * Query to get all filter dimensions
+ */
+export const queryAllFilterDimensions = defineQuery(`
+  *[_type == "filterDimension"] | order(orderRank asc) {
+    _id,
+    name,
+    "slug": slug.current,
+    unit
+  }
+`);
+

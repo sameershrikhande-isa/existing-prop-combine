@@ -11,11 +11,13 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import type { PropertyAmenity, PropertyPurpose, PropertyType } from "@/types/property";
+import type { FilterDimension, FilterRange } from "@/types/filters";
 
 type FilterData = {
   propertyTypes: PropertyType[];
   purposes: PropertyPurpose[];
   amenities: PropertyAmenity[];
+  filterDimensions: FilterDimension[];
 };
 
 type PropertySearchBarProps = {
@@ -31,6 +33,13 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
   const [selectedPropertyTypeId, setSelectedPropertyTypeId] = useState<string>("");
   const [selectedPurposeId, setSelectedPurposeId] = useState<string>("");
   const [selectedAmenityIds, setSelectedAmenityIds] = useState<string[]>([]);
+
+  // Filter ranges state
+  const [budgetRanges, setBudgetRanges] = useState<FilterRange[]>([]);
+  const [carpetAreaRanges, setCarpetAreaRanges] = useState<FilterRange[]>([]);
+  const [selectedBudgetRangeId, setSelectedBudgetRangeId] = useState<string>("");
+  const [selectedCarpetAreaRangeId, setSelectedCarpetAreaRangeId] = useState<string>("");
+  const [loadingRanges, setLoadingRanges] = useState(false);
 
   // Fetch filter data from API
   useEffect(() => {
@@ -58,6 +67,63 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
     fetchFilters();
   }, []);
 
+  // Fetch filter ranges when propertyType or purpose changes
+  useEffect(() => {
+    const fetchFilterRanges = async () => {
+      if (!selectedPropertyTypeId || !selectedPurposeId || !filterData) return;
+
+      setLoadingRanges(true);
+      try {
+        // Find budget and carpet area dimensions
+        const budgetDimension = filterData.filterDimensions.find(
+          (d) => d.slug === "budget"
+        );
+        const carpetAreaDimension = filterData.filterDimensions.find(
+          (d) => d.slug === "carpet-area"
+        );
+
+        const promises: Promise<{ ranges: FilterRange[] }>[] = [];
+
+        // Fetch budget ranges
+        if (budgetDimension) {
+          promises.push(
+            fetch(
+              `/api/filter-ranges?propertyTypeId=${selectedPropertyTypeId}&purposeId=${selectedPurposeId}&dimensionSlug=${budgetDimension.slug}`
+            ).then((res) => res.json())
+          );
+        } else {
+          promises.push(Promise.resolve({ ranges: [] }));
+        }
+
+        // Fetch carpet area ranges
+        if (carpetAreaDimension) {
+          promises.push(
+            fetch(
+              `/api/filter-ranges?propertyTypeId=${selectedPropertyTypeId}&purposeId=${selectedPurposeId}&dimensionSlug=${carpetAreaDimension.slug}`
+            ).then((res) => res.json())
+          );
+        } else {
+          promises.push(Promise.resolve({ ranges: [] }));
+        }
+
+        const [budgetResponse, carpetAreaResponse] = await Promise.all(promises);
+
+        setBudgetRanges(budgetResponse.ranges || []);
+        setCarpetAreaRanges(carpetAreaResponse.ranges || []);
+
+        // Reset selections when ranges change
+        setSelectedBudgetRangeId("");
+        setSelectedCarpetAreaRangeId("");
+      } catch (error) {
+        console.error("Error fetching filter ranges:", error);
+      } finally {
+        setLoadingRanges(false);
+      }
+    };
+
+    fetchFilterRanges();
+  }, [selectedPropertyTypeId, selectedPurposeId, filterData]);
+
   const handleToggleAmenity = useCallback((id: string) => {
     setSelectedAmenityIds((prev) =>
       prev.includes(id) ? prev.filter((a) => a !== id) : [...prev, id]
@@ -73,12 +139,46 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
     if (selectedPurposeId) {
       params.set("purposeId", selectedPurposeId);
     }
+
+    // Add budget range params
+    if (selectedBudgetRangeId) {
+      const selectedRange = budgetRanges.find((r) => r._id === selectedBudgetRangeId);
+      if (selectedRange) {
+        params.set("budgetMin", selectedRange.minValue.toString());
+        if (selectedRange.maxValue) {
+          params.set("budgetMax", selectedRange.maxValue.toString());
+        }
+      }
+    }
+
+    // Add carpet area range params
+    if (selectedCarpetAreaRangeId) {
+      const selectedRange = carpetAreaRanges.find(
+        (r) => r._id === selectedCarpetAreaRangeId
+      );
+      if (selectedRange) {
+        params.set("carpetAreaMin", selectedRange.minValue.toString());
+        if (selectedRange.maxValue) {
+          params.set("carpetAreaMax", selectedRange.maxValue.toString());
+        }
+      }
+    }
+
     if (selectedAmenityIds.length > 0) {
       params.set("amenityIds", selectedAmenityIds.join(","));
     }
 
     router.push(`/properties?${params.toString()}`);
-  }, [selectedPropertyTypeId, selectedPurposeId, selectedAmenityIds, router]);
+  }, [
+    selectedPropertyTypeId,
+    selectedPurposeId,
+    selectedBudgetRangeId,
+    selectedCarpetAreaRangeId,
+    selectedAmenityIds,
+    budgetRanges,
+    carpetAreaRanges,
+    router,
+  ]);
 
   if (loading) {
     return (
@@ -184,6 +284,63 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
         </div>
       </div>
 
+      {/* Filter Ranges Section */}
+      {(budgetRanges.length > 0 || carpetAreaRanges.length > 0) && (
+        <>
+          <div className="px-4 sm:px-6">
+            <Separator className="my-3 md:my-4 bg-black/10 dark:bg-white/10" />
+          </div>
+
+          <div className="px-4 sm:px-6 pb-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Budget Range */}
+              {budgetRanges.length > 0 && (
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-medium text-black/70 dark:text-white/70">
+                    Budget (Optional)
+                  </label>
+                  <select
+                    className="w-full rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
+                    value={selectedBudgetRangeId}
+                    onChange={(e) => setSelectedBudgetRangeId(e.target.value)}
+                    disabled={loadingRanges}
+                  >
+                    <option value="">Any budget</option>
+                    {budgetRanges.map((range) => (
+                      <option key={range._id} value={range._id}>
+                        {range.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {/* Carpet Area Range */}
+              {carpetAreaRanges.length > 0 && (
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-medium text-black/70 dark:text-white/70">
+                    Carpet Area (Optional)
+                  </label>
+                  <select
+                    className="w-full rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
+                    value={selectedCarpetAreaRangeId}
+                    onChange={(e) => setSelectedCarpetAreaRangeId(e.target.value)}
+                    disabled={loadingRanges}
+                  >
+                    <option value="">Any size</option>
+                    {carpetAreaRanges.map((range) => (
+                      <option key={range._id} value={range._id}>
+                        {range.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+            </div>
+          </div>
+        </>
+      )}
+
       {/* Amenities Section */}
       {filterData.amenities.length > 0 && (
         <>
@@ -230,4 +387,3 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
     </div>
   );
 };
-
