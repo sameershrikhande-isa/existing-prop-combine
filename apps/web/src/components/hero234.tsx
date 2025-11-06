@@ -76,7 +76,7 @@ const Hero234 = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <motion.h1
-            className="text-3xl leading-tight text-white md:text-5xl lg:text-6xl  text-center"
+            className="text-3xl leading-tight text-white md:text-xl lg:text-xl  text-center"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}

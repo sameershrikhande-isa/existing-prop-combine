@@ -189,7 +189,50 @@ export default async function PropertyDetailPage({
 
                   <Hero234 />
 
-
+                  <div className="grid grid-cols-12 mt-8 gap-8">
+                    <div className="lg:col-span-8 col-span-12 row-span-2">
+                        <div>
+                          <Image
+                            src="/images/properties/property1/property1.jpg"
+                            alt="Main Property Image"
+                            width={400}
+                            height={500}
+                            className="rounded-2xl w-full h-540"
+                            unoptimized={true}
+                          />
+                        </div>
+                    </div>
+                    <div className="lg:col-span-4 lg:block hidden">
+                      <Image
+                        src="/images/properties/property1/image-2.jpg"
+                        alt="Property Image 2"
+                        width={400}
+                        height={500}
+                        className="rounded-2xl w-full h-full"
+                        unoptimized={true}
+                      />
+                    </div>
+                    <div className="lg:col-span-2 col-span-6">
+                      <Image
+                        src="/images/properties/property1/image-3.jpg"
+                        alt="Property Image 3"
+                        width={400}
+                        height={500}
+                        className="rounded-2xl w-full h-full"
+                        unoptimized={true}
+                      />
+                    </div>
+                    <div className="lg:col-span-2 col-span-6">
+                      <Image
+                        src="/images/properties/property1/image-4.jpg"
+                        alt="Property Image 4"
+                        width={400}
+                        height={500}
+                        className="rounded-2xl w-full h-full"
+                        unoptimized={true}
+                      />
+                    </div>
+                  </div>
                 <div className="grid grid-cols-12 gap-8 mt-10">
                     <div className="lg:col-span-8 col-span-12">
             <h3 className="text-xl font-medium">Property details</h3>
