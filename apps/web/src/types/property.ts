@@ -65,10 +65,12 @@ export type PropertyCardData = {
 
 export type PropertyDetailData = Omit<PropertyCardData, "mainImage"> & {
   richText?: PortableTextBlock[]; // Sanity block content
+  thumbnailImage?: PropertyImage;
   images?: PropertyImage[];
   amenities?: string[];
   agent?: PropertyAgent;
   brochures?: PropertyBrochure[];
+  videoLink?: string;
   mapLink?: string;
 };
 

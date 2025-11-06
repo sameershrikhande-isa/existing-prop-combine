@@ -74,13 +74,17 @@ export default async function PropertyDetailPage({
     location,
     features,
     images,
+    thumbnailImage,
     richText,
     amenities,
     price,
     agent,
     brochures,
+    videoLink,
     mapLink,
   } = property;
+
+  const heroImage = thumbnailImage || images?.[0];
 
     return (
     <section className="!pt-44 pb-20 relative">
@@ -137,11 +141,11 @@ export default async function PropertyDetailPage({
                 <div className="grid grid-cols-12 mt-8 gap-8 items-stretch">
               {/* Main Hero Image - Left side on desktop, full width on mobile */}
               <div className="lg:col-span-8 col-span-12">
-                 {images && images[0] && (
+                 {heroImage && (
                           <div className="aspect-[3/2] w-full overflow-hidden rounded-2xl">
                                 <Image
-                  src={urlFor(images[0]).width(800).height(600).url()}
-                  alt={images[0].alt || title}
+                  src={urlFor(heroImage).width(800).height(600).url()}
+                  alt={heroImage.alt || title}
                   width={800}
                   height={600}
                   className="w-full h-full object-cover"
@@ -309,8 +313,8 @@ export default async function PropertyDetailPage({
               </div>
             </div>
 
-            {/* Brochures and Location actions */}
-            {(brochures?.length || mapLink) && (
+            {/* Brochures, Video, and Location actions */}
+            {(brochures?.length || videoLink || mapLink) && (
               <div className="mt-6 flex flex-col gap-3">
                 {brochures && brochures.length > 0 && (
                   <Popover>
@@ -340,6 +344,17 @@ export default async function PropertyDetailPage({
                       </ul>
                     </PopoverContent>
                   </Popover>
+                )}
+
+                {videoLink && (
+                  <Link
+                    href={videoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-3 px-4 bg-white text-dark rounded-full w-full text-center border hover:bg-primary/10 duration-300"
+                  >
+                    Watch video
+                  </Link>
                 )}
 
                 {mapLink && (

@@ -1,7 +1,7 @@
 ---
 description: 
 globs: apps/studio/**.*
-alwaysApply: false
+alwaysApply: true
 ---
 # Sanity Development Guidelines
 

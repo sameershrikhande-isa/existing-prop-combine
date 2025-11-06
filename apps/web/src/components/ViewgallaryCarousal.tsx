@@ -14,23 +14,6 @@ import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
 import "lightgallery/css/lg-thumbnail.css";
 
-const galleryImages = [
-  [
-    "/images/temp/prop1.jpeg",
-    "/images/temp/prop2.jpeg",
-    "/images/temp/prop3.jpeg",
-    "/images/temp/prop4.jpeg",
-    "/images/temp/prop5.jpeg",
-  ],
-  [
-    "/images/temp/prop5.jpeg",
-    "/images/temp/prop4.jpeg",
-    "/images/temp/prop3.jpeg",
-    "/images/temp/prop2.jpeg",
-    "/images/temp/prop1.jpeg",
-  ],
-];
-
 type ViewgallaryCarousalProps = {
   images?: PropertyImage[];
   propertyTitle?: string;
@@ -38,11 +21,18 @@ type ViewgallaryCarousalProps = {
 
 const ViewgallaryCarousal = ({ images, propertyTitle = "Property" }: ViewgallaryCarousalProps) => {
   const lightGalleryRef = useRef<any>(null);
+  const rows: string[][] = (() => {
+    if (!images || images.length === 0) return [[], []];
+    const mid = Math.ceil(images.length / 2);
+    const rowA = images.slice(0, mid).map((img) => urlFor(img).width(600).height(450).url());
+    const rowB = images.slice(mid).map((img) => urlFor(img).width(600).height(450).url());
+    return [rowA, rowB.length > 0 ? rowB : rowA];
+  })();
   return (
     <section className="bg-background relative overflow-hidden h-full rounded-2xl">
     {/* <section className="bg-background relative min-h-screen overflow-hidden"> */}
       <div className="absolute inset-0 flex flex-col justify-center gap-4">
-        {galleryImages.map((row, rowIndex) => (
+        {rows.map((row, rowIndex) => (
           <motion.div
             key={rowIndex}
             className="flex gap-4 will-change-transform"
@@ -66,11 +56,13 @@ const ViewgallaryCarousal = ({ images, propertyTitle = "Property" }: Viewgallary
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
-                <img
-                  src={image}
-                  alt={`Gallery image ${imageIndex + 1}`}
-                  className="h-full w-full object-cover"
-                />
+                {image && (
+                  <img
+                    src={image}
+                    alt={`Gallery image ${imageIndex + 1}`}
+                    className="h-full w-full object-cover"
+                  />
+                )}
               </motion.div>
             ))}
           </motion.div>

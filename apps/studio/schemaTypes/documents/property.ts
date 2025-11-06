@@ -36,7 +36,7 @@ export const property = defineType({
       title: "Description",
       rows: 3,
       description:
-        "A short summary of the property that will appear in property cards and search results",
+        "A short summary of the property that will appear in property cards",
       group: GROUP.MAIN_CONTENT,
       validation: (Rule) =>
         Rule.max(200).warning(
@@ -187,11 +187,31 @@ export const property = defineType({
       ],
     }),
     defineField({
+      name: "thumbnailImage",
+      type: "image",
+      title: "Thumbnail Image",
+      description:
+        "Main hero image displayed on the property detail page (left side on desktop)",
+      group: GROUP.MAIN_CONTENT,
+      validation: (Rule) =>
+        Rule.required().error("Thumbnail image is required"),
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          type: "string",
+          title: "Alt Text",
+          validation: (Rule) =>
+            Rule.required().error("Alt text is required"),
+        }),
+      ],
+    }),
+    defineField({
       name: "images",
       type: "array",
       title: "Images",
       description:
-        "Property photos (first image will be the main image shown in listings)",
+        "Gallery images shown in the carousel viewer (can have multiple images)",
       group: GROUP.MAIN_CONTENT,
       validation: (Rule) =>
         Rule.required()
@@ -248,6 +268,14 @@ export const property = defineType({
       ],
     }),
     defineField({
+      name: "videoLink",
+      type: "url",
+      title: "Video link",
+      description: "YouTube, Vimeo, or direct MP4 URL",
+      group: GROUP.MAIN_CONTENT,
+      validation: (Rule) => Rule.uri({ allowRelative: false }),
+    }),
+    defineField({
       name: "mapLink",
       type: "url",
       title: "Map link",
@@ -282,7 +310,8 @@ export const property = defineType({
       bedrooms: "features.bedrooms",
       bathrooms: "features.bathrooms",
       area: "features.areaSqM",
-      media: "images.0",
+      mediaThumb: "thumbnailImage",
+      mediaGallery: "images.0",
       slug: "slug.current",
     },
     prepare: ({
@@ -293,7 +322,8 @@ export const property = defineType({
       bedrooms,
       bathrooms,
       area,
-      media,
+      mediaThumb,
+      mediaGallery,
       slug,
     }) => {
       // Status badge
@@ -307,7 +337,7 @@ export const property = defineType({
 
       return {
         title: title || "Untitled Property",
-        media,
+        media: mediaThumb || mediaGallery,
         subtitle: `${statusEmoji} ${statusText} | 💰 ${price || "No price"} | ${locationText} | ${featuresText} | 🔗 ${slug || "no-slug"}`,
       };
     },
