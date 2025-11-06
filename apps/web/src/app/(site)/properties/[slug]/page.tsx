@@ -174,9 +174,8 @@ export default async function PropertyDetailPage({
                     <div className="lg:col-span-8 col-span-12">
             <h3 className="text-xl font-medium">Property details</h3>
             <hr className="border-dark/10 dark:border-white/20 my-8"/>
-
-                        {highlights && highlights.length > 0 && (
-                          <div className="py-8 my-8 border-y border-dark/10 dark:border-white/20 flex flex-col gap-8">
+            {highlights && highlights.length > 0 && (
+                          <div className="pb-8 mb-8 border-b border-dark/10 dark:border-white/20 flex flex-col gap-8">
                             {highlights.slice(0, 3).map(({ title: ht, description, iconName }, i) => {
                               const IconCmp = resolveTabler(iconName);
                               return (
