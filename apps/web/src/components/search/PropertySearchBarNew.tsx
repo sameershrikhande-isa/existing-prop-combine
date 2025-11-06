@@ -10,6 +10,16 @@ import {
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import * as Tabler from "@tabler/icons-react";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import type { PropertyAmenity, PropertyPurpose, PropertyType } from "@/types/property";
 import type { FilterDimension, FilterRange } from "@/types/filters";
 
@@ -196,13 +206,19 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
     return null;
   }
 
+  type IconComponent = React.ComponentType<{ size?: number; className?: string }>;
+  const resolveTabler = (name: string): IconComponent => {
+    const map = Tabler as unknown as Record<string, IconComponent>;
+    return map[name] ?? map["IconCircle"];
+  };
+
   return (
     <div
-      className={`relative w-full rounded-2xl bg-white/90 dark:bg-black/80 backdrop-blur border border-black/20 dark:border-white/20 shadow-[inset_0_1.5px_0_rgba(255,255,255,0.9)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] ${className ?? ""}`}
+      className={`relative z-0 w-full rounded-2xl bg-white/90 dark:bg-black/80 backdrop-blur border border-black/20 dark:border-white/20 shadow-[inset_0_1.5px_0_rgba(255,255,255,0.9)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] ${className ?? ""}`}
     >
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-2xl p-px content-['']
+        className="pointer-events-none absolute inset-0 z-0 rounded-2xl p-px content-['']
         [background:linear-gradient(135deg,rgba(255,255,255,0.7),rgba(255,255,255,0)_35%),linear-gradient(315deg,rgba(255,255,255,0.55),rgba(255,255,255,0)_35%)]
         dark:[background:linear-gradient(135deg,rgba(255,255,255,0.14),rgba(255,255,255,0)_35%),linear-gradient(315deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_35%)]
         [mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] mask-exclude
@@ -341,36 +357,73 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
         </>
       )}
 
-      {/* Amenities Section */}
+      {/* Amenities Section - Popover + Command (search + multi-select) */}
       {filterData.amenities.length > 0 && (
         <>
           <div className="px-4 sm:px-6">
             <Separator className="my-3 md:my-4 bg-black/10 dark:bg-white/10" />
           </div>
-
           <div className="px-4 sm:px-6 pb-4">
-            <label className="text-xs font-medium text-black/70 dark:text-white/70 mb-3 block">
-              Amenities (Optional)
-            </label>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
-              {filterData.amenities.slice(0, 10).map((amenity) => {
-                const isSelected = selectedAmenityIds.includes(amenity._id);
-                return (
-                  <button
-                    key={amenity._id}
-                    type="button"
-                    onClick={() => handleToggleAmenity(amenity._id)}
-                    className={`px-3 py-2 text-xs rounded-lg border transition-colors ${
-                      isSelected
-                        ? "bg-primary/10 border-primary text-primary"
-                        : "bg-white dark:bg-black border-black/10 dark:border-white/10 text-black/70 dark:text-white/70 hover:border-primary/50"
-                    }`}
+            <Popover>
+              <PopoverTrigger asChild>
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 px-4 py-2 bg-white dark:bg-black text-sm"
+                >
+                  <span className="text-black/70 dark:text-white/70">Amenities</span>
+                  {selectedAmenityIds.length > 0 && (
+                    <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/90 text-white text-xs px-1">
+                      {selectedAmenityIds.length}
+                    </span>
+                  )}
+                </button>
+              </PopoverTrigger>
+              <PopoverContent align="start" className="z-[1000] w-[520px] p-0 bg-white dark:bg-black shadow-xl border border-black/10 dark:border-white/10">
+                <Command>
+                  <CommandInput placeholder="Search amenities..." />
+                  <CommandList>
+                    <CommandEmpty>No amenities found.</CommandEmpty>
+                    <CommandGroup>
+                      {filterData.amenities.map((amenity) => {
+                        const checked = selectedAmenityIds.includes(amenity._id);
+                        const AmenityIcon = resolveTabler(amenity.iconName || "IconCircle");
+                        return (
+                          <CommandItem
+                            key={amenity._id}
+                            value={amenity.name}
+                            onSelect={() => handleToggleAmenity(amenity._id)}
+                            className="flex items-center justify-between gap-3"
+                          >
+                            <span className="flex items-center gap-2 text-sm">
+                              <AmenityIcon size={18} className="text-black/70 dark:text-white/70" aria-hidden />
+                              <span>{amenity.name}</span>
+                            </span>
+                            <span
+                              aria-hidden
+                              className={`size-4 rounded-[4px] border ${
+                                checked
+                                  ? "bg-primary border-primary"
+                                  : "border-black/20 dark:border-white/20"
+                              }`}
+                            />
+                          </CommandItem>
+                        );
+                      })}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+                <div className="flex items-center justify-between p-3 border-t border-black/10 dark:border-white/10">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setSelectedAmenityIds([])}
                   >
-                    {amenity.name}
-                  </button>
-                );
-              })}
-            </div>
+                    Clear
+                  </Button>
+                  <Button size="sm" onClick={handleSearch}>Done</Button>
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
         </>
       )}

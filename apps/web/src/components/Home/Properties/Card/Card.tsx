@@ -1,6 +1,7 @@
 import type { PropertyCardData } from "@/types/property";
 import type { PropertyHomes } from "@/types/properyHomes";
 import { urlFor } from "@/lib/sanity/client";
+import { formatBudgetRange } from "@/lib/utils";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,9 +19,7 @@ const PropertyCard: React.FC<{ item: PropertyCardItem }> = ({ item }) => {
 
   // Handle price/budget display
   const price = isSanityItem(item)
-    ? item.budgetMin && item.budgetMax && item.budgetMax !== item.budgetMin
-      ? `₹${(item.budgetMin / 100000).toFixed(1)}L - ₹${(item.budgetMax / 100000).toFixed(1)}L`
-      : `₹${(item.budgetMin / 100000).toFixed(1)}L`
+    ? formatBudgetRange(item.budgetMin, item.budgetMax)
     : item.rate;
 
   // Handle area display

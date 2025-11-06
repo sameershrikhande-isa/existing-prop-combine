@@ -15,6 +15,7 @@ import { RichText } from "@/components/shared/RichText";
 import { testimonials } from "@/app/api/testimonial";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ViewgallaryCarousal } from "@/components/ViewgallaryCarousal";
+import { formatBudgetRange } from "@/lib/utils";
 
 // Enable ISR with 1 hour revalidation
 export const revalidate = 3600;
@@ -98,10 +99,7 @@ export default async function PropertyDetailPage({
   } = property;
 
   // Format budget display
-  const budgetDisplay =
-    budgetMin && budgetMax && budgetMax !== budgetMin
-      ? `₹${(budgetMin / 100000).toFixed(1)}L - ₹${(budgetMax / 100000).toFixed(1)}L`
-      : `₹${(budgetMin / 100000).toFixed(1)}L`;
+  const budgetDisplay = formatBudgetRange(budgetMin, budgetMax);
 
   // Format area display
   const areaDisplay =
