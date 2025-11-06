@@ -321,12 +321,30 @@ export const property = defineType({
       ],
     }),
     defineField({
-      name: "videoLink",
-      type: "url",
-      title: "Video link",
-      description: "YouTube, Vimeo, or direct MP4 URL",
+      name: "videos",
+      type: "array",
+      title: "Videos",
+      description:
+        "Add one or more video links (YouTube/Vimeo/MP4) for this property",
       group: GROUP.MAIN_CONTENT,
-      validation: (Rule) => Rule.uri({ allowRelative: false }),
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              type: "string",
+              title: "Title",
+            }),
+            defineField({
+              name: "url",
+              type: "url",
+              title: "URL",
+              validation: (Rule) => Rule.required().uri({ allowRelative: false }),
+            }),
+          ],
+        }),
+      ],
     }),
     defineField({
       name: "mapLink",

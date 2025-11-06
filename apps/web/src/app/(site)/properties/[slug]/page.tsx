@@ -89,14 +89,14 @@ export default async function PropertyDetailPage({
     price,
     agent,
     brochures,
-    videoLink,
+    videos,
     mapLink,
   } = property;
 
   const heroImage = thumbnailImage || images?.[0];
 
     return (
-    <section className="!pt-44 pb-20 relative">
+    <section className="pt-44! pb-20 relative">
             <div className="container mx-auto max-w-8xl px-5 2xl:px-0">
 
               
@@ -151,7 +151,7 @@ export default async function PropertyDetailPage({
               {/* Main Hero Image - Left side on desktop, full width on mobile */}
               <div className="lg:col-span-8 col-span-12">
                  {heroImage && (
-                          <div className="aspect-[3/2] w-full overflow-hidden rounded-2xl">
+                  <div className="aspect-3/2 w-full overflow-hidden rounded-2xl">
                                 <Image
                   src={urlFor(heroImage).width(800).height(600).url()}
                   alt={heroImage.alt || title}
@@ -209,7 +209,7 @@ export default async function PropertyDetailPage({
                         icon="ph:check-circle"
                         width={24}
                         height={24}
-                        className="text-dark dark:text-white flex-shrink-0"
+                        className="text-dark dark:text-white shrink-0"
                       />
                       <p className="text-base dark:text-white text-dark">
                         {amenity}
@@ -225,7 +225,7 @@ export default async function PropertyDetailPage({
 
           {/* Sidebar */}
                     <div className="lg:col-span-4 col-span-12">
-                        <div className="bg-primary/10 p-8 rounded-2xl relative z-10 overflow-hidden">
+                        <div className="bg-primary/10 p-8 rounded-2xl relative z-10 overflow-hidden order-2 lg:order-0">
               <h4 className="text-dark text-3xl font-medium dark:text-white">
                 {price}
                             </h4>
@@ -237,7 +237,7 @@ export default async function PropertyDetailPage({
                 <IconPhoneCall size={20} aria-hidden />
                 <span>Get in touch</span>
               </Link>
-                            <div className="absolute right-0 top-4 -z-[1]">
+              <div className="absolute right-0 top-4 -z-1">
                 <Image
                   src="/images/properties/vector.svg"
                   width={400}
@@ -249,8 +249,8 @@ export default async function PropertyDetailPage({
             </div>
 
             {/* Brochures, Video, and Location actions */}
-            {(brochures?.length || videoLink || mapLink) && (
-              <div className="mt-6 flex flex-col gap-3">
+            {(brochures?.length || (videos?.length ?? 0) > 0 || mapLink) && (
+              <div className="mt-6 flex flex-col gap-3 order-1 lg:order-0">
                 {brochures && brochures.length > 0 && (
                   <Popover>
                     <PopoverTrigger asChild>
@@ -284,7 +284,7 @@ export default async function PropertyDetailPage({
                               </span>
                               <IconExternalLink
                                 size={16}
-                                className="flex-shrink-0 text-black/60 dark:text-white/60 group-hover:text-primary transition-colors"
+                                className="shrink-0 text-black/60 dark:text-white/60 group-hover:text-primary transition-colors"
                                 aria-hidden
                               />
                             </Link>
@@ -295,16 +295,42 @@ export default async function PropertyDetailPage({
                   </Popover>
                 )}
 
-                {videoLink && (
-                  <Link
-                    href={videoLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="py-3 px-4 bg-white text-dark rounded-full w-full text-center border hover:bg-primary/10 duration-300 inline-flex items-center justify-center gap-2"
-                  >
-                    <IconPlayerPlay size={18} aria-hidden />
-                    <span>Watch video</span>
-                  </Link>
+                {(videos?.length ?? 0) > 0 && (
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <button
+                        type="button"
+                        aria-controls="videos-popover"
+                        className="py-3 px-4 bg-white text-dark rounded-full w-full text-center border hover:bg-primary/10 duration-300 inline-flex items-center justify-center gap-2"
+                      >
+                        <IconPlayerPlay size={18} aria-hidden />
+                        <span>Watch videos</span>
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent
+                      id="videos-popover"
+                      align="start"
+                      side="bottom"
+                      sideOffset={8}
+                      className="w-80 max-h-64 overflow-y-auto p-3 rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-neutral-900 shadow-lg"
+                    >
+                      <ul className="space-y-2">
+                        {videos!.map((v, i) => (
+                          <li key={`${v.url}-${i}`}>
+                            <Link
+                              href={v.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-between gap-3 p-2.5 rounded-lg border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 hover:border-primary/40 dark:hover:border-primary/40 transition-colors text-sm text-black dark:text-white group"
+                            >
+                              <span className="flex-1 truncate">{v.title?.trim() || `Video ${i + 1}`}</span>
+                              <IconExternalLink size={16} className="shrink-0 text-black/60 dark:text-white/60 group-hover:text-primary transition-colors" aria-hidden />
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </PopoverContent>
+                  </Popover>
                 )}
 
                 {mapLink && (

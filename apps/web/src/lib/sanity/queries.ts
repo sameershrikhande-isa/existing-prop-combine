@@ -145,7 +145,10 @@ export const queryPropertyBySlugData = defineQuery(`
       title,
       url
     },
-    videoLink,
+    "videos": videos[]{
+      title,
+      url
+    },
     mapLink,
     ${agentFragment},
     publishedAt

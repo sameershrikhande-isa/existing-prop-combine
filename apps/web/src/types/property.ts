@@ -68,7 +68,7 @@ export type PropertyDetailData = Omit<PropertyCardData, "mainImage"> & {
   amenities?: string[];
   agent?: PropertyAgent;
   brochures?: PropertyBrochure[];
-  videoLink?: string;
+  videos?: PropertyVideo[];
   mapLink?: string;
   highlights?: PropertyHighlight[];
 };
@@ -82,5 +82,10 @@ export type PropertyHighlight = {
   title: string;
   description?: string;
   iconName: string;
+};
+
+export type PropertyVideo = {
+  title?: string;
+  url: string;
 };
 
