@@ -8,7 +8,7 @@ const galleryImages = [
   [
     "/images/temp/prop1.jpeg",
     "/images/temp/prop2.jpeg",
-    "/images/temp/prop3.jpeg",
+  "/images/temp/prop3.jpeg",
     "/images/temp/prop4.jpeg",
     "/images/temp/prop5.jpeg",
   ],
@@ -21,7 +21,7 @@ const galleryImages = [
   ],
 ];
 
-const Hero234 = () => {
+const ViewgallaryCarousal = () => {
   return (
     <section className="bg-background relative overflow-hidden h-full rounded-2xl">
     {/* <section className="bg-background relative min-h-screen overflow-hidden"> */}
@@ -87,4 +87,4 @@ const Hero234 = () => {
   );
 };
 
-export { Hero234 };
+export { ViewgallaryCarousal };
