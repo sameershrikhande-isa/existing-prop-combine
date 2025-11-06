@@ -31,22 +31,23 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
   const params = await searchParams;
 
   // Parse search params for filtering
+  // IMPORTANT: GROQ requires all parameters to be defined (use null instead of undefined)
   const filters = {
-    propertyTypeId: params.propertyTypeId || undefined,
-    purposeId: params.purposeId || undefined,
-    budgetMin: params.budgetMin ? Number.parseInt(params.budgetMin, 10) : undefined,
-    budgetMax: params.budgetMax ? Number.parseInt(params.budgetMax, 10) : undefined,
+    propertyTypeId: params.propertyTypeId || null,
+    purposeId: params.purposeId || null,
+    budgetMin: params.budgetMin ? Number.parseInt(params.budgetMin, 10) : null,
+    budgetMax: params.budgetMax ? Number.parseInt(params.budgetMax, 10) : null,
     carpetAreaMin: params.carpetAreaMin
       ? Number.parseInt(params.carpetAreaMin, 10)
-      : undefined,
+      : null,
     carpetAreaMax: params.carpetAreaMax
       ? Number.parseInt(params.carpetAreaMax, 10)
-      : undefined,
-    amenityIds: params.amenityIds ? params.amenityIds.split(",") : undefined,
+      : null,
+    amenityIds: params.amenityIds ? params.amenityIds.split(",") : null,
   };
 
   // Check if any filters are applied
-  const hasFilters = Object.values(filters).some((value) => value !== undefined);
+  const hasFilters = Object.values(filters).some((value) => value !== null);
 
   // Fetch properties from Sanity
   const properties = hasFilters
