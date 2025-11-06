@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { IconArrowRight } from "@tabler/icons-react";
 
 const galleryImages = [
   [
@@ -67,21 +69,18 @@ const Hero234 = () => {
 
       <div className="relative z-20 flex h-full items-center justify-center">
         <motion.div
-          className="rounded-lg bg-black/60 p-6 backdrop-blur-md md:p-8 lg:p-10"
+          className="rounded-full bg-black/15 p-4 backdrop-blur-md flex flex-col items-center gap-4"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <motion.h1
-            className="text-2xl leading-tight text-white md:text-2xl lg:text-3xl text-center"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
+          <Link
+            href="/properties"
+            className="group inline-flex items-center justify-center gap-2 bg-white py-3 px-8 rounded-full text-base font-semibold text-dark hover:bg-dark hover:text-white duration-300 transition-all whitespace-nowrap border-muted border-[0.5px]"
           >
-            Explore <br />
-            this Property's <br />
-            Gallery
-          </motion.h1>
+            View Gallery
+            <IconArrowRight size={20} stroke={2} className="transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
         </motion.div>
       </div>
     </section>
