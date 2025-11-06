@@ -1,14 +1,24 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { useRef } from "react";
 import { IconArrowRight } from "@tabler/icons-react";
+import LightGallery from "lightgallery/react";
+import lgThumbnail from "lightgallery/plugins/thumbnail";
+import lgZoom from "lightgallery/plugins/zoom";
+import type { PropertyImage } from "@/types/property";
+import { urlFor } from "@/lib/sanity/client";
+
+// Import lightGallery CSS
+import "lightgallery/css/lightgallery.css";
+import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lg-thumbnail.css";
 
 const galleryImages = [
   [
     "/images/temp/prop1.jpeg",
     "/images/temp/prop2.jpeg",
-  "/images/temp/prop3.jpeg",
+    "/images/temp/prop3.jpeg",
     "/images/temp/prop4.jpeg",
     "/images/temp/prop5.jpeg",
   ],
@@ -21,7 +31,13 @@ const galleryImages = [
   ],
 ];
 
-const ViewgallaryCarousal = () => {
+type ViewgallaryCarousalProps = {
+  images?: PropertyImage[];
+  propertyTitle?: string;
+};
+
+const ViewgallaryCarousal = ({ images, propertyTitle = "Property" }: ViewgallaryCarousalProps) => {
+  const lightGalleryRef = useRef<any>(null);
   return (
     <section className="bg-background relative overflow-hidden h-full rounded-2xl">
     {/* <section className="bg-background relative min-h-screen overflow-hidden"> */}
@@ -74,13 +90,76 @@ const ViewgallaryCarousal = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <Link
-            href="/properties"
-            className="group inline-flex items-center justify-center gap-2 bg-white py-3 px-8 rounded-full text-base font-semibold text-dark hover:bg-dark hover:text-white duration-300 transition-all whitespace-nowrap border-muted border-[0.5px]"
-          >
-            View Gallery
-            <IconArrowRight size={20} stroke={2} className="transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
+          {images && images.length > 0 ? (
+            <>
+              <button
+                type="button"
+                onClick={() => {
+                  if (lightGalleryRef.current) {
+                    lightGalleryRef.current.openGallery(0);
+                  }
+                }}
+                className="group inline-flex items-center justify-center gap-2 bg-white py-3 px-8 rounded-full text-base font-semibold text-dark hover:bg-dark hover:text-white duration-300 transition-all whitespace-nowrap border-muted border-[0.5px] cursor-pointer"
+              >
+                View Gallery
+                <IconArrowRight size={20} stroke={2} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </button>
+
+              {/* lightGallery component - visually hidden but in DOM for initialization */}
+              <div className="sr-only">
+                <LightGallery
+                  onInit={(detail) => {
+                    if (detail) {
+                      lightGalleryRef.current = detail.instance;
+                    }
+                  }}
+                  plugins={[lgThumbnail, lgZoom]}
+                  speed={500}
+                  thumbnail={true}
+                  zoom={true}
+                  mode="lg-fade"
+                  showCloseIcon={true}
+                  closable={true}
+                  mobileSettings={{
+                    controls: true,
+                    showCloseIcon: true,
+                    download: false,
+                    rotate: false,
+                  }}
+                >
+                  {images.map((image, index) => {
+                    const fullImageUrl = urlFor(image).width(1920).height(1080).url();
+                    const thumbImageUrl = urlFor(image).width(400).height(300).url();
+                    const imageSize = "1920-1080"; // Default size, can be adjusted
+
+                    return (
+                      <a
+                        key={image.id || index}
+                        data-lg-size={imageSize}
+                        className="gallery-item"
+                        data-src={fullImageUrl}
+                      >
+                        <img
+                          alt={image.alt || `${propertyTitle} - Image ${index + 1}`}
+                          src={thumbImageUrl}
+                          className="sr-only"
+                        />
+                      </a>
+                    );
+                  })}
+                </LightGallery>
+              </div>
+            </>
+          ) : (
+            <button
+              type="button"
+              disabled
+              className="group inline-flex items-center justify-center gap-2 bg-white/50 py-3 px-8 rounded-full text-base font-semibold text-dark/50 cursor-not-allowed whitespace-nowrap border-muted border-[0.5px]"
+            >
+              View Gallery
+              <IconArrowRight size={20} stroke={2} />
+            </button>
+          )}
         </motion.div>
       </div>
     </section>

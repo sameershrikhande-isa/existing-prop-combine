@@ -153,7 +153,7 @@ export default async function PropertyDetailPage({
                     {/* ViewgallaryCarousal Carousel - Right side on desktop, full width on mobile */}
                     <div className="lg:col-span-4 col-span-12">
                       <div className="h-full">
-                        <ViewgallaryCarousal />
+                        <ViewgallaryCarousal images={images} propertyTitle={title} />
                       </div>
                     </div>
                   </div>
