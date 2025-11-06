@@ -120,18 +120,6 @@ export const property = defineType({
           description: "Country",
           initialValue: "India",
         }),
-        defineField({
-          name: "latitude",
-          type: "number",
-          title: "Latitude",
-          description: "GPS latitude for map display",
-        }),
-        defineField({
-          name: "longitude",
-          type: "number",
-          title: "Longitude",
-          description: "GPS longitude for map display",
-        }),
       ],
     }),
     defineField({

@@ -37,8 +37,6 @@ export type PropertyLocation = {
   city: string;
   state?: string;
   country?: string;
-  latitude?: number;
-  longitude?: number;
 };
 
 export type PropertyFeatures = {

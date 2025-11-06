@@ -121,9 +121,7 @@ export const queryPropertyBySlugData = defineQuery(`
       address,
       city,
       state,
-      country,
-      latitude,
-      longitude
+      country
     },
     features {
       bedrooms,

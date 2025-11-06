@@ -277,18 +277,7 @@ export default async function PropertyDetailPage({
                             </div>
             )}
 
-            {/* Map */}
-            {location.latitude && location.longitude && (
-                        <iframe
-                src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3!2d${location.longitude}!3d${location.latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM!5e0!3m2!1sen!2sin!4v1715676641521!5m2!1sen!2sin`}
-                width="1114"
-                height="400"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="rounded-2xl w-full mt-8"
-                title="Property location map"
-              />
-            )}
+            {/* Map iframe removed: use mapLink button in sidebar */}
                     </div>
 
           {/* Sidebar */}
