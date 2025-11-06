@@ -133,9 +133,10 @@ export default async function PropertyDetailPage({
                     </div>
                 </div>
 
-        {/* Image Gallery */}
+        {/* Image Gallery - Main Image + Hero234 Carousel */}
                 <div className="grid grid-cols-12 mt-8 gap-8">
-              <div className="lg:col-span-8 col-span-12 row-span-2">
+              {/* Main Hero Image - Left side on desktop, full width on mobile */}
+              <div className="lg:col-span-8 col-span-12">
                  {images && images[0] && (
                           <div>
                                 <Image
@@ -149,88 +150,9 @@ export default async function PropertyDetailPage({
                             </div>
                         )}
                     </div>
-                    <div className="lg:col-span-4 lg:block hidden">
-                    {images && images[1] && (
-              <Image
-                src={urlFor(images[1]).width(400).height(500).url()}
-                alt={images[1].alt || title}
-                width={400}
-                height={500}
-                className="rounded-2xl w-full h-full object-cover"
-                unoptimized={true}
-              />
-                        )}
-                    </div>
-                    <div className="lg:col-span-2 col-span-6">
-                     {images && images[2] && (
-              <Image
-                src={urlFor(images[2]).width(400).height(500).url()}
-                alt={images[2].alt || title}
-                width={400}
-                height={500}
-                className="rounded-2xl w-full h-full object-cover"
-                unoptimized={true}
-              />
-                        )}
-                    </div>
-                    <div className="lg:col-span-2 col-span-6">
-                     {images && images[3] && (
-              <Image
-                src={urlFor(images[3]).width(400).height(500).url()}
-                alt={images[3].alt || title}
-                width={400}
-                height={500}
-                className="rounded-2xl w-full h-full object-cover"
-                unoptimized={true}
-              />
-                        )}
-                    </div>
-                  </div>
-
-                  <Hero234 />
-
-                  <div className="grid grid-cols-12 mt-8 gap-8">
-                    <div className="lg:col-span-8 col-span-12 row-span-2">
-                        <div>
-                          <Image
-                            src="/images/properties/property1/property1.jpg"
-                            alt="Main Property Image"
-                            width={400}
-                            height={500}
-                            className="rounded-2xl w-full h-540"
-                            unoptimized={true}
-                          />
-                        </div>
-                    </div>
-                    <div className="lg:col-span-4 lg:block hidden">
-                      <Image
-                        src="/images/properties/property1/image-2.jpg"
-                        alt="Property Image 2"
-                        width={400}
-                        height={500}
-                        className="rounded-2xl w-full h-full"
-                        unoptimized={true}
-                      />
-                    </div>
-                    <div className="lg:col-span-2 col-span-6">
-                      <Image
-                        src="/images/properties/property1/image-3.jpg"
-                        alt="Property Image 3"
-                        width={400}
-                        height={500}
-                        className="rounded-2xl w-full h-full"
-                        unoptimized={true}
-                      />
-                    </div>
-                    <div className="lg:col-span-2 col-span-6">
-                      <Image
-                        src="/images/properties/property1/image-4.jpg"
-                        alt="Property Image 4"
-                        width={400}
-                        height={500}
-                        className="rounded-2xl w-full h-full"
-                        unoptimized={true}
-                      />
+                    {/* Hero234 Carousel - Right side on desktop, full width on mobile */}
+                    <div className="lg:col-span-4 col-span-12 lg:h-540 h-auto">
+                      <Hero234 />
                     </div>
                   </div>
                 <div className="grid grid-cols-12 gap-8 mt-10">

@@ -23,7 +23,7 @@ const galleryImages = [
 
 const Hero234 = () => {
   return (
-    <section className="bg-background relative overflow-hidden">
+    <section className="bg-background relative overflow-hidden h-full rounded-2xl">
     {/* <section className="bg-background relative min-h-screen overflow-hidden"> */}
       <div className="absolute inset-0 flex flex-col justify-center gap-4">
         {galleryImages.map((row, rowIndex) => (
