@@ -65,15 +65,15 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
       />
       <section className="pt-0!">
         <div className="container max-w-8xl mx-auto px-5 2xl:px-0">
-          {/* Results count */}
-          <div className="mb-6">
-            <p className="text-dark/70 dark:text-white/70">
-              {properties.length === 0
-                ? "No properties found"
-                : `${properties.length} ${properties.length === 1 ? "property" : "properties"} found`}
-              {hasFilters && " matching your criteria"}
-            </p>
-          </div>
+          {/* Results count - only show when there are results to avoid duplicate empty states */}
+          {properties.length > 0 && (
+            <div className="mb-6">
+              <p className="text-dark/70 dark:text-white/70">
+                {`${properties.length} ${properties.length === 1 ? "property" : "properties"} found`}
+                {hasFilters && " matching your criteria"}
+              </p>
+            </div>
+          )}
 
           {properties.length === 0 ? (
             <div className="py-20 text-center">
