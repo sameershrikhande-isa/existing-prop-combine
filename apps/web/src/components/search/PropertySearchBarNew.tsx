@@ -191,7 +191,7 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
 
   if (loading) {
     return (
-      <div className={cn("rounded-2xl bg-black/10 dark:bg-white/5 p-3 md:p-4 backdrop-blur-md", className)}>
+      <div className={cn("rounded-2xl bg-black/10 dark:bg-white/5 p-2 backdrop-blur-md", className)}>
         <div
           className="relative w-full rounded-3xl bg-white/90 dark:bg-black/80 backdrop-blur border-[0.5px] border-black/10 dark:border-white/10 p-4"
         >
