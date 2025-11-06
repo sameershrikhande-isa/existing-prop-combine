@@ -53,13 +53,32 @@ export const property = defineType({
       group: GROUP.MAIN_CONTENT,
     }),
     defineField({
-      name: "price",
-      type: "string",
-      title: "Price",
+      name: "budgetMin",
+      type: "number",
+      title: "Budget Min",
       description:
-        'The property price (e.g., "2.5 Cr", "85 L", or "Enquire for Price")',
+        "Minimum budget/price for this property (in the base currency unit)",
       group: GROUP.MAIN_CONTENT,
-      validation: (Rule) => Rule.required().error("Price is required"),
+      validation: (Rule) =>
+        Rule.required().min(0).error("Minimum budget is required and must be >= 0"),
+    }),
+    defineField({
+      name: "budgetMax",
+      type: "number",
+      title: "Budget Max",
+      description:
+        "Maximum budget/price for this property (leave empty if same as min or negotiable)",
+      group: GROUP.MAIN_CONTENT,
+      validation: (Rule) =>
+        Rule.custom((maxValue, context) => {
+          if (maxValue == null) return true;
+          const minValue = (context.document as Record<string, unknown>)
+            ?.budgetMin as number;
+          if (minValue != null && maxValue < minValue) {
+            return "Budget max must be >= Budget min";
+          }
+          return true;
+        }).min(0),
     }),
     defineField({
       name: "status",
@@ -86,6 +105,15 @@ export const property = defineType({
       group: GROUP.MAIN_CONTENT,
       to: [{ type: "propertyType" }],
       validation: (Rule) => Rule.required().error("Property type is required"),
+    }),
+    defineField({
+      name: "purpose",
+      type: "reference",
+      title: "Purpose",
+      description: "Whether this property is for Rent or Buy",
+      group: GROUP.MAIN_CONTENT,
+      to: [{ type: "purpose" }],
+      validation: (Rule) => Rule.required().error("Purpose is required"),
     }),
     defineField({
       name: "location",
@@ -124,10 +152,39 @@ export const property = defineType({
       ],
     }),
     defineField({
+      name: "carpetAreaMin",
+      type: "number",
+      title: "Carpet Area Min (m²)",
+      description: "Minimum carpet area in square meters",
+      group: GROUP.MAIN_CONTENT,
+      validation: (Rule) =>
+        Rule.required()
+          .min(0)
+          .error("Minimum carpet area is required and must be >= 0"),
+    }),
+    defineField({
+      name: "carpetAreaMax",
+      type: "number",
+      title: "Carpet Area Max (m²)",
+      description:
+        "Maximum carpet area in square meters (leave empty if same as min)",
+      group: GROUP.MAIN_CONTENT,
+      validation: (Rule) =>
+        Rule.custom((maxValue, context) => {
+          if (maxValue == null) return true;
+          const minValue = (context.document as Record<string, unknown>)
+            ?.carpetAreaMin as number;
+          if (minValue != null && maxValue < minValue) {
+            return "Carpet area max must be >= Carpet area min";
+          }
+          return true;
+        }).min(0),
+    }),
+    defineField({
       name: "features",
       type: "object",
       title: "Features",
-      description: "Key property features like bedrooms, bathrooms, and area",
+      description: "Key property features like bedrooms and bathrooms",
       group: GROUP.MAIN_CONTENT,
       fields: [
         defineField({
@@ -136,9 +193,7 @@ export const property = defineType({
           title: "Bedrooms",
           description: "Number of bedrooms",
           validation: (Rule) =>
-            Rule.required()
-              .min(0)
-              .error("Number of bedrooms is required"),
+            Rule.required().min(0).error("Number of bedrooms is required"),
         }),
         defineField({
           name: "bathrooms",
@@ -146,19 +201,7 @@ export const property = defineType({
           title: "Bathrooms",
           description: "Number of bathrooms",
           validation: (Rule) =>
-            Rule.required()
-              .min(0)
-              .error("Number of bathrooms is required"),
-        }),
-        defineField({
-          name: "areaSqM",
-          type: "number",
-          title: "Area (m²)",
-          description: "Total area in square meters",
-          validation: (Rule) =>
-            Rule.required()
-              .min(0)
-              .error("Area is required"),
+            Rule.required().min(0).error("Number of bathrooms is required"),
         }),
       ],
     }),
@@ -167,11 +210,12 @@ export const property = defineType({
       type: "array",
       title: "Amenities",
       description:
-        "List of amenities and features (e.g., Smart Home Integration, Energy Efficiency, Swimming Pool)",
+        "Select amenities from the reusable amenity library (e.g., Swimming Pool, Gym, Parking)",
       group: GROUP.MAIN_CONTENT,
       of: [
         defineArrayMember({
-          type: "string",
+          type: "reference",
+          to: [{ type: "amenity" }],
         }),
       ],
     }),
@@ -375,41 +419,70 @@ export const property = defineType({
   preview: {
     select: {
       title: "title",
-      price: "price",
+      budgetMin: "budgetMin",
+      budgetMax: "budgetMax",
       status: "status",
       city: "location.city",
       bedrooms: "features.bedrooms",
       bathrooms: "features.bathrooms",
-      area: "features.areaSqM",
+      carpetAreaMin: "carpetAreaMin",
+      carpetAreaMax: "carpetAreaMax",
       mediaThumb: "thumbnailImage",
       mediaGallery: "images.0",
       slug: "slug.current",
     },
     prepare: ({
       title,
-      price,
+      budgetMin,
+      budgetMax,
       status,
       city,
       bedrooms,
       bathrooms,
-      area,
+      carpetAreaMin,
+      carpetAreaMax,
       mediaThumb,
       mediaGallery,
       slug,
+    }: {
+      title: string;
+      budgetMin: number;
+      budgetMax?: number;
+      status: string;
+      city: string;
+      bedrooms: number;
+      bathrooms: number;
+      carpetAreaMin: number;
+      carpetAreaMax?: number;
+      mediaThumb: unknown;
+      mediaGallery: unknown;
+      slug: string;
     }) => {
       // Status badge
       const statusEmoji =
         status === "available" ? "✅" : status === "sold" ? "🔴" : "🟡";
       const statusText = status || "available";
 
+      // Budget display
+      const budgetDisplay =
+        budgetMin && budgetMax && budgetMax !== budgetMin
+          ? `💰 ${budgetMin}-${budgetMax}`
+          : `💰 ${budgetMin || "No budget"}`;
+
+      // Area display
+      const areaDisplay =
+        carpetAreaMin && carpetAreaMax && carpetAreaMax !== carpetAreaMin
+          ? `📐 ${carpetAreaMin}-${carpetAreaMax}m²`
+          : `📐 ${carpetAreaMin || 0}m²`;
+
       // Location and features
       const locationText = city ? `📍 ${city}` : "📍 Location not set";
-      const featuresText = `🛏️ ${bedrooms || 0} | 🛁 ${bathrooms || 0} | 📐 ${area || 0}m²`;
+      const featuresText = `🛏️ ${bedrooms || 0} | 🛁 ${bathrooms || 0} | ${areaDisplay}`;
 
       return {
         title: title || "Untitled Property",
-        media: mediaThumb || mediaGallery,
-        subtitle: `${statusEmoji} ${statusText} | 💰 ${price || "No price"} | ${locationText} | ${featuresText} | 🔗 ${slug || "no-slug"}`,
+        media: (mediaThumb || mediaGallery) as never,
+        subtitle: `${statusEmoji} ${statusText} | ${budgetDisplay} | ${locationText} | ${featuresText} | 🔗 ${slug || "no-slug"}`,
       };
     },
   },

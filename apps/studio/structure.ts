@@ -6,11 +6,16 @@ import {
   File,
   FileText,
   HomeIcon,
+  ListFilter,
   type LucideIcon,
   MessageCircle,
   PanelBottom,
   PanelBottomIcon,
   Settings2,
+  SlidersHorizontal,
+  Sparkles,
+  Tag,
+  Target,
   TrendingUpDown,
   User,
   UserCircle,
@@ -133,7 +138,42 @@ export const structure = (
         title: "Property Types",
         icon: HomeIcon,
       }),
+      createList({ S, type: "purpose", title: "Purposes", icon: Tag }),
       createList({ S, type: "agent", title: "Agents", icon: UserCircle }),
+      S.divider(),
+      S.listItem()
+        .title("Property Filters")
+        .icon(SlidersHorizontal)
+        .child(
+          S.list()
+            .title("Property Filters")
+            .items([
+              createList({
+                S,
+                type: "amenity",
+                title: "Amenities",
+                icon: Sparkles,
+              }),
+              createList({
+                S,
+                type: "filterDimension",
+                title: "Filter Dimensions",
+                icon: SlidersHorizontal,
+              }),
+              createList({
+                S,
+                type: "filterScope",
+                title: "Filter Scopes",
+                icon: Target,
+              }),
+              createList({
+                S,
+                type: "filterRange",
+                title: "Filter Ranges",
+                icon: ListFilter,
+              }),
+            ])
+        ),
       S.divider(),
       createList({
         S,

@@ -60,7 +60,7 @@ const Feature118 = () => {
               <img
                 src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
                 alt="placeholder"
-                className="aspect-video h-full w-full rounded-2xl object-cover md:aspect-auto"
+                className="hidden sm:block aspect-video h-full w-full rounded-2xl object-cover md:aspect-auto"
               />
             </div>
             <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-white/90 dark:bg-black/80 shadow-(--shadow-3xl) backdrop-blur p-8 md:p-10">
@@ -99,7 +99,7 @@ const Feature118 = () => {
               <p className="text-dark/60 dark:text-white/60">Satisfacted customers with our services</p>
             </div>
             <div className="flex items-center gap-5">
-              <span className="text-4xl md:text-5xl font-semibold text-dark dark:text-white">5.0</span>
+              <span className="text-4xl md:text-5xl font-semibold text-dark dark:text-white">4.9</span>
               <div className="flex flex-col gap-2">
                 <div className="flex gap-1">
                   <Star className="text-primary fill-primary" />

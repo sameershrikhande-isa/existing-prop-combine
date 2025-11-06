@@ -86,12 +86,28 @@ export default async function PropertyDetailPage({
     richText,
     highlights,
     amenities,
-    price,
+    budgetMin,
+    budgetMax,
+    carpetAreaMin,
+    carpetAreaMax,
+    purpose,
     agent,
     brochures,
     videos,
     mapLink,
   } = property;
+
+  // Format budget display
+  const budgetDisplay =
+    budgetMin && budgetMax && budgetMax !== budgetMin
+      ? `₹${(budgetMin / 100000).toFixed(1)}L - ₹${(budgetMax / 100000).toFixed(1)}L`
+      : `₹${(budgetMin / 100000).toFixed(1)}L`;
+
+  // Format area display
+  const areaDisplay =
+    carpetAreaMin && carpetAreaMax && carpetAreaMax !== carpetAreaMin
+      ? `${carpetAreaMin}-${carpetAreaMax}m²`
+      : `${carpetAreaMin}m²`;
 
   const heroImage = thumbnailImage || images?.[0];
 
@@ -139,7 +155,7 @@ export default async function PropertyDetailPage({
                                     height={20}
                                 />
                 <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
-                  {features.areaSqM}m<sup>2</sup>
+                  {areaDisplay}
                                 </p>
                             </div>
                         </div>
@@ -203,19 +219,22 @@ export default async function PropertyDetailPage({
               <div className="py-8 mt-8 border-t border-dark/5 dark:border-white/15">
                 <h3 className="text-xl font-medium">What this property offers</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5 gap-6">
-                  {amenities.map((amenity, index) => (
-                    <div key={index} className="flex items-center gap-2.5">
-                      <Icon
-                        icon="ph:check-circle"
-                        width={24}
-                        height={24}
-                        className="text-dark dark:text-white shrink-0"
-                      />
-                      <p className="text-base dark:text-white text-dark">
-                        {amenity}
-                            </p>
+                  {amenities
+                    .filter((a) => a && a.name)
+                    .map((amenity) => {
+                      const AmenityIcon = resolveTabler(amenity.iconName || "IconCircle");
+                      return (
+                        <div key={amenity._id || amenity.name} className="flex items-center gap-2.5">
+                          <AmenityIcon
+                            size={24}
+                            className="text-dark dark:text-white shrink-0"
+                          />
+                          <p className="text-base dark:text-white text-dark">
+                            {amenity.name}
+                          </p>
                         </div>
-                  ))}
+                      );
+                    })}
                                 </div>
                             </div>
             )}
@@ -226,8 +245,15 @@ export default async function PropertyDetailPage({
           {/* Sidebar */}
                     <div className="lg:col-span-4 col-span-12">
                         <div className="bg-primary/10 p-8 rounded-2xl relative z-10 overflow-hidden order-2 lg:order-0">
+              {purpose && (
+                <div className="mb-2">
+                  <span className="text-sm font-medium text-dark/70 dark:text-white/70">
+                    For {purpose.name}
+                  </span>
+                </div>
+              )}
               <h4 className="text-dark text-3xl font-medium dark:text-white">
-                {price}
+                {budgetDisplay}
                             </h4>
               <Link
                 href="#"

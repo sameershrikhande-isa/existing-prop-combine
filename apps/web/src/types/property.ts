@@ -28,6 +28,13 @@ export type PropertyAgent = {
 };
 
 export type PropertyType = {
+  _id: string;
+  name: string;
+  slug: string;
+};
+
+export type PropertyPurpose = {
+  _id: string;
   name: string;
   slug: string;
 };
@@ -42,7 +49,14 @@ export type PropertyLocation = {
 export type PropertyFeatures = {
   bedrooms: number;
   bathrooms: number;
-  areaSqM: number;
+};
+
+export type PropertyAmenity = {
+  _id: string;
+  name: string;
+  slug: string;
+  iconName: string;
+  category?: string;
 };
 
 export type PropertyCardData = {
@@ -51,12 +65,16 @@ export type PropertyCardData = {
   title: string;
   slug: string;
   description?: string;
-  price: string;
+  budgetMin: number;
+  budgetMax?: number;
+  carpetAreaMin: number;
+  carpetAreaMax?: number;
   status: "available" | "sold" | "pending";
   location: PropertyLocation;
   features: PropertyFeatures;
   mainImage?: PropertyImage;
   propertyType?: PropertyType;
+  purpose?: PropertyPurpose;
   publishedAt?: string;
   orderRank?: string;
 };
@@ -65,7 +83,7 @@ export type PropertyDetailData = Omit<PropertyCardData, "mainImage"> & {
   richText?: PortableTextBlock[]; // Sanity block content
   thumbnailImage?: PropertyImage;
   images?: PropertyImage[];
-  amenities?: string[];
+  amenities?: PropertyAmenity[];
   agent?: PropertyAgent;
   brochures?: PropertyBrochure[];
   videos?: PropertyVideo[];

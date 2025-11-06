@@ -13,10 +13,22 @@ const isSanityItem = (i: PropertyCardItem): i is PropertyCardData =>
 const PropertyCard: React.FC<{ item: PropertyCardItem }> = ({ item }) => {
   const title = isSanityItem(item) ? item.title : item.name;
   const slug = item.slug;
-  const price = isSanityItem(item) ? item.price : item.rate;
   const bedrooms = isSanityItem(item) ? item.features.bedrooms : item.beds;
   const bathrooms = isSanityItem(item) ? item.features.bathrooms : item.baths;
-  const areaSqM = isSanityItem(item) ? item.features.areaSqM : item.area;
+
+  // Handle price/budget display
+  const price = isSanityItem(item)
+    ? item.budgetMin && item.budgetMax && item.budgetMax !== item.budgetMin
+      ? `₹${(item.budgetMin / 100000).toFixed(1)}L - ₹${(item.budgetMax / 100000).toFixed(1)}L`
+      : `₹${(item.budgetMin / 100000).toFixed(1)}L`
+    : item.rate;
+
+  // Handle area display
+  const areaSqM = isSanityItem(item)
+    ? item.carpetAreaMin && item.carpetAreaMax && item.carpetAreaMax !== item.carpetAreaMin
+      ? `${item.carpetAreaMin}-${item.carpetAreaMax}`
+      : `${item.carpetAreaMin}`
+    : item.area;
 
   const locationText = isSanityItem(item)
     ? `${item.location.address}, ${item.location.city}${item.location.state ? `, ${item.location.state}` : ""}`
@@ -29,6 +41,9 @@ const PropertyCard: React.FC<{ item: PropertyCardItem }> = ({ item }) => {
       : null
     : item.images?.[0]?.src ?? null;
   const imageAlt = isSanityItem(item) ? item.mainImage?.alt || title : title;
+
+  // Purpose badge (only for Sanity items)
+  const purpose = isSanityItem(item) ? item.purpose?.name : null;
 
   return (
     <div>
@@ -46,6 +61,14 @@ const PropertyCard: React.FC<{ item: PropertyCardItem }> = ({ item }) => {
               />
             )}
           </Link>
+          {/* Purpose badge */}
+          {purpose && (
+            <div className="absolute top-6 left-6 px-3 py-1.5 bg-white/90 dark:bg-dark/90 backdrop-blur-sm rounded-full">
+              <span className="text-sm font-medium text-dark dark:text-white">
+                {purpose}
+              </span>
+            </div>
+          )}
           <div className="absolute top-6 right-6 p-4 bg-white rounded-full hidden group-hover:block">
             <Icon
               icon="solar:arrow-right-linear"

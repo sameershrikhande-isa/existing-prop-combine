@@ -44,7 +44,10 @@ const propertyCardFragment = /* groq */ `
   title,
   "slug": slug.current,
   description,
-  price,
+  budgetMin,
+  budgetMax,
+  carpetAreaMin,
+  carpetAreaMax,
   status,
   location {
     address,
@@ -54,11 +57,16 @@ const propertyCardFragment = /* groq */ `
   },
   features {
     bedrooms,
-    bathrooms,
-    areaSqM
+    bathrooms
   },
   "mainImage": images[0] ${imageFragment},
   propertyType->{
+    _id,
+    name,
+    "slug": slug.current
+  },
+  purpose->{
+    _id,
     name,
     "slug": slug.current
   },
@@ -115,7 +123,10 @@ export const queryPropertyBySlugData = defineQuery(`
     "slug": slug.current,
     description,
     ${richTextFragment},
-    price,
+    budgetMin,
+    budgetMax,
+    carpetAreaMin,
+    carpetAreaMax,
     status,
     location {
       address,
@@ -125,10 +136,15 @@ export const queryPropertyBySlugData = defineQuery(`
     },
     features {
       bedrooms,
-      bathrooms,
-      areaSqM
+      bathrooms
     },
-    amenities,
+    "amenities": amenities[]->{
+      _id,
+      name,
+      "slug": slug.current,
+      iconName,
+      category
+    },
     highlights[]{
       title,
       description,
@@ -137,6 +153,12 @@ export const queryPropertyBySlugData = defineQuery(`
     "thumbnailImage": thumbnailImage ${imageFragment},
     "images": images[] ${imageFragment},
     propertyType->{
+      _id,
+      name,
+      "slug": slug.current
+    },
+    purpose->{
+      _id,
       name,
       "slug": slug.current
     },
@@ -160,5 +182,81 @@ export const queryPropertyBySlugData = defineQuery(`
  */
 export const queryPropertySlugs = defineQuery(`
   *[_type == "property" && defined(slug.current)].slug.current
+`);
+
+/**
+ * Query to get filtered properties based on search criteria
+ * Supports filtering by propertyType, purpose, budget range, carpet area range, and amenities
+ */
+export const queryFilteredProperties = defineQuery(`
+  *[
+    _type == "property" 
+    && status == "available"
+    && (!defined($propertyTypeId) || propertyType._ref == $propertyTypeId)
+    && (!defined($purposeId) || purpose._ref == $purposeId)
+    && (!defined($budgetMin) || budgetMax >= $budgetMin || budgetMin >= $budgetMin)
+    && (!defined($budgetMax) || budgetMin <= $budgetMax || budgetMax <= $budgetMax)
+    && (!defined($carpetAreaMin) || carpetAreaMax >= $carpetAreaMin || carpetAreaMin >= $carpetAreaMin)
+    && (!defined($carpetAreaMax) || carpetAreaMin <= $carpetAreaMax || carpetAreaMax <= $carpetAreaMax)
+    && (!defined($amenityIds) || count((amenities[]._ref)[@ in $amenityIds]) > 0)
+  ] | order(orderRank asc) {
+    ${propertyCardFragment}
+  }
+`);
+
+/**
+ * Query to get all amenities for filter checkboxes
+ */
+export const queryAllAmenities = defineQuery(`
+  *[_type == "amenity"] | order(orderRank asc) {
+    _id,
+    name,
+    "slug": slug.current,
+    iconName,
+    category
+  }
+`);
+
+/**
+ * Query to get filter ranges for a specific scope (propertyType + purpose)
+ */
+export const queryFilterRanges = defineQuery(`
+  *[
+    _type == "filterRange"
+    && scope->propertyType._ref == $propertyTypeId
+    && scope->purpose._ref == $purposeId
+    && dimension->slug.current == $dimensionSlug
+  ] | order(sortOrder asc) {
+    _id,
+    label,
+    minValue,
+    maxValue,
+    sortOrder,
+    "dimensionName": dimension->name,
+    "dimensionUnit": dimension->unit
+  }
+`);
+
+/**
+ * Query to get all property types
+ */
+export const queryAllPropertyTypes = defineQuery(`
+  *[_type == "propertyType"] | order(orderRank asc) {
+    _id,
+    name,
+    "slug": slug.current,
+    description
+  }
+`);
+
+/**
+ * Query to get all purposes
+ */
+export const queryAllPurposes = defineQuery(`
+  *[_type == "purpose"] | order(orderRank asc) {
+    _id,
+    name,
+    "slug": slug.current
+  }
 `);
 
