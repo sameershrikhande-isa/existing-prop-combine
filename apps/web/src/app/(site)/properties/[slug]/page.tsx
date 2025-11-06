@@ -12,6 +12,7 @@ import type { PropertyDetailData } from "@/types/property";
 import { RichText } from "@/components/shared/RichText";
 import { testimonials } from "@/app/api/testimonial";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Hero234 } from "@/components/hero234";
 
 // Enable ISR with 1 hour revalidation
 export const revalidate = 3600;
@@ -84,6 +85,8 @@ export default async function PropertyDetailPage({
     return (
     <section className="!pt-44 pb-20 relative">
             <div className="container mx-auto max-w-8xl px-5 2xl:px-0">
+
+              
                 <div className="grid grid-cols-12 items-end gap-6">
                     <div className="lg:col-span-8 col-span-12">
             <h1 className="lg:text-52 text-40 font-semibold text-dark dark:text-white">
@@ -132,9 +135,9 @@ export default async function PropertyDetailPage({
 
         {/* Image Gallery */}
                 <div className="grid grid-cols-12 mt-8 gap-8">
-                    <div className="lg:col-span-8 col-span-12 row-span-2">
-            {images && images[0] && (
-              <div>
+              <div className="lg:col-span-8 col-span-12 row-span-2">
+                 {images && images[0] && (
+                          <div>
                                 <Image
                   src={urlFor(images[0]).width(800).height(600).url()}
                   alt={images[0].alt || title}
@@ -147,7 +150,7 @@ export default async function PropertyDetailPage({
                         )}
                     </div>
                     <div className="lg:col-span-4 lg:block hidden">
-            {images && images[1] && (
+                    {images && images[1] && (
               <Image
                 src={urlFor(images[1]).width(400).height(500).url()}
                 alt={images[1].alt || title}
@@ -159,7 +162,7 @@ export default async function PropertyDetailPage({
                         )}
                     </div>
                     <div className="lg:col-span-2 col-span-6">
-            {images && images[2] && (
+                     {images && images[2] && (
               <Image
                 src={urlFor(images[2]).width(400).height(500).url()}
                 alt={images[2].alt || title}
@@ -171,7 +174,7 @@ export default async function PropertyDetailPage({
                         )}
                     </div>
                     <div className="lg:col-span-2 col-span-6">
-            {images && images[3] && (
+                     {images && images[3] && (
               <Image
                 src={urlFor(images[3]).width(400).height(500).url()}
                 alt={images[3].alt || title}
@@ -182,7 +185,10 @@ export default async function PropertyDetailPage({
               />
                         )}
                     </div>
-                </div>
+                  </div>
+
+                  <Hero234 />
+
 
                 <div className="grid grid-cols-12 gap-8 mt-10">
                     <div className="lg:col-span-8 col-span-12">
