@@ -13,240 +13,6 @@
  */
 
 // Source: schema.json
-export type SubscribeNewsletter = {
-  _type: "subscribeNewsletter";
-  title?: string;
-  subTitle?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6" | "inline";
-    listItem?: "number" | "bullet";
-    markDefs?: Array<{
-      customLink?: CustomUrl;
-      _type: "customLink";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  helperText?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6" | "inline";
-    listItem?: "number" | "bullet";
-    markDefs?: Array<{
-      customLink?: CustomUrl;
-      _type: "customLink";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-};
-
-export type ImageLinkCards = {
-  _type: "imageLinkCards";
-  eyebrow?: string;
-  title?: string;
-  richText?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6" | "inline";
-    listItem?: "number" | "bullet";
-    markDefs?: Array<{
-      customLink?: CustomUrl;
-      _type: "customLink";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  buttons?: Array<{
-    _key: string;
-  } & Button>;
-  cards?: Array<{
-    title?: string;
-    description?: string;
-    image?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-    url?: CustomUrl;
-    _type: "imageLinkCard";
-    _key: string;
-  }>;
-};
-
-export type FaqAccordion = {
-  _type: "faqAccordion";
-  eyebrow?: string;
-  title?: string;
-  subtitle?: string;
-  link?: {
-    title?: string;
-    description?: string;
-    url?: CustomUrl;
-  };
-  faqs?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "faq";
-  }>;
-};
-
-export type FeatureCardsIcon = {
-  _type: "featureCardsIcon";
-  eyebrow?: string;
-  title?: string;
-  richText?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6" | "inline";
-    listItem?: "number" | "bullet";
-    markDefs?: Array<{
-      customLink?: CustomUrl;
-      _type: "customLink";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  cards?: Array<{
-    icon?: IconPicker;
-    title?: string;
-    richText?: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6" | "inline";
-      listItem?: "number" | "bullet";
-      markDefs?: Array<{
-        customLink?: CustomUrl;
-        _type: "customLink";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    _type: "featureCardIcon";
-    _key: string;
-  }>;
-};
-
-export type Cta = {
-  _type: "cta";
-  eyebrow?: string;
-  title?: string;
-  richText?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6" | "inline";
-    listItem?: "number" | "bullet";
-    markDefs?: Array<{
-      customLink?: CustomUrl;
-      _type: "customLink";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  buttons?: Array<{
-    _key: string;
-  } & Button>;
-};
-
-export type Hero = {
-  _type: "hero";
-  badge?: string;
-  title?: string;
-  richText?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6" | "inline";
-    listItem?: "number" | "bullet";
-    markDefs?: Array<{
-      customLink?: CustomUrl;
-      _type: "customLink";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  buttons?: Array<{
-    _key: string;
-  } & Button>;
-};
-
-export type PageBuilder = Array<{
-  _key: string;
-} & Hero | {
-  _key: string;
-} & Cta | {
-  _key: string;
-} & FeatureCardsIcon | {
-  _key: string;
-} & FaqAccordion | {
-  _key: string;
-} & ImageLinkCards | {
-  _key: string;
-} & SubscribeNewsletter>;
-
 export type Button = {
   _type: "button";
   variant?: "default" | "secondary" | "outline" | "link";
@@ -368,34 +134,6 @@ export type Settings = {
   };
 };
 
-export type HomePage = {
-  _id: string;
-  _type: "homePage";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  description?: string;
-  slug?: Slug;
-  pageBuilder?: PageBuilder;
-  seoTitle?: string;
-  seoDescription?: string;
-  seoImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  ogTitle?: string;
-  ogDescription?: string;
-};
-
 export type Redirect = {
   _id: string;
   _type: "redirect";
@@ -504,47 +242,6 @@ export type Property = {
     [internalGroqTypeReferenceTo]?: "agent";
   };
   publishedAt?: string;
-};
-
-export type Page = {
-  _id: string;
-  _type: "page";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  description?: string;
-  slug?: Slug;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  pageBuilder?: PageBuilder;
-  seoTitle?: string;
-  seoDescription?: string;
-  seoImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  seoNoIndex?: boolean;
-  ogTitle?: string;
-  ogDescription?: string;
 };
 
 export type FilterRange = {
@@ -664,7 +361,7 @@ export type CustomUrl = {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "page";
+    [internalGroqTypeReferenceTo]?: "property";
   };
 };
 
@@ -964,7 +661,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = SubscribeNewsletter | ImageLinkCards | FaqAccordion | FeatureCardsIcon | Cta | Hero | PageBuilder | Button | RichText | Navbar | Footer | Settings | HomePage | Redirect | Property | Page | FilterRange | FilterScope | Purpose | PropertyType | FilterDimension | Faq | CustomUrl | Amenity | Agent | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | IconPicker | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Button | RichText | Navbar | Footer | Settings | Redirect | Property | FilterRange | FilterScope | Purpose | PropertyType | FilterDimension | Faq | CustomUrl | Amenity | Agent | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | IconPicker | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: queryAllPropertiesData

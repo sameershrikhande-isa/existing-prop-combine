@@ -60,24 +60,6 @@ export default defineConfig({
   },
   schema: {
     types: schemaTypes,
-    templates: [
-      {
-        id: "nested-page-template",
-        title: "Nested Page",
-        schemaType: "page",
-        value: (props: { slug?: string; title?: string }) => ({
-          ...(props.slug
-            ? { slug: { current: props.slug, _type: "slug" } }
-            : {}),
-          ...(props.title ? { title: props.title } : {}),
-        }),
-        parameters: [
-          {
-            name: "slug",
-            type: "string",
-          },
-        ],
-      },
-    ],
+    templates: [],
   },
 });

@@ -78,21 +78,6 @@ export const SLUG_WARNING_MESSAGES = {
 
 // Document type validation rules - Single source of truth
 const DOCUMENT_TYPE_CONFIGS: Record<string, SlugValidationOptions> = {
-  homePage: {
-    documentType: "Home page",
-    sanityDocumentType: "homePage",
-    requiredPrefix: "/",
-    requireSlash: true,
-    segmentCount: 0,
-    customValidators: [
-      (slug: string) => {
-        if (slug !== "/") {
-          return ["Home page must be exactly '/'"];
-        }
-        return [];
-      },
-    ],
-  },
   page: {
     documentType: "Page",
     requireSlash: true,
@@ -240,8 +225,8 @@ function validatePathStructure(
     errors.push(SLUG_ERROR_MESSAGES.MISSING_LEADING_SLASH);
   }
 
-  // Trailing slash validation (except for home page)
-  if (options.sanityDocumentType !== "homePage" && slug.endsWith("/")) {
+  // Trailing slash validation
+  if (slug.endsWith("/")) {
     errors.push(SLUG_ERROR_MESSAGES.TRAILING_SLASH);
   }
 
@@ -455,9 +440,6 @@ export function generateSlugFromTitle(
 
   // Handle different document types with their specific requirements
   switch (documentType) {
-    case "homePage":
-      return "/";
-
     case "page":
       // For pages, preserve existing path structure if it exists
       if (currentSlug?.includes("/")) {

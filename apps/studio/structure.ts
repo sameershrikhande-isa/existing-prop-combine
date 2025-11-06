@@ -25,7 +25,6 @@ import type {
   StructureResolverContext,
 } from "sanity/structure";
 
-import { createSlugBasedStructure } from "./components/nested-pages-structure";
 import type { SchemaType, SingletonType } from "./schemaTypes";
 import { getTitleCase } from "./utils/helper";
 
@@ -115,9 +114,6 @@ export const structure = (
   S.list()
     .title("Content")
     .items([
-      createSingleTon({ S, type: "homePage", icon: HomeIcon }),
-      S.divider(),
-      createSlugBasedStructure(S, "page"),
       orderableDocumentListDeskItem({
         type: "property",
         S,

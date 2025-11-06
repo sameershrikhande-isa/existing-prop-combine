@@ -22,13 +22,6 @@ export const buttonsField = defineField({
     "Add one or more clickable buttons that visitors can use to navigate your website",
 });
 
-export const pageBuilderField = defineField({
-  name: "pageBuilder",
-  group: GROUP.MAIN_CONTENT,
-  type: "pageBuilder",
-  description:
-    "Build your page by adding different sections like text, images, and other content blocks",
-});
 
 export const iconField = defineField({
   name: "icon",
