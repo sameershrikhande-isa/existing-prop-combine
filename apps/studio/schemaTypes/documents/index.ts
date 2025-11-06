@@ -1,8 +1,5 @@
 import { agent } from "./agent";
 import { amenity } from "./amenity";
-import { author } from "./author";
-import { blog } from "./blog";
-import { blogIndex } from "./blog-index";
 import { faq } from "./faq";
 import { filterDimension } from "./filter-dimension";
 import { filterRange } from "./filter-range";
@@ -17,13 +14,11 @@ import { purpose } from "./purpose";
 import { redirect } from "./redirect";
 import { settings } from "./settings";
 
-export const singletons = [homePage, blogIndex, settings, footer, navbar];
+export const singletons = [homePage, settings, footer, navbar];
 
 export const documents = [
   agent,
   amenity,
-  author,
-  blog,
   faq,
   filterDimension,
   filterRange,
