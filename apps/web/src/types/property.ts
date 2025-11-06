@@ -17,16 +17,6 @@ export type PropertyImage = {
   alt?: string;
 };
 
-export type PropertyAgent = {
-  _id: string;
-  name: string;
-  position: string;
-  email: string;
-  phone?: string;
-  bio?: string;
-  image?: PropertyImage;
-};
-
 export type PropertyType = {
   _id: string;
   name: string;
@@ -84,7 +74,6 @@ export type PropertyDetailData = Omit<PropertyCardData, "mainImage"> & {
   thumbnailImage?: PropertyImage;
   images?: PropertyImage[];
   amenities?: PropertyAmenity[];
-  agent?: PropertyAgent;
   brochures?: PropertyBrochure[];
   videos?: PropertyVideo[];
   mapLink?: string;

@@ -24,19 +24,6 @@ const imageFragment = /* groq */ `
   }
 `;
 
-// Agent fragment for property details
-const agentFragment = /* groq */ `
-  agent->{
-    _id,
-    name,
-    position,
-    email,
-    phone,
-    bio,
-    "image": image ${imageFragment}
-  }
-`;
-
 // Property card fragment for listing pages
 const propertyCardFragment = /* groq */ `
   _id,
@@ -172,7 +159,6 @@ export const queryPropertyBySlugData = defineQuery(`
       url
     },
     mapLink,
-    ${agentFragment},
     publishedAt
   }
 `);

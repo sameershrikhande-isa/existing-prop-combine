@@ -92,7 +92,6 @@ export default async function PropertyDetailPage({
     carpetAreaMin,
     carpetAreaMax,
     purpose,
-    agent,
     brochures,
     videos,
     mapLink,
@@ -369,58 +368,6 @@ export default async function PropertyDetailPage({
                   </Link>
                 )}
               </div>
-            )}
-
-            {/* Agent Card */}
-            {agent && (
-              <div className="border p-10 rounded-2xl border-dark/10 dark:border-white/20 mt-10 flex flex-col gap-6">
-                <Icon
-                  icon="ph:user"
-                  width={44}
-                  height={44}
-                  className="text-primary"
-                />
-                <div>
-                  <h3 className="text-xm text-dark dark:text-white font-semibold mb-2">
-                    Contact Agent
-                  </h3>
-                  {agent.bio && (
-                    <p className="text-base text-dark/70 dark:text-white/70 mb-4">
-                      {agent.bio}
-                    </p>
-                  )}
-                </div>
-                <div className="flex items-center gap-6">
-                  {agent.image && (
-                    <Image
-                      src={urlFor(agent.image).width(80).height(80).url()}
-                      alt={agent.name}
-                      width={80}
-                      height={80}
-                      className="w-20 h-20 rounded-2xl object-cover"
-                      unoptimized={true}
-                    />
-                  )}
-                  <div>
-                    <h3 className="text-xm text-dark dark:text-white">
-                      {agent.name}
-                    </h3>
-                    <h4 className="text-base text-dark/50 dark:text-white/50">
-                      {agent.position}
-                    </h4>
-                    {agent.email && (
-                      <p className="text-sm text-dark/50 dark:text-white/50 mt-1">
-                        {agent.email}
-                      </p>
-                    )}
-                    {agent.phone && (
-                      <p className="text-sm text-dark/50 dark:text-white/50">
-                        {agent.phone}
-                      </p>
-                    )}
-                  </div>
-                            </div>
-                        </div>
             )}
                     </div>
                 </div>

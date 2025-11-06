@@ -235,12 +235,6 @@ export type Property = {
     _key: string;
   }>;
   mapLink?: string;
-  agent?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "agent";
-  };
   publishedAt?: string;
 };
 
@@ -376,34 +370,6 @@ export type Amenity = {
   slug?: Slug;
   iconName?: string;
   category?: "wellness" | "security" | "technology" | "outdoor" | "other";
-};
-
-export type Agent = {
-  _id: string;
-  _type: "agent";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  orderRank?: string;
-  name?: string;
-  slug?: Slug;
-  position?: string;
-  email?: string;
-  phone?: string;
-  bio?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "image";
-  };
 };
 
 export type SanityAssistInstructionTask = {
@@ -661,7 +627,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Button | RichText | Navbar | Footer | Settings | Redirect | Property | FilterRange | FilterScope | Purpose | PropertyType | FilterDimension | Faq | CustomUrl | Amenity | Agent | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | IconPicker | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Button | RichText | Navbar | Footer | Settings | Redirect | Property | FilterRange | FilterScope | Purpose | PropertyType | FilterDimension | Faq | CustomUrl | Amenity | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | IconPicker | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: queryAllPropertiesData
@@ -716,7 +682,7 @@ export type QueryAllPropertiesDataResult = Array<{
   orderRank: string | null;
 }>;
 // Variable: queryPropertyBySlugData
-// Query: *[_type == "property" && slug.current == $slug][0]{    _id,    _type,    title,    "slug": slug.current,    description,      richText[]{    ...,    _type == "block" => {      ...,      markDefs[]{        ...,        _type == "customLink" => {          ...,          customLink{            openInNewTab,            "href": select(              type == "internal" => internal->slug.current,              type == "external" => external,              "#"            )          }        }      }    },    _type == "image" => {        "id": asset._ref,  "preview": asset->metadata.lqip,  hotspot {    x,    y  },  crop {    bottom,    left,    right,    top  },  alt,      caption    }  },    budgetMin,    budgetMax,    carpetAreaMin,    carpetAreaMax,    status,    location {      address,      city,      state,      country    },    features {      bedrooms,      bathrooms    },    "amenities": amenities[]->{      _id,      name,      "slug": slug.current,      iconName,      category    },    highlights[]{      title,      description,      iconName    },    "thumbnailImage": thumbnailImage   {      "id": asset._ref,  "preview": asset->metadata.lqip,  hotspot {    x,    y  },  crop {    bottom,    left,    right,    top  },  alt  },    "images": images[]   {      "id": asset._ref,  "preview": asset->metadata.lqip,  hotspot {    x,    y  },  crop {    bottom,    left,    right,    top  },  alt  },    propertyType->{      _id,      name,      "slug": slug.current    },    purpose->{      _id,      name,      "slug": slug.current    },    // brochures and mapLink    "brochures": brochures[]{      title,      url    },    "videos": videos[]{      title,      url    },    mapLink,      agent->{    _id,    name,    position,    email,    phone,    bio,    "image": image   {      "id": asset._ref,  "preview": asset->metadata.lqip,  hotspot {    x,    y  },  crop {    bottom,    left,    right,    top  },  alt  }  },    publishedAt  }
+// Query: *[_type == "property" && slug.current == $slug][0]{    _id,    _type,    title,    "slug": slug.current,    description,      richText[]{    ...,    _type == "block" => {      ...,      markDefs[]{        ...,        _type == "customLink" => {          ...,          customLink{            openInNewTab,            "href": select(              type == "internal" => internal->slug.current,              type == "external" => external,              "#"            )          }        }      }    },    _type == "image" => {        "id": asset._ref,  "preview": asset->metadata.lqip,  hotspot {    x,    y  },  crop {    bottom,    left,    right,    top  },  alt,      caption    }  },    budgetMin,    budgetMax,    carpetAreaMin,    carpetAreaMax,    status,    location {      address,      city,      state,      country    },    features {      bedrooms,      bathrooms    },    "amenities": amenities[]->{      _id,      name,      "slug": slug.current,      iconName,      category    },    highlights[]{      title,      description,      iconName    },    "thumbnailImage": thumbnailImage   {      "id": asset._ref,  "preview": asset->metadata.lqip,  hotspot {    x,    y  },  crop {    bottom,    left,    right,    top  },  alt  },    "images": images[]   {      "id": asset._ref,  "preview": asset->metadata.lqip,  hotspot {    x,    y  },  crop {    bottom,    left,    right,    top  },  alt  },    propertyType->{      _id,      name,      "slug": slug.current    },    purpose->{      _id,      name,      "slug": slug.current    },    // brochures and mapLink    "brochures": brochures[]{      title,      url    },    "videos": videos[]{      title,      url    },    mapLink,    publishedAt  }
 export type QueryPropertyBySlugDataResult = {
   _id: string;
   _type: "property";
@@ -844,29 +810,6 @@ export type QueryPropertyBySlugDataResult = {
     url: string | null;
   }> | null;
   mapLink: string | null;
-  agent: {
-    _id: string;
-    name: string | null;
-    position: string | null;
-    email: string | null;
-    phone: string | null;
-    bio: string | null;
-    image: {
-      id: string | null;
-      preview: string | null;
-      hotspot: {
-        x: number | null;
-        y: number | null;
-      } | null;
-      crop: {
-        bottom: number | null;
-        left: number | null;
-        right: number | null;
-        top: number | null;
-      } | null;
-      alt: string | null;
-    } | null;
-  } | null;
   publishedAt: string | null;
 } | null;
 // Variable: queryPropertySlugs
@@ -972,7 +915,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "\n  *[_type == \"property\" && status == \"available\"] | order(orderRank asc){\n    \n  _id,\n  _type,\n  title,\n  \"slug\": slug.current,\n  description,\n  budgetMin,\n  budgetMax,\n  carpetAreaMin,\n  carpetAreaMax,\n  status,\n  location {\n    address,\n    city,\n    state,\n    country\n  },\n  features {\n    bedrooms,\n    bathrooms\n  },\n  \"mainImage\": images[0] \n  {\n    \n  \"id\": asset._ref,\n  \"preview\": asset->metadata.lqip,\n  hotspot {\n    x,\n    y\n  },\n  crop {\n    bottom,\n    left,\n    right,\n    top\n  },\n  alt\n\n  }\n,\n  propertyType->{\n    _id,\n    name,\n    \"slug\": slug.current\n  },\n  purpose->{\n    _id,\n    name,\n    \"slug\": slug.current\n  },\n  publishedAt,\n  orderRank\n\n  }\n": QueryAllPropertiesDataResult;
-    "\n  *[_type == \"property\" && slug.current == $slug][0]{\n    _id,\n    _type,\n    title,\n    \"slug\": slug.current,\n    description,\n    \n  richText[]{\n    ...,\n    _type == \"block\" => {\n      ...,\n      markDefs[]{\n        ...,\n        _type == \"customLink\" => {\n          ...,\n          customLink{\n            openInNewTab,\n            \"href\": select(\n              type == \"internal\" => internal->slug.current,\n              type == \"external\" => external,\n              \"#\"\n            )\n          }\n        }\n      }\n    },\n    _type == \"image\" => {\n      \n  \"id\": asset._ref,\n  \"preview\": asset->metadata.lqip,\n  hotspot {\n    x,\n    y\n  },\n  crop {\n    bottom,\n    left,\n    right,\n    top\n  },\n  alt\n,\n      caption\n    }\n  }\n,\n    budgetMin,\n    budgetMax,\n    carpetAreaMin,\n    carpetAreaMax,\n    status,\n    location {\n      address,\n      city,\n      state,\n      country\n    },\n    features {\n      bedrooms,\n      bathrooms\n    },\n    \"amenities\": amenities[]->{\n      _id,\n      name,\n      \"slug\": slug.current,\n      iconName,\n      category\n    },\n    highlights[]{\n      title,\n      description,\n      iconName\n    },\n    \"thumbnailImage\": thumbnailImage \n  {\n    \n  \"id\": asset._ref,\n  \"preview\": asset->metadata.lqip,\n  hotspot {\n    x,\n    y\n  },\n  crop {\n    bottom,\n    left,\n    right,\n    top\n  },\n  alt\n\n  }\n,\n    \"images\": images[] \n  {\n    \n  \"id\": asset._ref,\n  \"preview\": asset->metadata.lqip,\n  hotspot {\n    x,\n    y\n  },\n  crop {\n    bottom,\n    left,\n    right,\n    top\n  },\n  alt\n\n  }\n,\n    propertyType->{\n      _id,\n      name,\n      \"slug\": slug.current\n    },\n    purpose->{\n      _id,\n      name,\n      \"slug\": slug.current\n    },\n    // brochures and mapLink\n    \"brochures\": brochures[]{\n      title,\n      url\n    },\n    \"videos\": videos[]{\n      title,\n      url\n    },\n    mapLink,\n    \n  agent->{\n    _id,\n    name,\n    position,\n    email,\n    phone,\n    bio,\n    \"image\": image \n  {\n    \n  \"id\": asset._ref,\n  \"preview\": asset->metadata.lqip,\n  hotspot {\n    x,\n    y\n  },\n  crop {\n    bottom,\n    left,\n    right,\n    top\n  },\n  alt\n\n  }\n\n  }\n,\n    publishedAt\n  }\n": QueryPropertyBySlugDataResult;
+    "\n  *[_type == \"property\" && slug.current == $slug][0]{\n    _id,\n    _type,\n    title,\n    \"slug\": slug.current,\n    description,\n    \n  richText[]{\n    ...,\n    _type == \"block\" => {\n      ...,\n      markDefs[]{\n        ...,\n        _type == \"customLink\" => {\n          ...,\n          customLink{\n            openInNewTab,\n            \"href\": select(\n              type == \"internal\" => internal->slug.current,\n              type == \"external\" => external,\n              \"#\"\n            )\n          }\n        }\n      }\n    },\n    _type == \"image\" => {\n      \n  \"id\": asset._ref,\n  \"preview\": asset->metadata.lqip,\n  hotspot {\n    x,\n    y\n  },\n  crop {\n    bottom,\n    left,\n    right,\n    top\n  },\n  alt\n,\n      caption\n    }\n  }\n,\n    budgetMin,\n    budgetMax,\n    carpetAreaMin,\n    carpetAreaMax,\n    status,\n    location {\n      address,\n      city,\n      state,\n      country\n    },\n    features {\n      bedrooms,\n      bathrooms\n    },\n    \"amenities\": amenities[]->{\n      _id,\n      name,\n      \"slug\": slug.current,\n      iconName,\n      category\n    },\n    highlights[]{\n      title,\n      description,\n      iconName\n    },\n    \"thumbnailImage\": thumbnailImage \n  {\n    \n  \"id\": asset._ref,\n  \"preview\": asset->metadata.lqip,\n  hotspot {\n    x,\n    y\n  },\n  crop {\n    bottom,\n    left,\n    right,\n    top\n  },\n  alt\n\n  }\n,\n    \"images\": images[] \n  {\n    \n  \"id\": asset._ref,\n  \"preview\": asset->metadata.lqip,\n  hotspot {\n    x,\n    y\n  },\n  crop {\n    bottom,\n    left,\n    right,\n    top\n  },\n  alt\n\n  }\n,\n    propertyType->{\n      _id,\n      name,\n      \"slug\": slug.current\n    },\n    purpose->{\n      _id,\n      name,\n      \"slug\": slug.current\n    },\n    // brochures and mapLink\n    \"brochures\": brochures[]{\n      title,\n      url\n    },\n    \"videos\": videos[]{\n      title,\n      url\n    },\n    mapLink,\n    publishedAt\n  }\n": QueryPropertyBySlugDataResult;
     "\n  *[_type == \"property\" && defined(slug.current)].slug.current\n": QueryPropertySlugsResult;
     "\n  *[\n    _type == \"property\" \n    && status == \"available\"\n    && (!defined($propertyTypeId) || propertyType._ref == $propertyTypeId)\n    && (!defined($purposeId) || purpose._ref == $purposeId)\n    && (!defined($budgetMin) || budgetMax >= $budgetMin || budgetMin >= $budgetMin)\n    && (!defined($budgetMax) || budgetMin <= $budgetMax || budgetMax <= $budgetMax)\n    && (!defined($carpetAreaMin) || carpetAreaMax >= $carpetAreaMin || carpetAreaMin >= $carpetAreaMin)\n    && (!defined($carpetAreaMax) || carpetAreaMin <= $carpetAreaMax || carpetAreaMax <= $carpetAreaMax)\n    && (!defined($amenityIds) || count((amenities[]._ref)[@ in $amenityIds]) > 0)\n  ] | order(orderRank asc) {\n    \n  _id,\n  _type,\n  title,\n  \"slug\": slug.current,\n  description,\n  budgetMin,\n  budgetMax,\n  carpetAreaMin,\n  carpetAreaMax,\n  status,\n  location {\n    address,\n    city,\n    state,\n    country\n  },\n  features {\n    bedrooms,\n    bathrooms\n  },\n  \"mainImage\": images[0] \n  {\n    \n  \"id\": asset._ref,\n  \"preview\": asset->metadata.lqip,\n  hotspot {\n    x,\n    y\n  },\n  crop {\n    bottom,\n    left,\n    right,\n    top\n  },\n  alt\n\n  }\n,\n  propertyType->{\n    _id,\n    name,\n    \"slug\": slug.current\n  },\n  purpose->{\n    _id,\n    name,\n    \"slug\": slug.current\n  },\n  publishedAt,\n  orderRank\n\n  }\n": QueryFilteredPropertiesResult;
     "\n  *[_type == \"amenity\"] | order(orderRank asc) {\n    _id,\n    name,\n    \"slug\": slug.current,\n    iconName,\n    category\n  }\n": QueryAllAmenitiesResult;

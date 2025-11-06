@@ -128,7 +128,6 @@ export const structure = (
         icon: HomeIcon,
       }),
       createList({ S, type: "purpose", title: "Purposes", icon: Tag }),
-      createList({ S, type: "agent", title: "Agents", icon: UserCircle }),
       S.divider(),
       S.listItem()
         .title("Property Filters")

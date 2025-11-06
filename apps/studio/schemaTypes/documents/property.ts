@@ -399,15 +399,6 @@ export const property = defineType({
       validation: (Rule) => Rule.uri({ allowRelative: false }),
     }),
     defineField({
-      name: "agent",
-      type: "reference",
-      title: "Agent",
-      description: "The real estate agent managing this property",
-      group: GROUP.MAIN_CONTENT,
-      to: [{ type: "agent" }],
-      validation: (Rule) => Rule.required().error("Agent is required"),
-    }),
-    defineField({
       name: "publishedAt",
       type: "datetime",
       title: "Published At",

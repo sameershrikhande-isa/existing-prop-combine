@@ -1,4 +1,3 @@
-import { agent } from "./agent";
 import { amenity } from "./amenity";
 import { faq } from "./faq";
 import { filterDimension } from "./filter-dimension";
@@ -15,7 +14,6 @@ import { settings } from "./settings";
 export const singletons = [settings, footer, navbar];
 
 export const documents = [
-  agent,
   amenity,
   faq,
   filterDimension,
