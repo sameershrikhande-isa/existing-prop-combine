@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion";
 
-import { Button } from "@/components/ui/button";
-
 const galleryImages = [
   [
     "/images/temp/prop1.jpeg",
@@ -67,36 +65,23 @@ const Hero234 = () => {
       {/* Right side masks */}
       <div className="from-background absolute right-0 top-0 z-10 h-full w-[160px] bg-gradient-to-l to-transparent md:w-[200px]" />
 
-      <div className="relative z-20 flex items-center justify-center">
-      {/* <div className="relative z-20 flex min-h-screen items-center justify-center"> */}
+      <div className="relative z-20 flex h-full items-center justify-center">
         <motion.div
-          className="rounded-lg bg-black/60 p-8 backdrop-blur-md md:p-12"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
+          className="rounded-lg bg-black/60 p-6 backdrop-blur-md md:p-8 lg:p-10"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
           <motion.h1
-            className="text-3xl leading-tight text-white md:text-xl lg:text-xl  text-center"
-            initial={{ opacity: 0, y: 30 }}
+            className="text-2xl leading-tight text-white md:text-2xl lg:text-3xl text-center"
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
             Explore <br />
             this Property's <br />
             Gallery
-          
           </motion.h1>
-
-          <motion.div
-            className="mt-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1 }}
-          >
-            <Button size="lg" variant="secondary">
-              View Projects
-            </Button>
-          </motion.div>
         </motion.div>
       </div>
     </section>

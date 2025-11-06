@@ -134,25 +134,27 @@ export default async function PropertyDetailPage({
                 </div>
 
         {/* Image Gallery - Main Image + Hero234 Carousel */}
-                <div className="grid grid-cols-12 mt-8 gap-8">
+                <div className="grid grid-cols-12 mt-8 gap-8 items-stretch">
               {/* Main Hero Image - Left side on desktop, full width on mobile */}
               <div className="lg:col-span-8 col-span-12">
                  {images && images[0] && (
-                          <div>
+                          <div className="aspect-[3/2] w-full overflow-hidden rounded-2xl">
                                 <Image
                   src={urlFor(images[0]).width(800).height(600).url()}
                   alt={images[0].alt || title}
                   width={800}
                   height={600}
-                  className="rounded-2xl w-full h-540 object-cover"
+                  className="w-full h-full object-cover"
                                     unoptimized={true}
                                 />
                             </div>
                         )}
                     </div>
                     {/* Hero234 Carousel - Right side on desktop, full width on mobile */}
-                    <div className="lg:col-span-4 col-span-12 lg:h-540 h-auto">
-                      <Hero234 />
+                    <div className="lg:col-span-4 col-span-12">
+                      <div className="h-full">
+                        <Hero234 />
+                      </div>
                     </div>
                   </div>
                 <div className="grid grid-cols-12 gap-8 mt-10">
@@ -404,42 +406,6 @@ export default async function PropertyDetailPage({
                             </div>
                         </div>
             )}
-
-            {/* Testimonial - Keep static for now */}
-                        {testimonials.slice(0, 1).map((item, index) => (
-              <div
-                key={index}
-                className="border p-10 rounded-2xl border-dark/10 dark:border-white/20 mt-10 flex flex-col gap-6"
-              >
-                <Icon
-                  icon="ph:house-simple"
-                  width={44}
-                  height={44}
-                  className="text-primary"
-                />
-                <p className="text-xm text-dark dark:text-white">
-                  {item.review}
-                </p>
-                                <div className="flex items-center gap-6">
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    width={80}
-                    height={80}
-                    className="w-20 h-20 rounded-2xl"
-                    unoptimized={true}
-                  />
-                  <div>
-                    <h3 className="text-xm text-dark dark:text-white">
-                      {item.name}
-                    </h3>
-                    <h4 className="text-base text-dark/50 dark:text-white/50">
-                      {item.position}
-                    </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
                     </div>
                 </div>
             </div>
