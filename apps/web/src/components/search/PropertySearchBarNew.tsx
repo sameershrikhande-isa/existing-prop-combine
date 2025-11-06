@@ -271,7 +271,7 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
 
   return (
     <div
-      className={`relative z-0 w-full rounded-2xl bg-white/90 dark:bg-black/80 backdrop-blur border border-black/20 dark:border-white/20 shadow-[inset_0_1.5px_0_rgba(255,255,255,0.9)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] ${className ?? ""}`}
+      className={`relative z-0 w-full rounded-2xl bg-white/90 dark:bg-black/80 backdrop-blur border border-black/20 dark:border-white/20 shadow-[inset_0_1.5px_0_rgba(255,255,255,0.9)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] ${className ?? ""} `}
     >
       <span
         aria-hidden
@@ -279,11 +279,13 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
         [background:linear-gradient(135deg,rgba(255,255,255,0.7),rgba(255,255,255,0)_35%),linear-gradient(315deg,rgba(255,255,255,0.55),rgba(255,255,255,0)_35%)]
         dark:[background:linear-gradient(135deg,rgba(255,255,255,0.14),rgba(255,255,255,0)_35%),linear-gradient(315deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_35%)]
         [mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] mask-exclude
-        [-webkit-mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] [-webkit-mask-composite:xor]"
+        [-webkit-mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] [-webkit-mask-composite:xor]  "
       />
 
-      <div className="px-4 sm:px-6 pt-4">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
+      <div className="px-4 sm:px-6 pt-4 ">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 
+        col-span-1 overflow-hidden rounded-b rounded-t-2xl bg-gray-50 p- shadow-2xl shadow-black/10 ring-1 ring-black/5 dark:bg-gray-900 dark:ring-white/5 lg:col-span-2 lg:rounded-l-2xl lg:rounded-r
+        ">
           {/* Property Type Selection */}
           <div className="flex items-center gap-2">
             <span className="text-[11px] font-medium text-black/60 dark:text-white/60 uppercase tracking-wide">
@@ -365,7 +367,7 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
           </div>
 
           <div className="px-4 sm:px-6 pb-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
               {/* Budget Range */}
               {budgetRanges.length > 0 && (
                 <div className="flex flex-col gap-2">
@@ -395,18 +397,89 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
                   />
                 </div>
               )}
+
+              {/* Amenities inline on md+ */}
+              <div className="hidden md:flex flex-col gap-2">
+                <span className="text-xs font-medium text-black/70 dark:text-white/70">Amenities</span>
+                <Popover open={isAmenitiesOpen} onOpenChange={setIsAmenitiesOpen}>
+                  <PopoverTrigger asChild>
+                    <button
+                      type="button"
+                      aria-expanded={isAmenitiesOpen}
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-black/10 dark:border-white/10 px-4 py-2 bg-white dark:bg-black text-sm"
+                    >
+                      <span className="text-black/70 dark:text-white/70">Amenities</span>
+                      {selectedAmenityIds.length > 0 && (
+                        <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/90 text-white text-xs px-1">
+                          {selectedAmenityIds.length}
+                        </span>
+                      )}
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent 
+                    align="start" 
+                    className={cn(
+                      "z-[1000] w-[280px] p-0 !bg-white dark:!bg-black shadow-xl border border-black/10 dark:border-white/10"
+                    )}
+                  >
+                    <Command>
+                      <CommandList className="max-h-64 overflow-auto">
+                        <CommandGroup>
+                          {filterData.amenities.map((amenity) => {
+                            const checked = selectedAmenityIds.includes(amenity._id);
+                            const AmenityIcon = resolveTabler(amenity.iconName || "IconCircle");
+                            return (
+                              <CommandItem
+                                key={amenity._id}
+                                value={amenity.name}
+                                onSelect={() => handleToggleAmenity(amenity._id)}
+                                className="flex items-center justify-between gap-3 px-3 py-2"
+                              >
+                                <span className="flex items-center gap-2 text-sm">
+                                  <AmenityIcon size={16} className="text-black/70 dark:text-white/70" aria-hidden />
+                                  <span className="text-black dark:text-white">{amenity.name}</span>
+                                </span>
+                                <Checkbox
+                                  checked={checked}
+                                  className="pointer-events-none data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=checked]:text-white"
+                                />
+                              </CommandItem>
+                            );
+                          })}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                    <div className="flex items-center justify-between p-3 border-t border-black/10 dark:border-white/10">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setSelectedAmenityIds([])}
+                      >
+                        Clear
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={() => setIsAmenitiesOpen(false)}
+                        className="bg-primary text-white hover:bg-primary/90 dark:bg-primary dark:text-white"
+                      >
+                        Done
+                      </Button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
             </div>
           </div>
         </>
       )}
 
-      {/* Amenities Section - Popover + Command (search + multi-select) */}
+      {/* Amenities Section - mobile only */}
       {filterData.amenities.length > 0 && (
         <>
-          <div className="px-4 sm:px-6">
+          <div className="px-4 sm:px-6 md:hidden">
             <Separator className="my-3 md:my-4 bg-black/10 dark:bg-white/10" />
           </div>
-          <div className="px-4 sm:px-6 pb-4">
+          <div className="px-4 sm:px-6 pb-4 md:hidden">
             <Popover open={isAmenitiesOpen} onOpenChange={setIsAmenitiesOpen}>
               <PopoverTrigger asChild>
                 <button
