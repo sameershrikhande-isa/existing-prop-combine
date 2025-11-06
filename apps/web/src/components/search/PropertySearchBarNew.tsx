@@ -383,7 +383,10 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
                     value={selectedBudgetRangeId}
                     onChange={setSelectedBudgetRangeId}
                     placeholder="Any budget"
-                    options={budgetRanges.map((r) => ({ value: r._id, label: r.label }))}
+                    options={[
+                      { value: "", label: "Any budget" },
+                      ...budgetRanges.map((r) => ({ value: r._id, label: r.label }))
+                    ]}
                   />
                 </div>
               )}
@@ -398,7 +401,10 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
                     value={selectedCarpetAreaRangeId}
                     onChange={setSelectedCarpetAreaRangeId}
                     placeholder="Any size"
-                    options={carpetAreaRanges.map((r) => ({ value: r._id, label: r.label }))}
+                    options={[
+                      { value: "", label: "Any size" },
+                      ...carpetAreaRanges.map((r) => ({ value: r._id, label: r.label }))
+                    ]}
                   />
                 </div>
               )}
