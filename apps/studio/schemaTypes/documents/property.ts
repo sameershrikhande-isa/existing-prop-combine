@@ -4,6 +4,7 @@ import {
 } from "@sanity/orderable-document-list";
 import { Building2Icon } from "lucide-react";
 import { defineArrayMember, defineField, defineType } from "sanity";
+import React from "react";
 
 import { GROUP, GROUPS } from "../../utils/constant";
 import { documentSlugField } from "../common";
@@ -171,6 +172,70 @@ export const property = defineType({
       of: [
         defineArrayMember({
           type: "string",
+        }),
+      ],
+    }),
+    defineField({
+      name: "highlights",
+      type: "array",
+      title: "Top features",
+      description: "Up to 3 key features with an icon, title, and description",
+      group: GROUP.MAIN_CONTENT,
+      validation: (Rule) => Rule.max(3).warning("Limit to 3 for now"),
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              type: "string",
+              title: "Title",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "description",
+              type: "text",
+              title: "Description",
+              rows: 2,
+            }),
+            defineField({
+              name: "iconName",
+              type: "string",
+              title: "Tabler icon name",
+              description:
+                "e.g., IconSmartHome, IconBolt, IconDeviceMobile",
+              validation: (Rule) => Rule.required(),
+              components: {
+                field: (props) =>
+                  React.createElement(
+                    "div",
+                    null,
+                    props.renderDefault(props),
+                    React.createElement(
+                      "div",
+                      { style: { marginTop: 6 } },
+                      React.createElement(
+                        "a",
+                        {
+                          href: "https://tabler.io/icons",
+                          target: "_blank",
+                          rel: "noopener noreferrer",
+                          style: {
+                            color: "var(--card-link-color, #0ea5e9)",
+                            textDecoration: "underline",
+                            fontSize: 12,
+                          },
+                        },
+                        "Choose an Icon from here · https://tabler.io/icons \u2197"
+                      )
+                    )
+                  ),
+              },
+            }),
+          ],
+          preview: {
+            select: { title: "title", subtitle: "iconName" },
+          },
         }),
       ],
     }),

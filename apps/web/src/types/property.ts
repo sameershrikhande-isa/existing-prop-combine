@@ -70,10 +70,17 @@ export type PropertyDetailData = Omit<PropertyCardData, "mainImage"> & {
   brochures?: PropertyBrochure[];
   videoLink?: string;
   mapLink?: string;
+  highlights?: PropertyHighlight[];
 };
 
 export type PropertyBrochure = {
   title?: string;
   url: string;
+};
+
+export type PropertyHighlight = {
+  title: string;
+  description?: string;
+  iconName: string;
 };
 

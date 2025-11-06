@@ -129,6 +129,11 @@ export const queryPropertyBySlugData = defineQuery(`
       areaSqM
     },
     amenities,
+    highlights[]{
+      title,
+      description,
+      iconName
+    },
     "thumbnailImage": thumbnailImage ${imageFragment},
     "images": images[] ${imageFragment},
     propertyType->{

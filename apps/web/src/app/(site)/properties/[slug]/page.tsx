@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import * as Tabler from "@tabler/icons-react";
 import { IconExternalLink, IconFileText, IconPlayerPlay, IconMapPin, IconPhoneCall } from "@tabler/icons-react";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -20,6 +21,12 @@ export const revalidate = 3600;
 
 // Allow dynamic params for paths not generated at build time
 export const dynamicParams = true;
+
+type IconComponent = React.ComponentType<{ size?: number; className?: string }>;
+const resolveTabler = (name: string): IconComponent => {
+  const map = Tabler as unknown as Record<string, IconComponent>;
+  return map[name] ?? map["IconCircle"];
+};
 
 // Generate static params for all properties
 export async function generateStaticParams() {
@@ -77,6 +84,7 @@ export default async function PropertyDetailPage({
     images,
     thumbnailImage,
     richText,
+    highlights,
     amenities,
     price,
     agent,
@@ -165,92 +173,28 @@ export default async function PropertyDetailPage({
                 <div className="grid grid-cols-12 gap-8 mt-10">
                     <div className="lg:col-span-8 col-span-12">
             <h3 className="text-xl font-medium">Property details</h3>
-                        <div className="py-8 my-8 border-y border-dark/10 dark:border-white/20 flex flex-col gap-8">
-                            <div className="flex items-center gap-6">
-                                <div>
-                  <Image
-                    src="/images/SVGs/property-details.svg"
-                    width={32}
-                    height={32}
-                    alt=""
-                    className="w-8 h-8 dark:hidden"
-                    unoptimized={true}
-                  />
-                  <Image
-                    src="/images/SVGs/property-details-white.svg"
-                    width={32}
-                    height={32}
-                    alt=""
-                    className="w-8 h-8 dark:block hidden"
-                    unoptimized={true}
-                  />
+            <hr className="border-dark/10 dark:border-white/20 my-8"/>
+
+                        {highlights && highlights.length > 0 && (
+                          <div className="py-8 my-8 border-y border-dark/10 dark:border-white/20 flex flex-col gap-8">
+                            {highlights.slice(0, 3).map(({ title: ht, description, iconName }, i) => {
+                              const IconCmp = resolveTabler(iconName);
+                              return (
+                                <div key={`${iconName}-${i}`} className="flex items-center gap-6">
+                                  <div>
+                                    <IconCmp size={32} className="text-dark dark:text-white" aria-hidden />
+                                  </div>
+                                  <div>
+                                    <h3 className="text-dark dark:text-white text-xm">{ht}</h3>
+                                    {description && (
+                                      <p className="text-base text-dark/50 dark:text-white/50">{description}</p>
+                                    )}
+                                  </div>
                                 </div>
-                                <div>
-                  <h3 className="text-dark dark:text-white text-xm">
-                    Property details
-                  </h3>
-                  <p className="text-base text-dark/50 dark:text-white/50">
-                                        One of the few homes in the area with a private pool.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-6">
-                                <div>
-                  <Image
-                    src="/images/SVGs/smart-home-access.svg"
-                    width={32}
-                    height={32}
-                    alt=""
-                    className="w-8 h-8 dark:hidden"
-                    unoptimized={true}
-                  />
-                  <Image
-                    src="/images/SVGs/smart-home-access-white.svg"
-                    width={32}
-                    height={32}
-                    alt=""
-                    className="w-8 h-8 dark:block hidden"
-                    unoptimized={true}
-                  />
-                                </div>
-                                <div>
-                  <h3 className="text-dark dark:text-white text-xm">
-                    Smart home access
-                  </h3>
-                  <p className="text-base text-dark/50 dark:text-white/50">
-                                        Easily check yourself in with a modern keypad system.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-6">
-                                <div>
-                  <Image
-                    src="/images/SVGs/energyefficient.svg"
-                    width={32}
-                    height={32}
-                    alt=""
-                    className="w-8 h-8 dark:hidden"
-                    unoptimized={true}
-                  />
-                  <Image
-                    src="/images/SVGs/energyefficient-white.svg"
-                    width={32}
-                    height={32}
-                    alt=""
-                    className="w-8 h-8 dark:block hidden"
-                    unoptimized={true}
-                  />
-                                </div>
-                                <div>
-                  <h3 className="text-dark dark:text-white text-xm">
-                    Energy efficient
-                  </h3>
-                  <p className="text-base text-dark/50 dark:text-white/50">
-                                        Built in 2025 with sustainable and smart-home features.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                              );
+                            })}
+                          </div>
+                        )}
 
             {/* Rich Text Description */}
             <RichText richText={richText} />
