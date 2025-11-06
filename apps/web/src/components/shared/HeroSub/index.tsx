@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Icon } from "@iconify/react/dist/iconify.js"
-import PropertySearchBar from '@/components/search/PropertySearchBar'
+import { PropertySearchBar } from '@/components/search/PropertySearchBarNew'
 
 interface HeroSubProps {
     title: string;
@@ -14,7 +14,7 @@ const HeroSub: FC<HeroSubProps> = ({ title, description, badge, showSearch = fal
 
     return (
         <>
-            <section className="text-center bg-cover !pt-40 pb-20 relative overflow-x-hidden" >
+            <section className="text-center bg-cover pt-40! pb-20 relative overflow-x-hidden" >
                 <div className='flex gap-2.5 items-center justify-center'>
                     <span>
                         <Icon
