@@ -110,7 +110,7 @@ export default async function PropertyDetailPage({
   const heroImage = thumbnailImage || images?.[0];
 
     return (
-    <section className="pt-44! pb-20 relative">
+    <section className="pt-24 md:pt-32 pb-20 relative">
             <div className="container mx-auto max-w-8xl px-5 2xl:px-0">
 
               

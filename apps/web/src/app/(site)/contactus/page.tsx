@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function ContactUs() {
   return (
-    <div className='container max-w-8xl mx-auto px-5 2xl:px-0 pt-32 md:pt-44 pb-14 md:pb-28'>
+    <div className='container max-w-8xl mx-auto px-5 2xl:px-0 pt-16 md:pt-24 pb-14 md:pb-28'>
       <div className='mb-16'>
         <div className='flex gap-2.5 items-center justify-center mb-3'>
           <span>
