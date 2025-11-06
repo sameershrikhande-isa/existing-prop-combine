@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import { IconExternalLink, IconFileText, IconPlayerPlay, IconMapPin, IconPhoneCall } from "@tabler/icons-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -298,10 +299,12 @@ export default async function PropertyDetailPage({
                             </h4>
               <Link
                 href="#"
-                className="py-4 px-8 bg-primary text-white rounded-full w-full block text-center hover:bg-dark duration-300 text-base mt-8 hover:cursor-pointer"
+                className="py-4 px-8 bg-primary text-white rounded-full w-full text-center hover:bg-dark duration-300 text-base mt-8 hover:cursor-pointer inline-flex items-center justify-center gap-2"
+                aria-label="Get in touch"
               >
-                                Get in touch
-                            </Link>
+                <IconPhoneCall size={20} aria-hidden />
+                <span>Get in touch</span>
+              </Link>
                             <div className="absolute right-0 top-4 -z-[1]">
                 <Image
                   src="/images/properties/vector.svg"
@@ -322,22 +325,36 @@ export default async function PropertyDetailPage({
                       <button
                         type="button"
                         aria-controls="brochures-popover"
-                        className="py-3 px-4 bg-dark/90 text-white rounded-full w-full text-center hover:bg-dark duration-300"
+                        className="py-3 px-4 bg-dark/90 text-white rounded-full w-full text-center hover:bg-dark duration-300 inline-flex items-center justify-center gap-2"
                       >
-                        View brochures
+                        <IconFileText size={18} aria-hidden />
+                        <span>View brochures</span>
                       </button>
                     </PopoverTrigger>
-                    <PopoverContent id="brochures-popover" className="w-80 max-h-64 overflow-y-auto">
+                    <PopoverContent
+                      id="brochures-popover"
+                      align="start"
+                      side="bottom"
+                      sideOffset={8}
+                      className="w-80 max-h-64 overflow-y-auto p-3 rounded-xl border border-black/10 dark:border-white/10 bg-white dark:bg-neutral-900 shadow-lg"
+                    >
                       <ul className="space-y-2">
                         {brochures.map((b, i) => (
-                          <li key={`${b.url}-${i}`} className="text-sm">
+                          <li key={`${b.url}-${i}`}>
                             <Link
                               href={b.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-primary underline hover:text-primary/80"
+                              className="flex items-center justify-between gap-3 p-2.5 rounded-lg border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 hover:border-primary/40 dark:hover:border-primary/40 transition-colors text-sm text-black dark:text-white group"
                             >
-                              {b.title?.trim() ? b.title : `Link ${i + 1}`}
+                              <span className="flex-1 truncate">
+                                {b.title?.trim() ? b.title : `Link ${i + 1}`}
+                              </span>
+                              <IconExternalLink
+                                size={16}
+                                className="flex-shrink-0 text-black/60 dark:text-white/60 group-hover:text-primary transition-colors"
+                                aria-hidden
+                              />
                             </Link>
                           </li>
                         ))}
@@ -351,9 +368,10 @@ export default async function PropertyDetailPage({
                     href={videoLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-3 px-4 bg-white text-dark rounded-full w-full text-center border hover:bg-primary/10 duration-300"
+                    className="py-3 px-4 bg-white text-dark rounded-full w-full text-center border hover:bg-primary/10 duration-300 inline-flex items-center justify-center gap-2"
                   >
-                    Watch video
+                    <IconPlayerPlay size={18} aria-hidden />
+                    <span>Watch video</span>
                   </Link>
                 )}
 
@@ -362,9 +380,10 @@ export default async function PropertyDetailPage({
                     href={mapLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="py-3 px-4 bg-white text-dark rounded-full w-full text-center border hover:bg-primary/10 duration-300"
+                    className="py-3 px-4 bg-white text-dark rounded-full w-full text-center border hover:bg-primary/10 duration-300 inline-flex items-center justify-center gap-2"
                   >
-                    View location
+                    <IconMapPin size={18} aria-hidden />
+                    <span>View on Map</span>
                   </Link>
                 )}
               </div>
