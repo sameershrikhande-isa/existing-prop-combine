@@ -11,15 +11,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
 import * as Tabler from "@tabler/icons-react";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
+import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 import type { PropertyAmenity, PropertyPurpose, PropertyType } from "@/types/property";
 import type { FilterDimension, FilterRange } from "@/types/filters";
 
@@ -43,6 +39,7 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
   const [selectedPropertyTypeId, setSelectedPropertyTypeId] = useState<string>("");
   const [selectedPurposeId, setSelectedPurposeId] = useState<string>("");
   const [selectedAmenityIds, setSelectedAmenityIds] = useState<string[]>([]);
+  const [isAmenitiesOpen, setIsAmenitiesOpen] = useState(false);
 
   // Filter ranges state
   const [budgetRanges, setBudgetRanges] = useState<FilterRange[]>([]);
@@ -212,6 +209,66 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
     return map[name] ?? map["IconCircle"];
   };
 
+  type Option = { value: string; label: string };
+  const SingleSelect = ({
+    value,
+    onChange,
+    placeholder,
+    options,
+    className,
+  }: {
+    value: string;
+    onChange: (v: string) => void;
+    placeholder: string;
+    options: Option[];
+    className?: string;
+  }) => {
+    const [open, setOpen] = useState(false);
+    const selected = options.find((o) => o.value === value)?.label ?? "";
+    return (
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger asChild>
+          <Button
+            type="button"
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className={cn("justify-between w-full", className)}
+          >
+            {selected || placeholder}
+            <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent 
+          align="start"
+          className={cn(
+            "z-[1000] w-[var(--radix-popover-trigger-width)] p-0 !bg-white dark:!bg-black shadow-xl border border-black/10 dark:border-white/10"
+          )}
+        >
+          <Command>
+            <CommandList className="max-h-60 overflow-auto">
+              <CommandGroup>
+                {options.map((opt) => (
+                  <CommandItem
+                    key={opt.value}
+                    value={opt.value}
+                    onSelect={(current) => {
+                      onChange(current === value ? "" : current);
+                      setOpen(false);
+                    }}
+                  >
+                    <Check className={cn("mr-2 size-4", value === opt.value ? "opacity-100" : "opacity-0")} />
+                    {opt.label}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+    );
+  };
+
   return (
     <div
       className={`relative z-0 w-full rounded-2xl bg-white/90 dark:bg-black/80 backdrop-blur border border-black/20 dark:border-white/20 shadow-[inset_0_1.5px_0_rgba(255,255,255,0.9)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] ${className ?? ""}`}
@@ -315,19 +372,12 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
                   <label className="text-xs font-medium text-black/70 dark:text-white/70">
                     Budget (Optional)
                   </label>
-                  <select
-                    className="w-full rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
+                  <SingleSelect
                     value={selectedBudgetRangeId}
-                    onChange={(e) => setSelectedBudgetRangeId(e.target.value)}
-                    disabled={loadingRanges}
-                  >
-                    <option value="">Any budget</option>
-                    {budgetRanges.map((range) => (
-                      <option key={range._id} value={range._id}>
-                        {range.label}
-                      </option>
-                    ))}
-                  </select>
+                    onChange={setSelectedBudgetRangeId}
+                    placeholder="Any budget"
+                    options={budgetRanges.map((r) => ({ value: r._id, label: r.label }))}
+                  />
                 </div>
               )}
 
@@ -337,19 +387,12 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
                   <label className="text-xs font-medium text-black/70 dark:text-white/70">
                     Carpet Area (Optional)
                   </label>
-                  <select
-                    className="w-full rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary"
+                  <SingleSelect
                     value={selectedCarpetAreaRangeId}
-                    onChange={(e) => setSelectedCarpetAreaRangeId(e.target.value)}
-                    disabled={loadingRanges}
-                  >
-                    <option value="">Any size</option>
-                    {carpetAreaRanges.map((range) => (
-                      <option key={range._id} value={range._id}>
-                        {range.label}
-                      </option>
-                    ))}
-                  </select>
+                    onChange={setSelectedCarpetAreaRangeId}
+                    placeholder="Any size"
+                    options={carpetAreaRanges.map((r) => ({ value: r._id, label: r.label }))}
+                  />
                 </div>
               )}
             </div>
@@ -364,10 +407,11 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
             <Separator className="my-3 md:my-4 bg-black/10 dark:bg-white/10" />
           </div>
           <div className="px-4 sm:px-6 pb-4">
-            <Popover>
+            <Popover open={isAmenitiesOpen} onOpenChange={setIsAmenitiesOpen}>
               <PopoverTrigger asChild>
                 <button
                   type="button"
+                  aria-expanded={isAmenitiesOpen}
                   className="inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 px-4 py-2 bg-white dark:bg-black text-sm"
                 >
                   <span className="text-black/70 dark:text-white/70">Amenities</span>
@@ -378,11 +422,14 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
                   )}
                 </button>
               </PopoverTrigger>
-              <PopoverContent align="start" className="z-[1000] w-[520px] p-0 bg-white dark:bg-black shadow-xl border border-black/10 dark:border-white/10">
+              <PopoverContent 
+                align="start" 
+                className={cn(
+                  "z-[1000] w-[280px] p-0 !bg-white dark:!bg-black shadow-xl border border-black/10 dark:border-white/10"
+                )}
+              >
                 <Command>
-                  <CommandInput placeholder="Search amenities..." />
-                  <CommandList>
-                    <CommandEmpty>No amenities found.</CommandEmpty>
+                  <CommandList className="max-h-64 overflow-auto">
                     <CommandGroup>
                       {filterData.amenities.map((amenity) => {
                         const checked = selectedAmenityIds.includes(amenity._id);
@@ -392,19 +439,15 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
                             key={amenity._id}
                             value={amenity.name}
                             onSelect={() => handleToggleAmenity(amenity._id)}
-                            className="flex items-center justify-between gap-3"
+                            className="flex items-center justify-between gap-3 px-3 py-2"
                           >
                             <span className="flex items-center gap-2 text-sm">
-                              <AmenityIcon size={18} className="text-black/70 dark:text-white/70" aria-hidden />
-                              <span>{amenity.name}</span>
+                              <AmenityIcon size={16} className="text-black/70 dark:text-white/70" aria-hidden />
+                              <span className="text-black dark:text-white">{amenity.name}</span>
                             </span>
-                            <span
-                              aria-hidden
-                              className={`size-4 rounded-[4px] border ${
-                                checked
-                                  ? "bg-primary border-primary"
-                                  : "border-black/20 dark:border-white/20"
-                              }`}
+                            <Checkbox
+                              checked={checked}
+                              className="pointer-events-none data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=checked]:text-white"
                             />
                           </CommandItem>
                         );
@@ -420,7 +463,13 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
                   >
                     Clear
                   </Button>
-                  <Button size="sm" onClick={handleSearch}>Done</Button>
+                  <Button
+                    size="sm"
+                    onClick={() => setIsAmenitiesOpen(false)}
+                    className="bg-primary text-white hover:bg-primary/90 dark:bg-primary dark:text-white"
+                  >
+                    Done
+                  </Button>
                 </div>
               </PopoverContent>
             </Popover>
