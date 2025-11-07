@@ -2,17 +2,14 @@
 import { navLinks } from '@/app/api/navlink'
 import { Icon } from '@iconify/react'
 import Link from 'next/link'
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import NavLink from './Navigation/NavLink'
 import { useTheme } from 'next-themes'
-import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 
 const Header: React.FC = () => {
-  const [sticky, setSticky] = useState(false)
   const [navbarOpen, setNavbarOpen] = useState(false)
   const { theme, setTheme } = useTheme()
-  const pathname = usePathname()
 
   const sideMenuRef = useRef<HTMLDivElement>(null)
 
@@ -22,25 +19,17 @@ const Header: React.FC = () => {
     }
   }
 
-  const handleScroll = useCallback(() => {
-    setSticky(window.scrollY >= 50)
-  }, [])
-
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
     document.addEventListener('mousedown', handleClickOutside)
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [handleScroll])
-
-  const isHomepage = pathname === '/'
+  }, [])
 
   return (
-    <header className={`fixed h-24 py-1 z-50 w-full bg-transparent transition-all duration-300 lg:px-0 px-4 ${sticky ? "top-3" : "top-0"}`}>
-      <nav className={`container mx-auto max-w-8xl flex items-center justify-between py-4 duration-300 ${sticky ? "shadow-lg bg-white dark:bg-dark rounded-full top-5 px-4 " : "shadow-none top-0"}`}>
+    <header className="fixed z-50 w-full bg-white dark:bg-dark transition-all duration-300 lg:px-0 px-4 top-0">
+      <nav className="container mx-auto max-w-8xl flex items-center justify-between py-4 duration-300 shadow-lg bg-white dark:bg-dark rounded-full px-4">
         <div className='flex justify-between items-center gap-2 w-full'>
           <div>
             <Link href='/'>
@@ -52,7 +41,7 @@ const Header: React.FC = () => {
                 width={150}
                 height={68}
                 unoptimized={true}
-                className={`${isHomepage ? sticky ? "block dark:hidden" : "hidden" : sticky ? "block dark:hidden" : "block dark:hidden"}`}
+                className="block dark:hidden"
               />
               <Image
                 // src={'/images/logo/logo-yash1.png'}
@@ -62,7 +51,7 @@ const Header: React.FC = () => {
                 width={150}
                 height={68}
                 unoptimized={true}
-                className={`${isHomepage ? sticky ? "hidden dark:block" : "block" : sticky ? "dark:block hidden" : "dark:block hidden"}`}
+                className="hidden dark:block"
               />
             </Link>
           </div>
@@ -75,27 +64,19 @@ const Header: React.FC = () => {
                 icon={'solar:sun-bold'}
                 width={32}
                 height={32}
-                className={`dark:hidden block ${isHomepage
-                  ? sticky
-                    ? 'text-dark'
-                    : 'text-white'
-                  : 'text-dark'
-                  }`}
+                className="dark:hidden block text-dark"
               />
               <Icon
                 icon={'solar:moon-bold'}
                 width={32}
                 height={32}
-                className='dark:block hidden text-white'
+                className="dark:block hidden text-white"
               />
             </button>
-            <div className={`hidden md:block`}>
-              <Link href='#' className={`text-base text-inherit flex items-center gap-2 border-r pr-6 ${isHomepage
-                ? sticky
-                  ? 'text-dark dark:text-white hover:text-primary border-dark dark:border-white'
-                  : 'text-white hover:text-primary'
-                : 'text-dark hover:text-primary'
-                }`}
+            <div className="hidden md:block">
+              <Link
+                href="#"
+                className="text-base flex items-center gap-2 border-r pr-6 text-dark dark:text-white hover:text-primary border-dark dark:border-white"
               >
                 <Icon icon={'ph:phone-bold'} width={24} height={24} />
                 91529 52103 / 98690 19116
@@ -104,17 +85,13 @@ const Header: React.FC = () => {
             <div>
               <button
                 onClick={() => setNavbarOpen(!navbarOpen)}
-                className={`flex items-center gap-3 p-2 sm:px-5 sm:py-3 rounded-full font-semibold hover:cursor-pointer border ${isHomepage
-                  ? sticky
-                    ? 'text-white bg-dark dark:bg-white dark:text-dark dark:hover:text-white dark:hover:bg-dark hover:text-dark hover:bg-white border-dark dark:border-white'
-                    : 'text-dark bg-white dark:text-dark hover:bg-transparent hover:text-white border-white'
-                  : 'bg-dark text-white hover:bg-transparent hover:text-dark dark:bg-white dark:text-dark dark:hover:bg-transparent dark:hover:text-white duration-300'
-                  }`}
-                aria-label='Toggle mobile menu'>
+                className="flex items-center gap-3 p-2 sm:px-5 sm:py-3 rounded-full font-semibold hover:cursor-pointer border text-white bg-dark dark:bg-white dark:text-dark dark:hover:text-white dark:hover:bg-dark hover:text-dark hover:bg-white border-dark dark:border-white duration-300"
+                aria-label="Toggle mobile menu"
+              >
                 <span>
                   <Icon icon={'ph:list'} width={24} height={24} />
                 </span>
-                <span className='hidden sm:block'>Menu</span>
+                <span className="hidden sm:block">Menu</span>
               </button>
             </div>
           </div>
