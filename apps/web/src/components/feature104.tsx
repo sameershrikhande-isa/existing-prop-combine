@@ -15,10 +15,10 @@ const Feature104 = () => {
             <p className="text-base font-semibold text-dark/75 dark:text-white/75">Our Services</p>
           </div>
           <h2 className="text-40 lg:text-52 font-medium text-black dark:text-white text-center tracking-tight leading-11 mb-2">
-            You Get More Than Just a Property
+      Value Added Services
           </h2>
           <p className="text-xm font-normal text-black/50 dark:text-white/50 text-center">
-            We don&apos;t just sell properties—we help you build a brighter future.
+            Make your property buying experience seamless & stress-free.
           </p>
         </div>
         <div className="gap mt-14 grid gap-4 lg:grid-cols-3">

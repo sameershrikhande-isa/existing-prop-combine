@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import PropertySearchBar from '@/components/search/PropertySearchBar'
+import { PropertySearchBar } from '@/components/search/PropertySearchBarNew'
 
 const Hero: React.FC = () => {
   return (
@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
               <span>MahaRERA-Registered Real Estate Agent</span>
             </div>
             <h1 className='text-inherit text-4xl sm:text-7xl font-bold md:font-semibold -tracking-wider md:max-w-45p mt-4 mb-6'>
-              Find Your Dream Property in Thane
+              Find Your Dream Home in Thane
             </h1>
             <div className='flex flex-col xs:flex-row justify-center md:justify-start gap-4'>
               <Link href="/contactus" className='px-8 py-4 border border-white dark:border-dark bg-white dark:bg-dark text-dark dark:text-white duration-300 dark:hover:text-dark hover:bg-transparent hover:text-white text-base font-semibold rounded-full hover:cursor-pointer'>

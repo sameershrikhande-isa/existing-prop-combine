@@ -19,15 +19,15 @@ const Feature118 = () => {
                             <Icon icon="ph:house-simple-fill" className="text-2xl text-primary" aria-label="Home icon" />
                             Our Expertise
                         </p>
-                        <h2 className="lg:text-52 text-40 font-medium dark:text-white">
+                        <h2 className="lg:text-52 text-40 font-medium dark:text-white leading-tight">
                             Excellent knowledge of property laws
                         </h2>
-                        <p className='text-dark/50 dark:text-white/50 text-xm'>
+                        <p className='text-dark/50 dark:text-white/50 text-xm mt-2'>
                             Stay ahead in the property market with expert advice and updates
                         </p>
                     </div>
-                    <Link href="/properties" className='bg-primary text-white dark:text-white py-4 px-8 rounded-full hover:bg-primary duration-300 flex items-center gap-2 font-semibold' aria-label="Read all blog articles">
-                        Find your dream property
+                    <Link href="/properties" className='bg-primary text-white dark:text-white py-4 px-8 rounded-full hover:bg-primary duration-300 flex items-center gap-2 font-semibold leading-tight mt-2' aria-label="Read all blog articles">
+                        Chat Now with an Expert
                         <Icon icon="tabler:arrow-right" className="w-5 h-5" />
                     </Link>
                 </div>

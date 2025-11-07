@@ -2,6 +2,7 @@
 // import { Progress } from "@/components/ui/progress";
 // import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { IconChevronsRight, IconHomeSearch, IconKey } from "@tabler/icons-react";
 
 const Timeline13 = () => {
   return (
@@ -26,27 +27,35 @@ const Timeline13 = () => {
             [-webkit-mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] [-webkit-mask-composite:xor]"
           />
           <div className="contents items-center justify-between sm:flex">
-            <h2 className="mt-4 text-2xl font-medium md:text-3xl text-dark dark:text-white tracking-tighter">
-            Discover Your Dream Property Today 
+            <h2 className="mt-4 flex items-center gap-2 text-2xl font-medium md:text-3xl text-dark dark:text-white tracking-tighter">
+              <span>From</span>
+              <IconHomeSearch className="w-5 h-5 md:w-6 md:h-6 text-primary shrink-0" />
+              <span>Discovery to Possession</span>
+              <IconKey className="w-5 h-5 md:w-6 md:h-6 text-primary shrink-0" />
             </h2>
-            <Link href="/properties" className="order-last py-4 px-8 rounded-full text-base leading-4 font-semibold bg-primary text-white hover:bg-dark duration-300">Start Your Journey</Link>
+            <Link href="/properties" className="order-last flex items-center gap-2 py-4 px-8 rounded-full text-base leading-4 font-semibold bg-primary text-white hover:bg-dark duration-300">
+              Chat Now with an Expert
+              <IconChevronsRight className="w-4 h-4" />
+            </Link>
           </div>
           <div className="mt-3 flex gap-4 sm:flex-col">
             <div className="relative">
-              <div className="grid h-full w-4 justify-center gap-10 sm:h-4 sm:w-auto sm:grid-cols-3 sm:items-center">
+              <div className="grid h-full w-4 justify-center gap-10 sm:h-4 sm:w-auto sm:grid-cols-4 sm:items-center">
                 <div className="absolute inset-0 left-1/2 w-px -translate-x-1/2 bg-black/10 dark:bg-white/10 sm:inset-auto sm:left-auto sm:h-px sm:w-full sm:translate-x-0" />
                 <span className="relative top-3 size-2 rounded-full bg-black/10 dark:bg-white/10 sm:top-0" />
                 <span className="relative top-3 size-2 rounded-full bg-black/10 dark:bg-white/10 sm:top-0" />
                 <span className="relative top-3 size-2 rounded-full bg-black/10 dark:bg-white/10 sm:top-0" />
+                <span className="relative top-3 size-2 rounded-full bg-black/10 dark:bg-white/10 sm:top-0" />
               </div>
-              <div className="animate-timeline-reveal absolute inset-0 grid h-full w-4 justify-center gap-10 sm:h-4 sm:w-auto sm:grid-cols-3 sm:items-center">
+              <div className="animate-timeline-reveal absolute inset-0 grid h-full w-4 justify-center gap-10 sm:h-4 sm:w-auto sm:grid-cols-4 sm:items-center">
                 <div className="absolute inset-0 left-1/2 w-px -translate-x-1/2 bg-primary sm:inset-auto sm:left-auto sm:h-px sm:w-full sm:translate-x-0" />
+                <span className="relative top-3 size-2 rounded-full bg-primary sm:top-0" />
                 <span className="relative top-3 size-2 rounded-full bg-primary sm:top-0" />
                 <span className="relative top-3 size-2 rounded-full bg-primary sm:top-0" />
                 <span className="relative top-3 size-2 rounded-full bg-primary sm:top-0" />
               </div>
             </div>
-            <div className="grid gap-10 sm:grid-cols-3">
+            <div className="grid gap-10 sm:grid-cols-4">
               <div className="flex h-full flex-col justify-between gap-4">
                 <div className="flex flex-col">
                   <div className="flex h-8 w-fit items-center gap-px overflow-hidden rounded-md border border-black/10 dark:border-white/10 text-sm font-medium">
@@ -54,26 +63,16 @@ const Timeline13 = () => {
                       01
                     </span>
                     <span className="grid h-full place-items-center px-2 bg-white dark:bg-black">
-                      Explore
+                      Analyze
                     </span>
                   </div>
                   <h3 className="mt-5 font-medium text-dark dark:text-white">
-                    Browse Our Extensive Collection
+                    Understand Your Requirements
                   </h3>
                   <p className="mt-2 text-sm text-black/60 dark:text-white/60">
-                    Browse through hundreds of carefully curated properties. Filter by location, budget, and more... to find your perfect match.
+                    We assess your needs, budget, and preferences to create a personalized property search strategy.
                   </p>
                 </div>
-                {/* Progress bar temporarily commented */}
-                {/* <div>
-                  <div className="flex items-center gap-2">
-                    <Progress value={15} className="h-1 flex-1" />
-                    <span className="w-8 text-right text-xs text-black/60 dark:text-white/60">
-                      15%
-                    </span>
-                  </div>
-                  <p className="mt-1 text-xs text-black/60 dark:text-white/60">~2 weeks</p>
-                </div> */}
               </div>
               <div className="flex h-full flex-col justify-between gap-4">
                 <div className="flex flex-col">
@@ -82,24 +81,16 @@ const Timeline13 = () => {
                       02
                     </span>
                     <span className="grid h-full place-items-center px-2 bg-white dark:bg-black">
-                      Schedule
+                      Match
                     </span>
                   </div>
-                  <h3 className="mt-5 font-medium text-dark dark:text-white">Connect With Our Expert Agents</h3>
+                  <h3 className="mt-5 font-medium text-dark dark:text-white">
+                    Find Your Perfect Property
+                  </h3>
                   <p className="mt-2 text-sm text-black/60 dark:text-white/60">
-                    Get in touch with our experienced real estate professionals. Schedule property viewings and personalized guidance tailored to your needs.
+                    Browse curated listings that match your criteria. Schedule viewings with expert guidance.
                   </p>
                 </div>
-                {/* Progress bar temporarily commented */}
-                {/* <div>
-                  <div className="flex items-center gap-2">
-                    <Progress value={85} className="h-1 flex-1" />
-                    <span className="w-8 text-right text-xs text-black/60 dark:text-white/60">
-                      85%
-                    </span>
-                  </div>
-                  <p className="mt-1 text-xs text-black/60 dark:text-white/60">~6 weeks</p>
-                </div> */}
               </div>
               <div className="flex h-full flex-col justify-between gap-4">
                 <div className="flex flex-col">
@@ -108,26 +99,34 @@ const Timeline13 = () => {
                       03
                     </span>
                     <span className="grid h-full place-items-center px-2 bg-white dark:bg-black">
-                      Close the Deal
+                      Negotiate
                     </span>
                   </div>
-                  <h3 className="mt-5 font-medium text-dark dark:text-white">Close the Deal & Move In</h3>
+                  <h3 className="mt-5 font-medium text-dark dark:text-white">
+                    Secure the Best Deal
+                  </h3>
                   <p className="mt-2 text-sm text-black/60 dark:text-white/60">
-                    Complete the purchase process with our dedicated support team. We handle all paperwork, negotiations, and ensure a smooth closing.
+                    Our experts negotiate on your behalf to get the best price and terms for maximum value.
                   </p>
                 </div>
-                {/* Progress bar temporarily commented */}
-                {/* <div>
-                  <div className="flex items-center gap-2">
-                    <Progress value={100} className="h-1 flex-1" />
-                    <span className="w-8 text-right text-xs text-black/60 dark:text-white/60">
-                      100%
+              </div>
+              <div className="flex h-full flex-col justify-between gap-4">
+                <div className="flex flex-col">
+                  <div className="flex h-8 w-fit items-center gap-px overflow-hidden rounded-md border border-black/10 dark:border-white/10 text-sm font-medium">
+                    <span className="grid h-full place-items-center px-2 bg-white dark:bg-black">
+                      04
+                    </span>
+                    <span className="grid h-full place-items-center px-2 bg-white dark:bg-black">
+                      Possession
                     </span>
                   </div>
-                  <p className="mt-1 text-xs text-black/60 dark:text-white/60">
-                    Launch complete
+                  <h3 className="mt-5 font-medium text-dark dark:text-white">
+                    Support Till You Move In
+                  </h3>
+                  <p className="mt-2 text-sm text-black/60 dark:text-white/60">
+                    We handle all paperwork, legal formalities, and provide ongoing assistance until possession.
                   </p>
-                </div> */}
+                </div>
               </div>
             </div>
           </div>
