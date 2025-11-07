@@ -20,14 +20,15 @@ const Feature118 = () => {
                             Our Expertise
                         </p>
                         <h2 className="lg:text-52 text-40 font-medium dark:text-white">
-                            Why Choose Us?
+                            Excellent knowledge of property laws
                         </h2>
                         <p className='text-dark/50 dark:text-white/50 text-xm'>
                             Stay ahead in the property market with expert advice and updates
                         </p>
                     </div>
-                    <Link href="/blogs" className='bg-dark dark:bg-white text-white dark:text-dark py-4 px-8 rounded-full hover:bg-primary duration-300' aria-label="Read all blog articles">
+                    <Link href="/properties" className='bg-primary text-white dark:text-white py-4 px-8 rounded-full hover:bg-primary duration-300 flex items-center gap-2 font-semibold' aria-label="Read all blog articles">
                         Find your dream property
+                        <Icon icon="tabler:arrow-right" className="w-5 h-5" />
                     </Link>
                 </div>
 
@@ -49,7 +50,7 @@ const Feature118 = () => {
                     <LucideGitGraph className="h-auto w-5 text-dark dark:text-white" />
                   </span>
                   <h3 className="mt-5 text-2xl lg:text-3xl font-medium text-dark dark:text-white">
-                    Excellent knowledge of property laws
+                    A Decade of Expertise in Real Estate Licensing
                   </h3>
                 </div>
                 <p className="text-dark/60 dark:text-white/60">
