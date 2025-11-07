@@ -59,7 +59,12 @@ export type ContactInfo = {
   _updatedAt: string;
   _rev: string;
   contactName: string;
-  phoneNumbers?: Array<string>;
+  phoneNumbers?: Array<{
+    actualNumber: string;
+    displayNumber: string;
+    _type: "phoneNumber";
+    _key: string;
+  }>;
   email: string;
 };
 
@@ -1020,10 +1025,13 @@ export type QueryHomePageContentResult = {
   }> | null;
 } | null;
 // Variable: queryContactInfo
-// Query: *[_type == "contactInfo"][0]{    contactName,    phoneNumbers,    email  }
+// Query: *[_type == "contactInfo"][0]{    contactName,    phoneNumbers[]{      actualNumber,      displayNumber    },    email  }
 export type QueryContactInfoResult = {
   contactName: string;
-  phoneNumbers: Array<string> | null;
+  phoneNumbers: Array<{
+    actualNumber: string;
+    displayNumber: string;
+  }> | null;
   email: string;
 } | null;
 
@@ -1041,6 +1049,6 @@ declare module "@sanity/client" {
     "\n  *[_type == \"purpose\"] | order(orderRank asc) {\n    _id,\n    name,\n    \"slug\": slug.current\n  }\n": QueryAllPurposesResult;
     "\n  *[_type == \"filterDimension\"] | order(orderRank asc) {\n    _id,\n    name,\n    \"slug\": slug.current,\n    unit\n  }\n": QueryAllFilterDimensionsResult;
     "\n  *[_type == \"homePage\"][0]{\n    testimonialsEnabled,\n    testimonials[]{\n      name,\n      review,\n      purpose,\n      \"image\": image \n  {\n    \n  \"id\": asset._ref,\n  \"preview\": asset->metadata.lqip,\n  hotspot {\n    x,\n    y\n  },\n  crop {\n    bottom,\n    left,\n    right,\n    top\n  },\n  alt\n\n  }\n\n    },\n    faqsEnabled,\n    faqsTitle,\n    faqsDescription,\n    \"faqsImages\": faqsImages[] \n  {\n    \n  \"id\": asset._ref,\n  \"preview\": asset->metadata.lqip,\n  hotspot {\n    x,\n    y\n  },\n  crop {\n    bottom,\n    left,\n    right,\n    top\n  },\n  alt\n\n  }\n,\n    faqs[]{\n      question,\n      answer\n    }\n  }\n": QueryHomePageContentResult;
-    "\n  *[_type == \"contactInfo\"][0]{\n    contactName,\n    phoneNumbers,\n    email\n  }\n": QueryContactInfoResult;
+    "\n  *[_type == \"contactInfo\"][0]{\n    contactName,\n    phoneNumbers[]{\n      actualNumber,\n      displayNumber\n    },\n    email\n  }\n": QueryContactInfoResult;
   }
 }

@@ -22,8 +22,37 @@ export const contactInfo = defineType({
       description: "Phone numbers to display (at least one required)",
       of: [
         defineField({
-          type: "string",
+          type: "object",
+          name: "phoneNumber",
           title: "Phone Number",
+          fields: [
+            defineField({
+              name: "actualNumber",
+              type: "string",
+              title: "Actual Phone Number",
+              description: "The actual phone number used for calling (e.g., +919999988888). This will be used in the tel: link.",
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: "displayNumber",
+              type: "string",
+              title: "Display Phone Number",
+              description: "The phone number as you want it displayed on the website (e.g., 99999 88888). This is what users will see.",
+              validation: (rule) => rule.required(),
+            }),
+          ],
+          preview: {
+            select: {
+              actual: "actualNumber",
+              display: "displayNumber",
+            },
+            prepare({ actual, display }) {
+              return {
+                title: display || "Untitled",
+                subtitle: actual || "",
+              };
+            },
+          },
         }),
       ],
       validation: (rule) => rule.min(1).error("At least one phone number is required"),

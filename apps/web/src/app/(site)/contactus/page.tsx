@@ -17,7 +17,7 @@ export default async function ContactUs() {
   const contactInfo = await client.fetch<ContactInfo | null>(queryContactInfo);
   
   const phoneNumbers = contactInfo?.phoneNumbers;
-  const phoneDisplay = phoneNumbers?.join(" / ");
+  const phoneDisplay = phoneNumbers?.map((phone) => phone.displayNumber).join(" / ");
   return (
     <div className='container max-w-8xl mx-auto px-5 2xl:px-0 pt-16 md:pt-24 pb-14 md:pb-28'>
       <div className='mb-16'>
@@ -76,7 +76,7 @@ export default async function ContactUs() {
                   </div>
                 )}
                 {phoneNumbers && phoneNumbers.length > 0 && phoneDisplay && (
-                  <Link href={`tel:${phoneNumbers[0]?.replace(/\s/g, '')}`} className='w-fit'>
+                  <Link href={`tel:${phoneNumbers[0]?.actualNumber.replace(/\s/g, '')}`} className='w-fit'>
                     <div className='flex items-center gap-4 group w-fit'>
                       <Icon icon={'ph:phone'} width={32} height={32} />
                       <p className='text-sm xs:text-base mobile:text-xm font-normal group-hover:text-primary'>

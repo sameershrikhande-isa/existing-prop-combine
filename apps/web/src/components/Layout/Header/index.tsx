@@ -14,7 +14,7 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
   const phoneNumbers = contactInfo?.phoneNumbers;
-  const phoneDisplay = phoneNumbers?.join(" / ");
+  const phoneDisplay = phoneNumbers?.map((phone) => phone.displayNumber).join(" / ");
   const [navbarOpen, setNavbarOpen] = useState(false)
   const { theme, setTheme } = useTheme()
 
@@ -83,7 +83,7 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
             {phoneNumbers && phoneNumbers.length > 0 && phoneDisplay && (
               <div className="hidden md:block">
                 <Link
-                  href={`tel:${phoneNumbers[0]?.replace(/\s/g, '')}`}
+                  href={`tel:${phoneNumbers[0]?.actualNumber.replace(/\s/g, '')}`}
                   className="text-base flex items-center gap-2 border-r pr-6 text-dark dark:text-white hover:text-primary border-dark dark:border-white"
                 >
                   <Icon icon={'ph:phone-bold'} width={24} height={24} />
@@ -173,7 +173,7 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
                 </Link>
               )}
               {phoneNumbers && phoneNumbers.length > 0 && phoneDisplay && (
-                <Link href={`tel:${phoneNumbers[0]?.replace(/\s/g, '')}`} className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
+                <Link href={`tel:${phoneNumbers[0]?.actualNumber.replace(/\s/g, '')}`} className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
                   {phoneDisplay}
                 </Link>
               )}

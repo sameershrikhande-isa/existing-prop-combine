@@ -287,7 +287,10 @@ export const queryHomePageContent = defineQuery(`
 export const queryContactInfo = defineQuery(`
   *[_type == "contactInfo"][0]{
     contactName,
-    phoneNumbers,
+    phoneNumbers[]{
+      actualNumber,
+      displayNumber
+    },
     email
   }
 `);
