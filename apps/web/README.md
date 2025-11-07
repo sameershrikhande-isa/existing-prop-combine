@@ -29,6 +29,22 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Environment Variables
+
+Create a `.env.local` file in the root of the `apps/web` directory with the following variables:
+
+```env
+# Sanity CMS Configuration
+SANITY_PROJECT_ID=your-project-id
+SANITY_DATASET=your-dataset
+SANITY_API_VERSION=2024-01-01
+
+# Sanity Webhook Revalidation
+# Secret token for webhook revalidation endpoint
+# Generate a secure random string for production use
+SANITY_REVALIDATE_SECRET=your-secret-token-here
+```
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.

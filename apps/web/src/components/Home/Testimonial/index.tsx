@@ -8,9 +8,14 @@ import {
     CarouselItem,
     type CarouselApi,
 } from "@/components/ui/carousel";
-import { testimonials } from "@/app/api/testimonial";
+import { urlFor } from "@/lib/sanity/client";
+import type { Testimonial } from "@/types/testimonial";
 
-const Testimonial = () => {
+type TestimonialProps = {
+  testimonials: Testimonial[];
+};
+
+const Testimonial = ({ testimonials }: TestimonialProps) => {
     const [api, setApi] = React.useState<CarouselApi | undefined>(undefined);
     const [current, setCurrent] = React.useState(0);
     const [count, setCount] = React.useState(0);
@@ -60,44 +65,54 @@ const Testimonial = () => {
                     }}
                 >
                     <CarouselContent>
-                        {testimonials.map((item, index) => (
-                            <CarouselItem key={index} className="mt-9">
-                                <div className="lg:flex items-center gap-11">
-                                    <div className="flex items-start gap-11 lg:pr-20">
-                                        <div>
-                                            <Icon icon="ph:house-simple" width={32} height={32} className="text-primary" />
-                                        </div>
-                                        <div>
-                                            <h4 className="text-white lg:text-2xl text-xl">{item.review}</h4>
-                                            <div className="flex items-center mt-8 gap-6">
-                                                <Image
-                                                    src={item.image}
-                                                    alt={item.name}
-                                                    width={80}
-                                                    height={80}
-                                                    className="rounded-full lg:hidden block"
-                                                    unoptimized={true}
-                                                />
-                                                <div>
-                                                    <h6 className="text-white text-xm font-medium">{item.name}</h6>
-                                                    <p className="text-white/40">{item.position}</p>
+                        {testimonials.map((item, index) => {
+                            const imageUrl = item.image ? urlFor(item.image).width(440).height(440).url() : null;
+                            const thumbnailUrl = item.image ? urlFor(item.image).width(80).height(80).url() : null;
+                            const purposeDisplay = item.purpose ? item.purpose.charAt(0).toUpperCase() + item.purpose.slice(1) : "";
+                            
+                            return (
+                                <CarouselItem key={index} className="mt-9">
+                                    <div className="lg:flex items-center gap-11">
+                                        <div className="flex items-start gap-11 lg:pr-20">
+                                            <div>
+                                                <Icon icon="ph:house-simple" width={32} height={32} className="text-primary" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-white lg:text-2xl text-xl">{item.review}</h4>
+                                                <div className="flex items-center mt-8 gap-6">
+                                                    {thumbnailUrl && (
+                                                        <Image
+                                                            src={thumbnailUrl}
+                                                            alt={item.image?.alt || item.name}
+                                                            width={80}
+                                                            height={80}
+                                                            className="rounded-full lg:hidden block"
+                                                            unoptimized={true}
+                                                        />
+                                                    )}
+                                                    <div>
+                                                        <h6 className="text-white text-xm font-medium">{item.name}</h6>
+                                                        <p className="text-white/40">{purposeDisplay}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        {imageUrl && (
+                                            <div className="w-full h-full rounded-2xl overflow-hidden">
+                                                <Image
+                                                    src={imageUrl}
+                                                    alt={item.image?.alt || item.name}
+                                                    width={440}
+                                                    height={440}
+                                                    className="lg:block hidden"
+                                                    unoptimized={true}
+                                                />
+                                            </div>
+                                        )}
                                     </div>
-                                    <div className="w-full h-full rounded-2xl overflow-hidden">
-                                        <Image
-                                            src={item.image}
-                                            alt={item.name}
-                                            width={440}
-                                            height={440}
-                                            className="lg:block hidden"
-                                            unoptimized={true}
-                                        />
-                                    </div>
-                                </div>
-                            </CarouselItem>
-                        ))}
+                                </CarouselItem>
+                            );
+                        })}
                     </CarouselContent>
                 </Carousel>
                 <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 flex gap-2.5 p-2.5 bg-white/20 rounded-full">

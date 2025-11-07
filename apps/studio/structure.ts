@@ -11,6 +11,7 @@ import {
   MessageCircle,
   PanelBottom,
   PanelBottomIcon,
+  Phone,
   Settings2,
   SlidersHorizontal,
   Sparkles,
@@ -201,6 +202,18 @@ export const structure = (
                 type: "settings",
                 title: "Global Settings",
                 icon: CogIcon,
+              }),
+              createSingleTon({
+                S,
+                type: "homePage",
+                title: "Home Page Content",
+                icon: HomeIcon,
+              }),
+              createSingleTon({
+                S,
+                type: "contactInfo",
+                title: "Contact Information",
+                icon: Phone,
               }),
             ])
         ),

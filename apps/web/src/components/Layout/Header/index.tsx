@@ -6,8 +6,15 @@ import { useEffect, useRef, useState } from 'react'
 import NavLink from './Navigation/NavLink'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
+import type { ContactInfo } from '@/types/contact'
 
-const Header: React.FC = () => {
+type HeaderProps = {
+  contactInfo?: ContactInfo | null;
+};
+
+const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
+  const phoneNumbers = contactInfo?.phoneNumbers;
+  const phoneDisplay = phoneNumbers?.join(" / ");
   const [navbarOpen, setNavbarOpen] = useState(false)
   const { theme, setTheme } = useTheme()
 
@@ -73,15 +80,17 @@ const Header: React.FC = () => {
                 className="dark:block hidden text-white"
               />
             </button>
-            <div className="hidden md:block">
-              <Link
-                href="#"
-                className="text-base flex items-center gap-2 border-r pr-6 text-dark dark:text-white hover:text-primary border-dark dark:border-white"
-              >
-                <Icon icon={'ph:phone-bold'} width={24} height={24} />
-                91529 52103 / 98690 19116
-              </Link>
-            </div>
+            {phoneNumbers && phoneNumbers.length > 0 && phoneDisplay && (
+              <div className="hidden md:block">
+                <Link
+                  href={`tel:${phoneNumbers[0]?.replace(/\s/g, '')}`}
+                  className="text-base flex items-center gap-2 border-r pr-6 text-dark dark:text-white hover:text-primary border-dark dark:border-white"
+                >
+                  <Icon icon={'ph:phone-bold'} width={24} height={24} />
+                  {phoneDisplay}
+                </Link>
+              </div>
+            )}
             <div>
               <button
                 onClick={() => setNavbarOpen(!navbarOpen)}
@@ -148,20 +157,28 @@ const Header: React.FC = () => {
             </nav>
           </div>
 
-          <div className='flex flex-col gap-1 my-16 text-white'>
-            <p className='text-base sm:text-xm font-normal text-white/40'>
-              Contact
-            </p>
-            <span className='text-base sm:text-xm font-normal text-inherit'>
-              Vijay R. Sawant
-            </span>
-            <Link href="#" className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
-              yashasvini20@gmail.com
-            </Link>
-            <Link href="#" className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
-              91529 52103 / 98690 19116
-            </Link>
-          </div>
+          {contactInfo && (
+            <div className='flex flex-col gap-1 my-16 text-white'>
+              <p className='text-base sm:text-xm font-normal text-white/40'>
+                Contact
+              </p>
+              {contactInfo.contactName && (
+                <span className='text-base sm:text-xm font-normal text-inherit'>
+                  {contactInfo.contactName}
+                </span>
+              )}
+              {contactInfo.email && (
+                <Link href={`mailto:${contactInfo.email}`} className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
+                  {contactInfo.email}
+                </Link>
+              )}
+              {phoneNumbers && phoneNumbers.length > 0 && phoneDisplay && (
+                <Link href={`tel:${phoneNumbers[0]?.replace(/\s/g, '')}`} className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
+                  {phoneDisplay}
+                </Link>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </header >

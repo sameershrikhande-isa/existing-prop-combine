@@ -258,3 +258,37 @@ export const queryAllFilterDimensions = defineQuery(`
   }
 `);
 
+/**
+ * Query to get home page content (testimonials and FAQs)
+ */
+export const queryHomePageContent = defineQuery(`
+  *[_type == "homePage"][0]{
+    testimonialsEnabled,
+    testimonials[]{
+      name,
+      review,
+      purpose,
+      "image": image ${imageFragment}
+    },
+    faqsEnabled,
+    faqsTitle,
+    faqsDescription,
+    "faqsImages": faqsImages[] ${imageFragment},
+    faqs[]{
+      question,
+      answer
+    }
+  }
+`);
+
+/**
+ * Query to get contact information
+ */
+export const queryContactInfo = defineQuery(`
+  *[_type == "contactInfo"][0]{
+    contactName,
+    phoneNumbers,
+    email
+  }
+`);
+

@@ -52,16 +52,79 @@ export type RichText = Array<{
   _key: string;
 }>;
 
+export type ContactInfo = {
+  _id: string;
+  _type: "contactInfo";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  contactName: string;
+  phoneNumbers?: Array<string>;
+  email: string;
+};
+
+export type HomePage = {
+  _id: string;
+  _type: "homePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  testimonialsEnabled?: boolean;
+  testimonials?: Array<{
+    name: string;
+    review: string;
+    purpose: "buyer" | "renter";
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+    _type: "testimonial";
+    _key: string;
+  }>;
+  faqsEnabled?: boolean;
+  faqsTitle?: string;
+  faqsDescription?: string;
+  faqsImages?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  faqs?: Array<{
+    question: string;
+    answer: string;
+    _type: "faqItem";
+    _key: string;
+  }>;
+};
+
 export type Navbar = {
   _id: string;
   _type: "navbar";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  label?: string;
+  label: string;
   columns?: Array<{
     title?: string;
-    links?: Array<{
+    links: Array<{
       icon?: IconPicker;
       name?: string;
       description?: string;
@@ -88,7 +151,7 @@ export type Footer = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  label?: string;
+  label: string;
   subtitle?: string;
   columns?: Array<{
     title?: string;
@@ -109,9 +172,9 @@ export type Settings = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  label?: string;
-  siteTitle?: string;
-  siteDescription?: string;
+  label: string;
+  siteTitle: string;
+  siteDescription: string;
   logo?: {
     asset?: {
       _ref: string;
@@ -141,8 +204,8 @@ export type Redirect = {
   _updatedAt: string;
   _rev: string;
   status?: "active" | "inactive";
-  source?: Slug;
-  destination?: Slug;
+  source: Slug;
+  destination: Slug;
   permanent?: "true" | "false";
 };
 
@@ -153,36 +216,36 @@ export type Property = {
   _updatedAt: string;
   _rev: string;
   orderRank?: string;
-  title?: string;
-  slug?: Slug;
+  title: string;
+  slug: Slug;
   description?: string;
   richText?: RichText;
-  budgetMin?: number;
+  budgetMin: number;
   budgetMax?: number;
-  status?: "available" | "sold" | "pending";
-  propertyType?: {
+  status: "available" | "sold" | "pending";
+  propertyType: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "propertyType";
   };
-  purpose?: {
+  purpose: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "purpose";
   };
   location?: {
-    address?: string;
-    city?: string;
+    address: string;
+    city: string;
     state?: string;
     country?: string;
   };
-  carpetAreaMin?: number;
+  carpetAreaMin: number;
   carpetAreaMax?: number;
   features?: {
-    bedrooms?: number;
-    bathrooms?: number;
+    bedrooms: number;
+    bathrooms: number;
   };
   amenities?: Array<{
     _ref: string;
@@ -192,12 +255,12 @@ export type Property = {
     [internalGroqTypeReferenceTo]?: "amenity";
   }>;
   highlights?: Array<{
-    title?: string;
+    title: string;
     description?: string;
-    iconName?: string;
+    iconName: string;
     _key: string;
   }>;
-  thumbnailImage?: {
+  thumbnailImage: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -207,10 +270,10 @@ export type Property = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string;
     _type: "image";
   };
-  images?: Array<{
+  images: Array<{
     asset?: {
       _ref: string;
       _type: "reference";
@@ -220,18 +283,18 @@ export type Property = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string;
     _type: "image";
     _key: string;
   }>;
   brochures?: Array<{
     title?: string;
-    url?: string;
+    url: string;
     _key: string;
   }>;
   videos?: Array<{
     title?: string;
-    url?: string;
+    url: string;
     _key: string;
   }>;
   mapLink?: string;
@@ -244,20 +307,20 @@ export type FilterRange = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  scope?: {
+  scope: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "filterScope";
   };
-  dimension?: {
+  dimension: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "filterDimension";
   };
-  label?: string;
-  minValue?: number;
+  label: string;
+  minValue: number;
   maxValue?: number;
   sortOrder?: number;
 };
@@ -269,13 +332,13 @@ export type FilterScope = {
   _updatedAt: string;
   _rev: string;
   orderRank?: string;
-  propertyType?: {
+  propertyType: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "propertyType";
   };
-  purpose?: {
+  purpose: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
@@ -290,8 +353,8 @@ export type Purpose = {
   _updatedAt: string;
   _rev: string;
   orderRank?: string;
-  name?: string;
-  slug?: Slug;
+  name: string;
+  slug: Slug;
 };
 
 export type PropertyType = {
@@ -301,8 +364,8 @@ export type PropertyType = {
   _updatedAt: string;
   _rev: string;
   orderRank?: string;
-  name?: string;
-  slug?: Slug;
+  name: string;
+  slug: Slug;
   description?: string;
 };
 
@@ -313,9 +376,9 @@ export type FilterDimension = {
   _updatedAt: string;
   _rev: string;
   orderRank?: string;
-  name?: string;
-  slug?: Slug;
-  unit?: string;
+  name: string;
+  slug: Slug;
+  unit: string;
 };
 
 export type Faq = {
@@ -324,7 +387,7 @@ export type Faq = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
+  title: string;
   richText?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -347,7 +410,7 @@ export type Faq = {
 
 export type CustomUrl = {
   _type: "customUrl";
-  type?: "internal" | "external";
+  type: "internal" | "external";
   openInNewTab?: boolean;
   external?: string;
   href?: string;
@@ -366,9 +429,9 @@ export type Amenity = {
   _updatedAt: string;
   _rev: string;
   orderRank?: string;
-  name?: string;
-  slug?: Slug;
-  iconName?: string;
+  name: string;
+  slug: Slug;
+  iconName: string;
   category?: "wellness" | "security" | "technology" | "outdoor" | "other";
 };
 
@@ -408,7 +471,7 @@ export type SanityAssistOutputField = {
 
 export type SanityAssistInstructionContext = {
   _type: "sanity.assist.instruction.context";
-  reference?: {
+  reference: {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
@@ -441,7 +504,7 @@ export type AssistInstructionContext = {
 
 export type SanityAssistInstructionUserInput = {
   _type: "sanity.assist.instruction.userInput";
-  message?: string;
+  message: string;
   description?: string;
 };
 
@@ -530,25 +593,25 @@ export type SanityImagePalette = {
 
 export type SanityImageDimensions = {
   _type: "sanity.imageDimensions";
-  height?: number;
-  width?: number;
-  aspectRatio?: number;
+  height: number;
+  width: number;
+  aspectRatio: number;
 };
 
 export type SanityImageHotspot = {
   _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
 };
 
 export type SanityImageCrop = {
   _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
 };
 
 export type SanityFileAsset = {
@@ -616,7 +679,7 @@ export type Geopoint = {
 
 export type Slug = {
   _type: "slug";
-  current?: string;
+  current: string;
   source?: string;
 };
 
@@ -627,7 +690,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Button | RichText | Navbar | Footer | Settings | Redirect | Property | FilterRange | FilterScope | Purpose | PropertyType | FilterDimension | Faq | CustomUrl | Amenity | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | IconPicker | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = Button | RichText | ContactInfo | HomePage | Navbar | Footer | Settings | Redirect | Property | FilterRange | FilterScope | Purpose | PropertyType | FilterDimension | Faq | CustomUrl | Amenity | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | IconPicker | MediaTag | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: queryAllPropertiesData
@@ -635,49 +698,49 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 export type QueryAllPropertiesDataResult = Array<{
   _id: string;
   _type: "property";
-  title: string | null;
-  slug: string | null;
+  title: string;
+  slug: string;
   description: string | null;
-  budgetMin: number | null;
+  budgetMin: number;
   budgetMax: number | null;
-  carpetAreaMin: number | null;
+  carpetAreaMin: number;
   carpetAreaMax: number | null;
-  status: "available" | "pending" | "sold" | null;
+  status: "available" | "pending" | "sold";
   location: {
-    address: string | null;
-    city: string | null;
+    address: string;
+    city: string;
     state: string | null;
     country: string | null;
   } | null;
   features: {
-    bedrooms: number | null;
-    bathrooms: number | null;
+    bedrooms: number;
+    bathrooms: number;
   } | null;
   mainImage: {
     id: string | null;
     preview: string | null;
     hotspot: {
-      x: number | null;
-      y: number | null;
+      x: number;
+      y: number;
     } | null;
     crop: {
-      bottom: number | null;
-      left: number | null;
-      right: number | null;
-      top: number | null;
+      bottom: number;
+      left: number;
+      right: number;
+      top: number;
     } | null;
-    alt: string | null;
+    alt: string;
   } | null;
   propertyType: {
     _id: string;
-    name: string | null;
-    slug: string | null;
-  } | null;
+    name: string;
+    slug: string;
+  };
   purpose: {
     _id: string;
-    name: string | null;
-    slug: string | null;
-  } | null;
+    name: string;
+    slug: string;
+  };
   publishedAt: string | null;
   orderRank: string | null;
 }>;
@@ -686,8 +749,8 @@ export type QueryAllPropertiesDataResult = Array<{
 export type QueryPropertyBySlugDataResult = {
   _id: string;
   _type: "property";
-  title: string | null;
-  slug: string | null;
+  title: string;
+  slug: string;
   description: string | null;
   richText: Array<{
     children?: Array<{
@@ -718,14 +781,14 @@ export type QueryPropertyBySlugDataResult = {
     };
     media?: unknown;
     hotspot: {
-      x: number | null;
-      y: number | null;
+      x: number;
+      y: number;
     } | null;
     crop: {
-      bottom: number | null;
-      left: number | null;
-      right: number | null;
-      top: number | null;
+      bottom: number;
+      left: number;
+      right: number;
+      top: number;
     } | null;
     caption: string | null;
     _type: "image";
@@ -734,135 +797,135 @@ export type QueryPropertyBySlugDataResult = {
     preview: string | null;
     alt: null;
   }> | null;
-  budgetMin: number | null;
+  budgetMin: number;
   budgetMax: number | null;
-  carpetAreaMin: number | null;
+  carpetAreaMin: number;
   carpetAreaMax: number | null;
-  status: "available" | "pending" | "sold" | null;
+  status: "available" | "pending" | "sold";
   location: {
-    address: string | null;
-    city: string | null;
+    address: string;
+    city: string;
     state: string | null;
     country: string | null;
   } | null;
   features: {
-    bedrooms: number | null;
-    bathrooms: number | null;
+    bedrooms: number;
+    bathrooms: number;
   } | null;
   amenities: Array<{
     _id: string;
-    name: string | null;
-    slug: string | null;
-    iconName: string | null;
+    name: string;
+    slug: string;
+    iconName: string;
     category: "other" | "outdoor" | "security" | "technology" | "wellness" | null;
   }> | null;
   highlights: Array<{
-    title: string | null;
+    title: string;
     description: string | null;
-    iconName: string | null;
+    iconName: string;
   }> | null;
   thumbnailImage: {
     id: string | null;
     preview: string | null;
     hotspot: {
-      x: number | null;
-      y: number | null;
+      x: number;
+      y: number;
     } | null;
     crop: {
-      bottom: number | null;
-      left: number | null;
-      right: number | null;
-      top: number | null;
+      bottom: number;
+      left: number;
+      right: number;
+      top: number;
     } | null;
-    alt: string | null;
-  } | null;
+    alt: string;
+  };
   images: Array<{
     id: string | null;
     preview: string | null;
     hotspot: {
-      x: number | null;
-      y: number | null;
+      x: number;
+      y: number;
     } | null;
     crop: {
-      bottom: number | null;
-      left: number | null;
-      right: number | null;
-      top: number | null;
+      bottom: number;
+      left: number;
+      right: number;
+      top: number;
     } | null;
-    alt: string | null;
-  }> | null;
+    alt: string;
+  }>;
   propertyType: {
     _id: string;
-    name: string | null;
-    slug: string | null;
-  } | null;
+    name: string;
+    slug: string;
+  };
   purpose: {
     _id: string;
-    name: string | null;
-    slug: string | null;
-  } | null;
+    name: string;
+    slug: string;
+  };
   brochures: Array<{
     title: string | null;
-    url: string | null;
+    url: string;
   }> | null;
   videos: Array<{
     title: string | null;
-    url: string | null;
+    url: string;
   }> | null;
   mapLink: string | null;
   publishedAt: string | null;
 } | null;
 // Variable: queryPropertySlugs
 // Query: *[_type == "property" && defined(slug.current)].slug.current
-export type QueryPropertySlugsResult = Array<string | null>;
+export type QueryPropertySlugsResult = Array<string>;
 // Variable: queryFilteredProperties
 // Query: *[    _type == "property"     && status == "available"    && (!defined($propertyTypeId) || propertyType._ref == $propertyTypeId)    && (!defined($purposeId) || purpose._ref == $purposeId)    && (!defined($budgetMin) || budgetMax >= $budgetMin || budgetMin >= $budgetMin)    && (!defined($budgetMax) || budgetMin <= $budgetMax || budgetMax <= $budgetMax)    && (!defined($carpetAreaMin) || carpetAreaMax >= $carpetAreaMin || carpetAreaMin >= $carpetAreaMin)    && (!defined($carpetAreaMax) || carpetAreaMin <= $carpetAreaMax || carpetAreaMax <= $carpetAreaMax)    && (!defined($amenityIds) || count((amenities[]._ref)[@ in $amenityIds]) > 0)  ] | order(orderRank asc) {      _id,  _type,  title,  "slug": slug.current,  description,  budgetMin,  budgetMax,  carpetAreaMin,  carpetAreaMax,  status,  location {    address,    city,    state,    country  },  features {    bedrooms,    bathrooms  },  "mainImage": images[0]   {      "id": asset._ref,  "preview": asset->metadata.lqip,  hotspot {    x,    y  },  crop {    bottom,    left,    right,    top  },  alt  },  propertyType->{    _id,    name,    "slug": slug.current  },  purpose->{    _id,    name,    "slug": slug.current  },  publishedAt,  orderRank  }
 export type QueryFilteredPropertiesResult = Array<{
   _id: string;
   _type: "property";
-  title: string | null;
-  slug: string | null;
+  title: string;
+  slug: string;
   description: string | null;
-  budgetMin: number | null;
+  budgetMin: number;
   budgetMax: number | null;
-  carpetAreaMin: number | null;
+  carpetAreaMin: number;
   carpetAreaMax: number | null;
-  status: "available" | "pending" | "sold" | null;
+  status: "available" | "pending" | "sold";
   location: {
-    address: string | null;
-    city: string | null;
+    address: string;
+    city: string;
     state: string | null;
     country: string | null;
   } | null;
   features: {
-    bedrooms: number | null;
-    bathrooms: number | null;
+    bedrooms: number;
+    bathrooms: number;
   } | null;
   mainImage: {
     id: string | null;
     preview: string | null;
     hotspot: {
-      x: number | null;
-      y: number | null;
+      x: number;
+      y: number;
     } | null;
     crop: {
-      bottom: number | null;
-      left: number | null;
-      right: number | null;
-      top: number | null;
+      bottom: number;
+      left: number;
+      right: number;
+      top: number;
     } | null;
-    alt: string | null;
+    alt: string;
   } | null;
   propertyType: {
     _id: string;
-    name: string | null;
-    slug: string | null;
-  } | null;
+    name: string;
+    slug: string;
+  };
   purpose: {
     _id: string;
-    name: string | null;
-    slug: string | null;
-  } | null;
+    name: string;
+    slug: string;
+  };
   publishedAt: string | null;
   orderRank: string | null;
 }>;
@@ -870,45 +933,99 @@ export type QueryFilteredPropertiesResult = Array<{
 // Query: *[_type == "amenity"] | order(orderRank asc) {    _id,    name,    "slug": slug.current,    iconName,    category  }
 export type QueryAllAmenitiesResult = Array<{
   _id: string;
-  name: string | null;
-  slug: string | null;
-  iconName: string | null;
+  name: string;
+  slug: string;
+  iconName: string;
   category: "other" | "outdoor" | "security" | "technology" | "wellness" | null;
 }>;
 // Variable: queryFilterRanges
 // Query: *[    _type == "filterRange"    && scope->propertyType._ref == $propertyTypeId    && scope->purpose._ref == $purposeId    && dimension->slug.current == $dimensionSlug  ] | order(sortOrder asc) {    _id,    label,    minValue,    maxValue,    sortOrder,    "dimensionName": dimension->name,    "dimensionUnit": dimension->unit  }
 export type QueryFilterRangesResult = Array<{
   _id: string;
-  label: string | null;
-  minValue: number | null;
+  label: string;
+  minValue: number;
   maxValue: number | null;
   sortOrder: number | null;
-  dimensionName: string | null;
-  dimensionUnit: string | null;
+  dimensionName: string;
+  dimensionUnit: string;
 }>;
 // Variable: queryAllPropertyTypes
 // Query: *[_type == "propertyType"] | order(orderRank asc) {    _id,    name,    "slug": slug.current,    description  }
 export type QueryAllPropertyTypesResult = Array<{
   _id: string;
-  name: string | null;
-  slug: string | null;
+  name: string;
+  slug: string;
   description: string | null;
 }>;
 // Variable: queryAllPurposes
 // Query: *[_type == "purpose"] | order(orderRank asc) {    _id,    name,    "slug": slug.current  }
 export type QueryAllPurposesResult = Array<{
   _id: string;
-  name: string | null;
-  slug: string | null;
+  name: string;
+  slug: string;
 }>;
 // Variable: queryAllFilterDimensions
 // Query: *[_type == "filterDimension"] | order(orderRank asc) {    _id,    name,    "slug": slug.current,    unit  }
 export type QueryAllFilterDimensionsResult = Array<{
   _id: string;
-  name: string | null;
-  slug: string | null;
-  unit: string | null;
+  name: string;
+  slug: string;
+  unit: string;
 }>;
+// Variable: queryHomePageContent
+// Query: *[_type == "homePage"][0]{    testimonialsEnabled,    testimonials[]{      name,      review,      purpose,      "image": image   {      "id": asset._ref,  "preview": asset->metadata.lqip,  hotspot {    x,    y  },  crop {    bottom,    left,    right,    top  },  alt  }    },    faqsEnabled,    faqsTitle,    faqsDescription,    "faqsImages": faqsImages[]   {      "id": asset._ref,  "preview": asset->metadata.lqip,  hotspot {    x,    y  },  crop {    bottom,    left,    right,    top  },  alt  },    faqs[]{      question,      answer    }  }
+export type QueryHomePageContentResult = {
+  testimonialsEnabled: boolean | null;
+  testimonials: Array<{
+    name: string;
+    review: string;
+    purpose: "buyer" | "renter";
+    image: {
+      id: string | null;
+      preview: string | null;
+      hotspot: {
+        x: number;
+        y: number;
+      } | null;
+      crop: {
+        bottom: number;
+        left: number;
+        right: number;
+        top: number;
+      } | null;
+      alt: string | null;
+    };
+  }> | null;
+  faqsEnabled: boolean | null;
+  faqsTitle: string | null;
+  faqsDescription: string | null;
+  faqsImages: Array<{
+    id: string | null;
+    preview: string | null;
+    hotspot: {
+      x: number;
+      y: number;
+    } | null;
+    crop: {
+      bottom: number;
+      left: number;
+      right: number;
+      top: number;
+    } | null;
+    alt: string | null;
+  }> | null;
+  faqs: Array<{
+    question: string;
+    answer: string;
+  }> | null;
+} | null;
+// Variable: queryContactInfo
+// Query: *[_type == "contactInfo"][0]{    contactName,    phoneNumbers,    email  }
+export type QueryContactInfoResult = {
+  contactName: string;
+  phoneNumbers: Array<string> | null;
+  email: string;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -923,5 +1040,7 @@ declare module "@sanity/client" {
     "\n  *[_type == \"propertyType\"] | order(orderRank asc) {\n    _id,\n    name,\n    \"slug\": slug.current,\n    description\n  }\n": QueryAllPropertyTypesResult;
     "\n  *[_type == \"purpose\"] | order(orderRank asc) {\n    _id,\n    name,\n    \"slug\": slug.current\n  }\n": QueryAllPurposesResult;
     "\n  *[_type == \"filterDimension\"] | order(orderRank asc) {\n    _id,\n    name,\n    \"slug\": slug.current,\n    unit\n  }\n": QueryAllFilterDimensionsResult;
+    "\n  *[_type == \"homePage\"][0]{\n    testimonialsEnabled,\n    testimonials[]{\n      name,\n      review,\n      purpose,\n      \"image\": image \n  {\n    \n  \"id\": asset._ref,\n  \"preview\": asset->metadata.lqip,\n  hotspot {\n    x,\n    y\n  },\n  crop {\n    bottom,\n    left,\n    right,\n    top\n  },\n  alt\n\n  }\n\n    },\n    faqsEnabled,\n    faqsTitle,\n    faqsDescription,\n    \"faqsImages\": faqsImages[] \n  {\n    \n  \"id\": asset._ref,\n  \"preview\": asset->metadata.lqip,\n  hotspot {\n    x,\n    y\n  },\n  crop {\n    bottom,\n    left,\n    right,\n    top\n  },\n  alt\n\n  }\n,\n    faqs[]{\n      question,\n      answer\n    }\n  }\n": QueryHomePageContentResult;
+    "\n  *[_type == \"contactInfo\"][0]{\n    contactName,\n    phoneNumbers,\n    email\n  }\n": QueryContactInfoResult;
   }
 }

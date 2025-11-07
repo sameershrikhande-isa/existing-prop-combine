@@ -2,11 +2,22 @@ import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Metadata } from "next";
+import { client } from '@/lib/sanity/client'
+import { queryContactInfo } from '@/lib/sanity/queries'
+import type { ContactInfo } from '@/types/contact'
+
 export const metadata: Metadata = {
     title: "Contact Us | Homely",
 };
 
-export default function ContactUs() {
+// Cache for 24 hours (86400 seconds) - content rarely changes
+export const revalidate = 86400;
+
+export default async function ContactUs() {
+  const contactInfo = await client.fetch<ContactInfo | null>(queryContactInfo);
+  
+  const phoneNumbers = contactInfo?.phoneNumbers;
+  const phoneDisplay = phoneNumbers?.join(" / ");
   return (
     <div className='container max-w-8xl mx-auto px-5 2xl:px-0 pt-16 md:pt-24 pb-14 md:pb-28'>
       <div className='mb-16'>
@@ -54,36 +65,44 @@ export default function ContactUs() {
                 to help!
               </p>
             </div>
-            <div className='absolute bottom-6 left-6 lg:bottom-12 lg:left-12 flex flex-col gap-4 text-white'>
-              <div className='flex items-center gap-4'>
-                <Icon icon={'ph:user'} width={32} height={32} />
-                <p className='text-sm xs:text-base mobile:text-xm font-normal'>
-                  Vijay R. Sawant
-                </p>
+            {contactInfo && (
+              <div className='absolute bottom-6 left-6 lg:bottom-12 lg:left-12 flex flex-col gap-4 text-white'>
+                {contactInfo.contactName && (
+                  <div className='flex items-center gap-4'>
+                    <Icon icon={'ph:user'} width={32} height={32} />
+                    <p className='text-sm xs:text-base mobile:text-xm font-normal'>
+                      {contactInfo.contactName}
+                    </p>
+                  </div>
+                )}
+                {phoneNumbers && phoneNumbers.length > 0 && phoneDisplay && (
+                  <Link href={`tel:${phoneNumbers[0]?.replace(/\s/g, '')}`} className='w-fit'>
+                    <div className='flex items-center gap-4 group w-fit'>
+                      <Icon icon={'ph:phone'} width={32} height={32} />
+                      <p className='text-sm xs:text-base mobile:text-xm font-normal group-hover:text-primary'>
+                        {phoneDisplay}
+                      </p>
+                    </div>
+                  </Link>
+                )}
+                {contactInfo.email && (
+                  <Link href={`mailto:${contactInfo.email}`} className='w-fit'>
+                    <div className='flex items-center gap-4 group w-fit'>
+                      <Icon icon={'ph:envelope-simple'} width={32} height={32} />
+                      <p className='text-sm xs:text-base mobile:text-xm font-normal group-hover:text-primary'>
+                        {contactInfo.email}
+                      </p>
+                    </div>
+                  </Link>
+                )}
               </div>
-              <Link href={'/'} className='w-fit'>
-                <div className='flex items-center gap-4 group w-fit'>
-                  <Icon icon={'ph:phone'} width={32} height={32} />
-                  <p className='text-sm xs:text-base mobile:text-xm font-normal group-hover:text-primary'>
-                  91529 52103 / 98690 19116
-                  </p>
-                </div>
-              </Link>
-              <Link href={'/'} className='w-fit'>
-                <div className='flex items-center gap-4 group w-fit'>
-                  <Icon icon={'ph:envelope-simple'} width={32} height={32} />
-                  <p className='text-sm xs:text-base mobile:text-xm font-normal group-hover:text-primary'>
-                  yashasvini20@gmail.com
-                  </p>
-                </div>
-              </Link>
-              {/* <div className='flex items-center gap-4'>
-                <Icon icon={'ph:map-pin'} width={32} height={32} />
-                <p className='text-sm xs:text-base mobile:text-xm font-normal'>
-                  Blane Street, Manchester
-                </p>
-              </div> */}
-            </div>
+            )}
+            {/* <div className='flex items-center gap-4'>
+              <Icon icon={'ph:map-pin'} width={32} height={32} />
+              <p className='text-sm xs:text-base mobile:text-xm font-normal'>
+                Blane Street, Manchester
+              </p>
+            </div> */}
           </div>
           <div className='flex-1/2'>
             <form>
