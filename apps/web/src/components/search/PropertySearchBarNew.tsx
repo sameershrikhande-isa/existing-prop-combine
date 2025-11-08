@@ -15,6 +15,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Checkbox } from "@/components/ui/checkbox";
 import * as Tabler from "@tabler/icons-react";
 import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
+import { DreamHomeIcon } from "@/components/ui/dream-home-icon";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { PropertyAmenity, PropertyPurpose, PropertyType } from "@/types/property";
@@ -236,14 +237,15 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
             role="combobox"
             aria-expanded={open}
             className={cn(
-              "w-full flex items-center justify-between gap-2 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 text-sm text-left transition-colors hover:bg-black/5 dark:hover:bg-white/5",
+              "w-full flex items-center justify-between gap-2 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 text-left transition-colors hover:bg-black/5 dark:hover:bg-white/5",
+              isCompact ? "text-base" : "text-sm",
               className
             )}
           >
             <span className={selected ? "text-black dark:text-white" : "text-black/70 dark:text-white/70"}>
               {selected || placeholder}
             </span>
-            <ChevronsUpDown className="size-4 shrink-0 opacity-50" />
+            <ChevronsUpDown className={cn("shrink-0 opacity-50", isCompact ? "size-5" : "size-4")} />
           </button>
         </PopoverTrigger>
         <PopoverContent 
@@ -290,15 +292,15 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
         [-webkit-mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] [-webkit-mask-composite:xor]  "
       />
 
-      <div className={cn("pt-4", isCompact ? "px-3 sm:px-4" : "px-4 sm:px-6")}>
-        <h2 className={cn("font-bold text-black dark:text-white text-center flex items-center justify-center gap-2", isCompact ? "text-xl sm:text-2xl mb-3 md:mb-4" : "text-2xl sm:text-3xl mb-4 md:mb-6")}>
+      <div className={cn("pt-4", isCompact ? "px-4 sm:px-5" : "px-4 sm:px-6")}>
+        <h2 className={cn("font-bold text-black dark:text-white text-center flex items-center justify-center gap-2", isCompact ? "text-2xl sm:text-2xl md:text-3xl mb-4 md:mb-5" : "text-2xl sm:text-3xl mb-4 md:mb-6")}>
           Find your dream
-          <IconHome2 className={cn(isCompact ? "w-5 h-5 sm:w-6 sm:h-6" : "w-6 h-6 sm:w-7 sm:h-7")} aria-hidden />
+          <DreamHomeIcon className={cn(isCompact ? "w-6 h-6 sm:w-7 sm:h-7" : "w-6 h-6 sm:w-7 sm:h-7")} aria-hidden />
         </h2>
-        <div className={cn("flex flex-col md:flex-row items-center justify-center", isCompact ? "gap-2 md:gap-4" : "gap-3 md:gap-6")}>
+        <div className={cn("flex flex-col md:flex-row items-center justify-center", isCompact ? "gap-3 md:gap-5" : "gap-3 md:gap-6")}>
           {/* Property Type Selection */}
           <div className="flex items-center gap-2">
-            <span className="text-[11px] font-medium text-black/60 dark:text-white/60 uppercase tracking-wide">
+            <span className={cn("font-medium text-black/60 dark:text-white/60 uppercase tracking-wide", isCompact ? "text-xs" : "text-[11px]")}>
               Type
             </span>
             <div className="flex rounded-full p-1 bg-black/5 dark:bg-white/10">
@@ -312,15 +314,13 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
                     key={type._id}
                     type="button"
                     onClick={() => setSelectedPropertyTypeId(type._id)}
-                    className={`px-4 py-1.5 text-sm rounded-full transition-colors ${
-                      isSelected
+                    className={cn("px-4 py-1.5 rounded-full transition-colors", isCompact ? "text-base" : "text-sm", isSelected
                         ? "bg-white dark:bg-black text-black dark:text-white shadow"
-                        : "text-black/70 dark:text-white/70"
-                    }`}
+                        : "text-black/70 dark:text-white/70")}
                     aria-pressed={isSelected}
                   >
                     <span className="inline-flex items-center gap-1.5">
-                      <Icon size={16} aria-hidden />
+                      <Icon size={isCompact ? 18 : 16} aria-hidden />
                       <span>{type.name}</span>
                     </span>
                   </button>
@@ -336,7 +336,7 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
 
           {/* Purpose Selection */}
           <div className="flex items-center gap-2 justify-start md:justify-center">
-            <span className="text-[11px] font-medium text-black/60 dark:text-white/60 uppercase tracking-wide">
+            <span className={cn("font-medium text-black/60 dark:text-white/60 uppercase tracking-wide", isCompact ? "text-xs" : "text-[11px]")}>
               Purpose
             </span>
             <div className="flex rounded-full p-1 bg-black/5 dark:bg-white/10">
@@ -350,15 +350,13 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
                     key={purpose._id}
                     type="button"
                     onClick={() => setSelectedPurposeId(purpose._id)}
-                    className={`px-4 py-1.5 text-sm rounded-full transition-colors ${
-                      isSelected
+                    className={cn("px-4 py-1.5 rounded-full transition-colors", isCompact ? "text-base" : "text-sm", isSelected
                         ? "bg-white dark:bg-black text-black dark:text-white shadow"
-                        : "text-black/70 dark:text-white/70"
-                    }`}
+                        : "text-black/70 dark:text-white/70")}
                     aria-pressed={isSelected}
                   >
                     <span className="inline-flex items-center gap-1.5">
-                      <Icon size={16} aria-hidden />
+                      <Icon size={isCompact ? 18 : 16} aria-hidden />
                       <span>{purpose.name}</span>
                     </span>
                   </button>
@@ -372,17 +370,17 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
       {/* Filter Ranges Section */}
       {(budgetRanges.length > 0 || carpetAreaRanges.length > 0) && (
         <>
-          <div className={cn(isCompact ? "px-3 sm:px-4" : "px-4 sm:px-6")}>
-            <Separator className={cn("bg-black/10 dark:bg-white/10", isCompact ? "my-2 md:my-3" : "my-3 md:my-4")} />
+          <div className={cn(isCompact ? "px-4 sm:px-5" : "px-4 sm:px-6")}>
+            <Separator className={cn("bg-black/10 dark:bg-white/10", isCompact ? "my-3 md:my-4" : "my-3 md:my-4")} />
           </div>
 
-          <div className={cn("pb-4", isCompact ? "px-3 sm:px-4" : "px-4 sm:px-6")}>
+          <div className={cn("pb-4", isCompact ? "px-4 sm:px-5" : "px-4 sm:px-6")}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
               {/* Budget Range */}
               {budgetRanges.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-medium text-black/70 dark:text-white/70">
-                    Budget (Optional)
+                  <label className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm" : "text-xs")}>
+                    Budget{!isCompact && " (Optional)"}
                   </label>
                   <SingleSelect
                     value={selectedBudgetRangeId}
@@ -399,8 +397,8 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
               {/* Carpet Area Range */}
               {carpetAreaRanges.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-medium text-black/70 dark:text-white/70">
-                    Carpet Area (Optional)
+                  <label className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm" : "text-xs")}>
+                    Carpet Area{!isCompact && " (Optional)"}
                   </label>
                   <SingleSelect
                     value={selectedCarpetAreaRangeId}
@@ -416,13 +414,13 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
 
               {/* Amenities inline on md+ */}
               <div className="hidden md:flex flex-col gap-2">
-                <span className="text-xs font-medium text-black/70 dark:text-white/70">Amenities</span>
+                <span className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm" : "text-xs")}>Amenities</span>
                 <Popover open={isAmenitiesOpenInline} onOpenChange={setIsAmenitiesOpenInline}>
                   <PopoverTrigger asChild>
                     <button
                       type="button"
                       aria-expanded={isAmenitiesOpenInline}
-                      className="w-full flex items-center justify-between gap-2 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 text-sm transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+                      className={cn("w-full flex items-center justify-between gap-2 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 transition-colors hover:bg-black/5 dark:hover:bg-white/5", isCompact ? "text-base" : "text-sm")}
                     >
                       <span className="text-black dark:text-white">Amenities</span>
                       {selectedAmenityIds.length > 0 ? (
@@ -497,7 +495,7 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
           <div className={cn("md:hidden", isCompact ? "px-3 sm:px-4" : "px-4 sm:px-6")}>
             <Separator className={cn("bg-black/10 dark:bg-white/10", isCompact ? "my-2 md:my-3" : "my-3 md:my-4")} />
           </div>
-          <div className={cn("pb-4 md:hidden", isCompact ? "px-3 sm:px-4" : "px-4 sm:px-6")}>
+          <div className={cn("pb-4 md:hidden", isCompact ? "px-4 sm:px-5" : "px-4 sm:px-6")}>
             <Popover open={isAmenitiesOpenMobile} onOpenChange={setIsAmenitiesOpenMobile}>
               <PopoverTrigger asChild>
                 <button
@@ -571,13 +569,13 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
       )}
 
       {/* Search Button */}
-      <div className={cn("pb-4", isCompact ? "px-3 sm:px-4" : "px-4 sm:px-6")}>
+      <div className={cn("pb-4", isCompact ? "px-4 sm:px-5" : "px-4 sm:px-6")}>
         <Button
           onClick={handleSearch}
-          className={cn("w-full bg-primary hover:bg-primary/90 text-white rounded-2xl md:rounded-xl font-medium group inline-flex items-center justify-center gap-2", isCompact ? "py-4 text-sm" : "py-6 text-base")}
+          className={cn("w-full bg-primary hover:bg-primary/90 text-white rounded-2xl md:rounded-xl font-medium group inline-flex items-center justify-center gap-2", isCompact ? "py-5 text-base" : "py-6 text-base")}
         >
           <span>Search Properties</span>
-          <IconChevronRight size={isCompact ? 24 : 28} aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5" />
+          <IconChevronRight size={isCompact ? 26 : 28} aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5" />
         </Button>
       </div>
     </div>
