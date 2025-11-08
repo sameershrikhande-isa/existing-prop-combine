@@ -33,10 +33,10 @@ const Hero: React.FC = () => {
               {/* Trust Indicator */}
               <div className="flex flex-col sm:flex-row items-center gap-4 mb-8">
                 <span className="inline-flex items-center -space-x-4">
-                  {[1,2,3,4,5].map((i) => (
+                  {['jack', 'arlene', 'dwayn', 'george', 'mark'].map((name, i) => (
                     <Avatar key={i} className="size-12 border-2 border-white dark:border-dark">
-                      <AvatarImage src={`/images/users/user${i}.jpg`} alt={`Customer ${i}`} />
-                      <AvatarFallback>U{i}</AvatarFallback>
+                      <AvatarImage src={`/images/users/${name}.jpg`} alt={`Customer ${name}`} />
+                      <AvatarFallback>{name.charAt(0).toUpperCase()}</AvatarFallback>
                     </Avatar>
                   ))}
                 </span>
@@ -45,10 +45,10 @@ const Hero: React.FC = () => {
                     {[1,2,3,4,5].map((i) => (
                       <IconStar key={i} className="size-5 fill-yellow-400 text-yellow-400" />
                     ))}
-                    <span className="font-semibold text-inherit ml-1">5.0</span>
+                    <span className="font-semibold text-inherit ml-1">4.9</span>
                   </div>
                   <p className="text-inherit/70 text-left font-medium text-sm">
-                    from 200+ reviews
+                    from customers
                   </p>
                 </div>
               </div>

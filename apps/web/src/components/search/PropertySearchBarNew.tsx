@@ -295,7 +295,7 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
       <div className={cn("pt-4", isCompact ? "px-4 sm:px-5" : "px-4 sm:px-6")}>
         <h2 className={cn("font-bold text-black dark:text-white text-center flex items-center justify-center gap-2", isCompact ? "text-2xl sm:text-2xl md:text-3xl mb-4 md:mb-5" : "text-2xl sm:text-3xl mb-4 md:mb-6")}>
           Find your dream
-          <DreamHomeIcon className={cn(isCompact ? "w-6 h-6 sm:w-7 sm:h-7" : "w-6 h-6 sm:w-7 sm:h-7")} aria-hidden />
+          <DreamHomeIcon className={cn(isCompact ? "w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10" : "w-7 h-7 sm:w-8 sm:h-8")} aria-hidden />
         </h2>
         <div className={cn("flex flex-col md:flex-row items-center justify-center", isCompact ? "gap-3 md:gap-5" : "gap-3 md:gap-6")}>
           {/* Property Type Selection */}
@@ -423,13 +423,14 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
                       className={cn("w-full flex items-center justify-between gap-2 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 transition-colors hover:bg-black/5 dark:hover:bg-white/5", isCompact ? "text-base" : "text-sm")}
                     >
                       <span className="text-black dark:text-white">Amenities</span>
-                      {selectedAmenityIds.length > 0 ? (
-                        <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/90 text-white text-xs px-1">
-                          {selectedAmenityIds.length}
-                        </span>
-                      ) : (
-                        <ChevronsUpDown className="size-4 shrink-0 opacity-50" />
-                      )}
+                      <span className="inline-flex items-center gap-2">
+                        {selectedAmenityIds.length > 0 && (
+                          <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/90 text-white text-xs px-1">
+                            {selectedAmenityIds.length}
+                          </span>
+                        )}
+                        <ChevronsUpDown className={cn("shrink-0 opacity-50", isCompact ? "size-5" : "size-4")} />
+                      </span>
                     </button>
                   </PopoverTrigger>
                   <PopoverContent 
@@ -492,9 +493,6 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
       {/* Amenities Section - mobile only */}
       {filterData.amenities.length > 0 && (
         <>
-          <div className={cn("md:hidden", isCompact ? "px-3 sm:px-4" : "px-4 sm:px-6")}>
-            <Separator className={cn("bg-black/10 dark:bg-white/10", isCompact ? "my-2 md:my-3" : "my-3 md:my-4")} />
-          </div>
           <div className={cn("pb-4 md:hidden", isCompact ? "px-4 sm:px-5" : "px-4 sm:px-6")}>
             <Popover open={isAmenitiesOpenMobile} onOpenChange={setIsAmenitiesOpenMobile}>
               <PopoverTrigger asChild>
@@ -504,13 +502,14 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
                   className="w-full flex items-center justify-between gap-2 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 text-sm transition-colors hover:bg-black/5 dark:hover:bg-white/5"
                 >
                   <span className="text-black dark:text-white">Amenities</span>
-                  {selectedAmenityIds.length > 0 ? (
-                    <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/90 text-white text-xs px-1">
-                      {selectedAmenityIds.length}
-                    </span>
-                  ) : (
-                    <ChevronsUpDown className="size-4 shrink-0 opacity-50" />
-                  )}
+                  <span className="inline-flex items-center gap-2">
+                    {selectedAmenityIds.length > 0 && (
+                      <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/90 text-white text-xs px-1">
+                        {selectedAmenityIds.length}
+                      </span>
+                    )}
+                    <ChevronsUpDown className={cn("shrink-0 opacity-50", isCompact ? "size-5" : "size-4")} />
+                  </span>
                 </button>
               </PopoverTrigger>
               <PopoverContent 

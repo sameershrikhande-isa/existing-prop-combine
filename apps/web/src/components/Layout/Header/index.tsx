@@ -19,6 +19,24 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
   const [navbarOpen, setNavbarOpen] = useState(false)
   const { theme, setTheme } = useTheme()
 
+  // Convert Tabler icon names (e.g., "IconBrandFacebook") to iconify format (e.g., "tabler:brand-facebook")
+  const convertIconName = (iconName: string): string => {
+    if (!iconName) return iconName;
+    // If already in iconify format (contains :), return as is
+    if (iconName.includes(':')) {
+      return iconName;
+    }
+    // Convert Tabler icon name to iconify format
+    // "IconBrandFacebook" -> "tabler:brand-facebook"
+    let withoutIcon = iconName.replace(/^Icon/, '');
+    // Convert camelCase to kebab-case
+    const kebabCase = withoutIcon
+      .replace(/([a-z])([A-Z])/g, '$1-$2')
+      .replace(/([A-Z])([A-Z][a-z])/g, '$1-$2')
+      .toLowerCase();
+    return `tabler:${kebabCase}`;
+  };
+
   const sideMenuRef = useRef<HTMLDivElement>(null)
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -37,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
 
   return (
     <header className="fixed z-50 w-full bg-white dark:bg-dark transition-all duration-300 lg:px-0 px-4 top-0">
-      <nav className="container mx-auto max-w-8xl flex items-center justify-between py-4 duration-300 shadow-lg bg-white dark:bg-dark rounded-full px-4">
+      <nav className="container mx-auto max-w-8xl flex items-center justify-between py-4 duration-300 shadow-lg bg-white dark:bg-dark px-4 rounded-b-3xl ">
         <div className='flex justify-between items-center gap-2 w-full'>
           <div>
             <Link href='/'>
@@ -63,23 +81,6 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
               />
             </Link>
           </div>
-          {/* Social Links - Desktop only */}
-          {contactInfo?.socialLinks && contactInfo.socialLinks.length > 0 && (
-            <div className="hidden lg:flex items-center gap-3">
-              {contactInfo.socialLinks.map((social, index) => (
-                <Link
-                  key={`${social.url}-${index}`}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-dark dark:text-white hover:text-primary transition-colors"
-                  aria-label={`Visit our ${social.iconName} page`}
-                >
-                  <Icon icon={social.iconName} width={20} height={20} />
-                </Link>
-              ))}
-            </div>
-          )}
           {/* Desktop Navigation - hidden on mobile */}
           <nav className="hidden lg:flex items-center gap-6">
             <Link 
@@ -109,6 +110,23 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
             </Link>
           </nav>
           <div className='flex items-center gap-2 sm:gap-6'>
+                        {/* Social Links - Desktop only */}
+                        {contactInfo?.socialLinks && contactInfo.socialLinks.length > 0 && (
+              <div className="hidden lg:flex items-center gap-3">
+                {contactInfo.socialLinks.map((social, index) => (
+                  <Link
+                    key={`${social.url}-${index}`}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-dark dark:text-white hover:text-primary transition-colors"
+                    aria-label={`Visit our ${social.iconName} page`}
+                  >
+                    <Icon icon={convertIconName(social.iconName)} width={20} height={20} />
+                  </Link>
+                ))}
+              </div>
+            )}
             <button
               className='hover:cursor-pointer border-r pr-6 border-dark dark:border-white'
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
@@ -126,6 +144,7 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
                 className="dark:block hidden text-white"
               />
             </button>
+
             <div className="hidden md:block">
               <Link
                 href="/contactus"
@@ -232,7 +251,7 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
                       className="text-white hover:text-primary transition-colors"
                       aria-label={`Visit our ${social.iconName} page`}
                     >
-                      <Icon icon={social.iconName} width={24} height={24} />
+                      <Icon icon={convertIconName(social.iconName)} width={24} height={24} />
                     </Link>
                   ))}
                 </div>

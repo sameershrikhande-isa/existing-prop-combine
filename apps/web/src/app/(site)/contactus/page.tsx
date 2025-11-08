@@ -18,6 +18,24 @@ export default async function ContactUs() {
   
   const phoneNumbers = contactInfo?.phoneNumbers;
   const phoneDisplay = phoneNumbers?.map((phone) => phone.displayNumber).join(" / ");
+
+  // Convert Tabler icon names (e.g., "IconBrandFacebook") to iconify format (e.g., "tabler:brand-facebook")
+  const convertIconName = (iconName: string): string => {
+    if (!iconName) return iconName;
+    // If already in iconify format (contains :), return as is
+    if (iconName.includes(':')) {
+      return iconName;
+    }
+    // Convert Tabler icon name to iconify format
+    // "IconBrandFacebook" -> "tabler:brand-facebook"
+    let withoutIcon = iconName.replace(/^Icon/, '');
+    // Convert camelCase to kebab-case
+    const kebabCase = withoutIcon
+      .replace(/([a-z])([A-Z])/g, '$1-$2')
+      .replace(/([A-Z])([A-Z][a-z])/g, '$1-$2')
+      .toLowerCase();
+    return `tabler:${kebabCase}`;
+  };
   return (
     <div className='container max-w-8xl mx-auto px-5 2xl:px-0 pt-16 md:pt-24 pb-14 md:pb-28'>
       <div className='mb-16'>
@@ -106,7 +124,7 @@ export default async function ContactUs() {
                         className="text-white hover:text-primary transition-colors"
                         aria-label={`Visit our ${social.iconName} page`}
                       >
-                        <Icon icon={social.iconName} width={32} height={32} />
+                        <Icon icon={convertIconName(social.iconName)} width={32} height={32} />
                       </Link>
                     ))}
                   </div>

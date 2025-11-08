@@ -63,10 +63,10 @@ const Hero4 = () => {
                 <Star className="size-5 fill-yellow-400 text-yellow-400" />
                 <Star className="size-5 fill-yellow-400 text-yellow-400" />
                 <Star className="size-5 fill-yellow-400 text-yellow-400" />
-                <span className="font-semibold">5.0</span>
+                <span className="font-semibold">4.9</span>
               </div>
               <p className="text-muted-foreground text-left font-medium">
-                from 200+ reviews
+                from customers
               </p>
             </div>
           </div>
