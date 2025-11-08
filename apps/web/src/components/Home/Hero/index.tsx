@@ -7,8 +7,35 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 const Hero: React.FC = () => {
   return (
     <section className='!py-0'>
-      <div className='bg-gradient-to-b from-skyblue via-lightskyblue dark:via-[#4298b0] to-white/10 dark:to-black/10 overflow-hidden relative'>
-        <div className='container max-w-8xl mx-auto px-5 2xl:px-0 pt-32 md:pt-60 md:pb-68'>
+      <div className='overflow-hidden relative'>
+        {/* Background Images - Responsive */}
+        <div className='absolute inset-0 z-0'>
+          {/* Mobile Image */}
+          <Image
+            src='/images/hero/hero-mobile.png'
+            alt=''
+            fill
+            className='object-cover object-center block md:hidden'
+            priority
+            unoptimized={true}
+            aria-hidden='true'
+          />
+          {/* Desktop Image */}
+          <Image
+            src='/images/hero/hero-image-1.jpg'
+            alt=''
+            fill
+            className='object-cover object-center hidden md:block'
+            priority
+            unoptimized={true}
+            aria-hidden='true'
+          />
+        </div>
+        
+        {/* Overlay */}
+        <div className='absolute inset-0 z-[1] bg-gradient-to-b from-black/40 via-black/30 to-black/20 dark:from-black/60 dark:via-black/50 dark:to-black/40' />
+        
+        <div className='container max-w-8xl mx-auto px-5 2xl:px-0 pt-32 md:pt-60 md:pb-68 relative z-10'>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center relative z-10">
             {/* Left Column: Content */}
             <div className='relative text-white dark:text-dark text-center md:text-start'>
@@ -75,16 +102,17 @@ const Hero: React.FC = () => {
               <PropertySearchBar isCompact className='max-w-full' />
             </div>
           </div>
-          <div className='hidden md:block absolute -top-2 -right-68 z-0'>
+          {/* <div className='hidden md:block absolute -top-2 -right-68 z-[2] opacity-30'>
             <Image
               src={'/images/hero/heroBanner.png'}
-              alt='heroImg'
+              alt=''
               width={1082}
               height={1016}
               priority={false}
               unoptimized={true}
+              aria-hidden='true'
             />
-          </div>
+          </div> */}
         </div>
 {/*  
         <div className='md:absolute bottom-0 md:-right-68 xl:right-0 bg-white dark:bg-black py-12 px-8 mobile:px-16 md:pl-16 md:pr-[295px] rounded-2xl md:rounded-none md:rounded-tl-2xl mt-24'>

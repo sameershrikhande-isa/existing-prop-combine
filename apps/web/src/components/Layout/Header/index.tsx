@@ -103,10 +103,10 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
               <IconSearch size={18} className="text-dark dark:text-white" />
             </Link>
             <Link 
-              href="#faqs" 
+              href="#value-added-services" 
               className="text-base font-medium text-dark dark:text-white hover:text-primary transition-colors"
             >
-              FAQ
+              Value Added Services
             </Link>
           </nav>
           <div className='flex items-center gap-2 sm:gap-6'>

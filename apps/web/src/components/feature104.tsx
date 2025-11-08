@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 
 const Feature104 = () => {
   return (
-    <section className="py-24">
+    <section id="value-added-services" className="py-24">
       <div className="container max-w-8xl mx-auto px-5 2xl:px-0">
         <div className="mx-auto flex flex-col items-center gap-3 mb-10">
           <div className="flex gap-2.5 items-center justify-center">
