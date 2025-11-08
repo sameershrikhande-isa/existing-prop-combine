@@ -290,6 +290,10 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
       />
 
       <div className="px-4 sm:px-6 pt-4">
+        <h2 className="text-2xl sm:text-3xl font-bold text-black dark:text-white text-center mb-4 md:mb-6 flex items-center justify-center gap-2">
+          Find your dream
+          <IconHome2 className="w-6 h-6 sm:w-7 sm:h-7" aria-hidden />
+        </h2>
         <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
           {/* Property Type Selection */}
           <div className="flex items-center gap-2">

@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { IconArrowRight, IconMail } from '@tabler/icons-react'
 import { PropertySearchBar } from '@/components/search/PropertySearchBarNew'
 
 const Hero: React.FC = () => {
@@ -20,19 +21,24 @@ const Hero: React.FC = () => {
               <span>MahaRERA-Registered Real Estate Agent</span>
             </div>
             <h1 className='text-inherit text-4xl sm:text-7xl font-bold md:font-semibold -tracking-wider md:max-w-45p mt-4 mb-6'>
-              Find Your Dream Home in Thane
+            Smart Choices. Perfect Homes
             </h1>
+            <p className='text-inherit text-lg sm:text-3xl font-normal md:font-normal -tracking-wider md:max-w-45p mt-4 mb-6'>
+              Expert Guidance with Local knowledge
+            </p>
             <div className='flex flex-col xs:flex-row justify-center md:justify-start gap-4'>
-              <Link href="/contactus" className='px-8 py-4 border border-white dark:border-dark bg-white dark:bg-dark text-dark dark:text-white duration-300 dark:hover:text-dark hover:bg-transparent hover:text-white text-base font-semibold rounded-full hover:cursor-pointer'>
+              <Link href="/contactus" className='px-8 py-4 border border-white dark:border-dark bg-white dark:bg-dark text-dark dark:text-white duration-300 dark:hover:text-dark hover:bg-transparent hover:text-white text-base font-semibold rounded-full hover:cursor-pointer flex items-center gap-2'>
+                <IconMail className="w-5 h-5" />
                 Get in touch
               </Link>
               <Link
                 href="/properties"
-                className="px-8 py-4 border border-white dark:border-dark bg-transparent text-white dark:text-dark hover:bg-white dark:hover:bg-dark dark:hover:text-white hover:text-dark duration-300 text-base font-semibold rounded-full hover:cursor-pointer"
+                className="px-8 py-4 border border-white dark:border-dark bg-transparent text-white dark:text-dark hover:bg-white dark:hover:bg-dark dark:hover:text-white hover:text-dark duration-300 text-base font-semibold rounded-full hover:cursor-pointer flex items-center gap-2"
                 tabIndex={0}
                 aria-label="Browse properties"
               >
-                Find Your Home
+                Seek Expert Guidance
+                <IconArrowRight className="w-5 h-5" />
               </Link>
             </div>
           </div>
