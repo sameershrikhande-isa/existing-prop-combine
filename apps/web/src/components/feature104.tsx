@@ -92,7 +92,7 @@ const Feature104 = () => {
                 <span className="flex size-10 items-center justify-center rounded-md bg-black/5 dark:bg-white/10">
                   <Icon icon="tabler:armchair-2" className="h-6 w-6" />
                 </span>
-                <h3 className="font-medium text-dark dark:text-white">Interior designers</h3>
+                <h3 className="font-medium text-dark dark:text-white">Interior consulting</h3>
               </div>
               <p className="text-sm md:text-base text-black/60 dark:text-white/60">
                 Curated experts to design functional, beautiful spaces that fit your lifestyle.

@@ -28,8 +28,8 @@ const HeroSub: FC<HeroSubProps> = ({ title, description, badge, showSearch = fal
                         {badge}
                     </p>
                 </div>
-                <h2 className="text-dark text-40 lg:text-52 relative font-bold dark:text-white " >{title}</h2>
-                <p className="text-lg text-dark/50 dark:text-white/50 font-normal w-full mx-auto">
+                <h2 className="text-dark text-40 lg:text-52 relative font-bold dark:text-white leading-tight mt-2" >{title}</h2>
+                <p className="text-lg text-dark/50 dark:text-white/50 font-normal w-full mx-auto mt-2 leading-tight">
                     {description}
                 </p>
                 {showSearch ? (

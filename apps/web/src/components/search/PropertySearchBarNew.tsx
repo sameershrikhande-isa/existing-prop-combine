@@ -300,7 +300,7 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
         <div className={cn("flex flex-col md:flex-row items-center justify-center", isCompact ? "gap-3 md:gap-5" : "gap-3 md:gap-6")}>
           {/* Property Type Selection */}
           <div className="flex items-center gap-2">
-            <span className={cn("font-medium text-black/60 dark:text-white/60 uppercase tracking-wide", isCompact ? "text-xs" : "text-[11px]")}>
+            <span className={cn("font-medium text-black/60 dark:text-white/60 uppercase tracking-wide", isCompact ? "text-[11px]" : "text-[11px]")}>
               Type
             </span>
             <div className="flex rounded-full p-1 bg-black/5 dark:bg-white/10">

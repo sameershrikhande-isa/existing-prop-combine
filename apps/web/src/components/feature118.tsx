@@ -51,11 +51,11 @@ const Feature118 = () => {
                     <LucideGitGraph className="h-auto w-5 text-dark dark:text-white" />
                   </span>
                   <h3 className="mt-5 text-2xl lg:text-3xl font-medium text-dark dark:text-white">
-                    A Decade of Expertise in Real Estate Licensing
+                    A Decade of Expertise in Real Estate
                   </h3>
                 </div>
                 <p className="text-dark/60 dark:text-white/60">
-                  Over 10 years of expertise into real estate licensing industry
+                  Knowledge of Thane & Nearby Areas // make it better
                   </p>
               </div>
               <Image
@@ -96,7 +96,7 @@ const Feature118 = () => {
           </div>
           <div className="grid items-center gap-8 rounded-2xl border border-black/10 dark:border-white/10 bg-white/90 dark:bg-black/80 shadow-(--shadow-3xl) backdrop-blur p-8 md:p-10 lg:grid-cols-3">
             <h3 className="text-2xl lg:text-3xl font-medium text-dark dark:text-white">
-            MahaRERA-Registered Real Estate Agent
+            MahaRERA-Registered
             </h3>
             <div className="flex items-center gap-5">
               <span className="text-4xl md:text-5xl font-semibold text-dark dark:text-white">98%</span>
