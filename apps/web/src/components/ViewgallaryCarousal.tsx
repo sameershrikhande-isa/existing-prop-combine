@@ -57,11 +57,11 @@ const ViewgallaryCarousal = ({ images, propertyTitle = "Property" }: Viewgallary
                 transition={{ duration: 0.3 }}
               >
                 {image && (
-                  <img
-                    src={image}
-                    alt={`Gallery image ${imageIndex + 1}`}
-                    className="h-full w-full object-cover"
-                  />
+                <img
+                  src={image}
+                  alt={`Gallery image ${imageIndex + 1}`}
+                  className="h-full w-full object-cover"
+                />
                 )}
               </motion.div>
             ))}

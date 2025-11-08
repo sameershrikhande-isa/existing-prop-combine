@@ -9,7 +9,7 @@ import type { PropertyCardData } from "@/types/property";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Property List | Homely",
+    title: "Property List | Homely",
 };
 
 // Enable ISR with 1 hour revalidation
@@ -54,15 +54,15 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
     ? await client.fetch<PropertyCardData[]>(queryFilteredProperties, filters)
     : await client.fetch<PropertyCardData[]>(queryAllPropertiesData);
 
-  return (
-    <>
-      <HeroSub
-        title="Discover inspiring designed homes."
+    return (
+        <>
+            <HeroSub
+                title="Discover inspiring designed homes."
         description="Experience elegance and comfort with our exclusive luxury villas, designed for sophisticated living."
-        badge="Properties"
-        showSearch
-        searchClassName="max-w-6xl mx-auto"
-      />
+                badge="Properties"
+                showSearch
+                searchClassName="max-w-6xl mx-auto"
+            />
       <section className="pt-0!">
         <div className="container max-w-8xl mx-auto px-5 2xl:px-0">
           {/* Results count - only show when there are results to avoid duplicate empty states */}
@@ -94,8 +94,8 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
           )}
         </div>
       </section>
-    </>
-  );
+        </>
+    );
 };
 
 export default PropertiesPage;

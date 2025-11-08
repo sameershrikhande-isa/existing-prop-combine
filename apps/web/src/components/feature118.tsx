@@ -7,6 +7,7 @@ import {
   Zap,
 } from "lucide-react";
 import { Icon } from "@iconify/react";
+import Image from "next/image";
 import Link from 'next/link';
 
 const Feature118 = () => {
@@ -57,11 +58,13 @@ const Feature118 = () => {
                   Over 10 years of expertise into real estate licensing industry
                   </p>
               </div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
-                alt="placeholder"
+              <Image
+                src="/images/legal-and-trust/person-holding-hands-trust.jpg"
+                alt="Person holding hands representing trust and expertise"
+                width={680}
+                height={450}
                 className="hidden sm:block aspect-video h-full w-full rounded-2xl object-cover md:aspect-auto"
+                unoptimized={true}
               />
             </div>
             <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-white/90 dark:bg-black/80 shadow-(--shadow-3xl) backdrop-blur p-8 md:p-10">

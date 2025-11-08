@@ -92,6 +92,15 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
             </Link>
           </nav>
           <div className='flex items-center gap-2 sm:gap-6'>
+            <div className="hidden md:block">
+              <Link
+                href="/contactus"
+                className="flex items-center border-r pr-6 text-primary dark:text-white hover:text-dark dark:hover:text-red-400 border-dark dark:border-white transition-colors"
+                aria-label="Go to contact page"
+              >
+                <Icon icon={'ph:phone-bold'} width={24} height={24} />
+              </Link>
+            </div>
             <button
               className='hover:cursor-pointer'
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
@@ -109,16 +118,7 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
                 className="dark:block hidden text-white"
               />
             </button>
-            <div className="hidden md:block">
-              <Link
-                href="/contactus"
-                className="flex items-center border-r pr-6 text-primary dark:text-white hover:text-dark dark:hover:text-red-400 border-dark dark:border-white transition-colors"
-                aria-label="Go to contact page"
-              >
-                <Icon icon={'ph:phone-bold'} width={24} height={24} />
-              </Link>
-            </div>
-            <div>
+            <div className="lg:hidden">
               <button
                 onClick={() => setNavbarOpen(!navbarOpen)}
                 className="flex items-center gap-3 p-2 sm:px-5 sm:py-3 rounded-full font-semibold hover:cursor-pointer border text-white bg-dark dark:bg-white dark:text-dark dark:hover:text-white dark:hover:bg-dark hover:text-dark hover:bg-white border-dark dark:border-white duration-300"
