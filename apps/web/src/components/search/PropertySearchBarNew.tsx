@@ -292,15 +292,15 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
         [-webkit-mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] [-webkit-mask-composite:xor]  "
       />
 
-      <div className={cn("pt-4", isCompact ? "px-4 sm:px-5" : "px-4 sm:px-6")}>
-        <h2 className={cn("font-bold text-black dark:text-white text-center flex items-center justify-center gap-2", isCompact ? "text-2xl sm:text-2xl md:text-3xl mb-4 md:mb-5" : "text-2xl sm:text-3xl mb-4 md:mb-6")}>
+      <div className={cn("pt-4", isCompact ? "px-4 sm:px-5 lg:px-4 lg:pt-3" : "px-4 sm:px-6")}>
+        <h2 className={cn("font-bold text-black dark:text-white text-center flex items-center justify-center gap-2", isCompact ? "text-2xl sm:text-2xl md:text-2xl lg:text-xl mb-4 md:mb-4 lg:mb-3" : "text-2xl sm:text-3xl mb-4 md:mb-6")}>
           Find your dream
-          <DreamHomeIcon className={cn(isCompact ? "w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10" : "w-7 h-7 sm:w-8 sm:h-8")} aria-hidden />
+          <DreamHomeIcon className={cn(isCompact ? "w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-6 lg:h-6" : "w-7 h-7 sm:w-8 sm:h-8")} aria-hidden />
         </h2>
-        <div className={cn("flex flex-col md:flex-row items-center justify-center", isCompact ? "gap-3 md:gap-5" : "gap-3 md:gap-6")}>
+        <div className={cn("flex flex-col md:flex-row items-center justify-center", isCompact ? "gap-1 md:gap-1 lg:gap-1" : "gap-3 md:gap-6")}>
           {/* Property Type Selection */}
           <div className="w-full md:w-auto flex flex-col md:flex-row md:items-center gap-2">
-            <span className={cn("font-medium text-black/60 dark:text-white/60 uppercase tracking-wide hidden md:block", isCompact ? "text-[11px]" : "text-[11px]")}>
+            <span className={cn("font-medium text-black/60 dark:text-white/60 uppercase tracking-wide", isCompact ? "hidden md:block lg:hidden text-[11px]" : "hidden md:block text-[11px]")}>
               Type
             </span>
             <div className="flex rounded-full p-1 bg-black/5 dark:bg-white/10 w-full md:w-auto">
@@ -314,13 +314,13 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
                     key={type._id}
                     type="button"
                     onClick={() => setSelectedPropertyTypeId(type._id)}
-                    className={cn("flex-1 md:flex-none px-4 py-2.5 md:py-1.5 rounded-full transition-colors", isCompact ? "text-base" : "text-base md:text-sm", isSelected
-                        ? "bg-white dark:bg-black text-black dark:text-white shadow-md md:shadow"
+                    className={cn("flex-1 md:flex-none px-4 py-2.5 md:py-1.5 lg:px-3 lg:py-1.5 rounded-full transition-colors", isCompact ? "text-base md:text-sm lg:text-sm" : "text-base md:text-sm", isSelected
+                        ? "bg-white dark:bg-black text-black dark:text-white shadow-md md:shadow lg:shadow"
                         : "text-black/70 dark:text-white/70")}
                     aria-pressed={isSelected}
                   >
-                    <span className="inline-flex items-center justify-center gap-1.5">
-                      <Icon size={18} aria-hidden />
+                    <span className="inline-flex items-center justify-center gap-1.5 lg:gap-1.5">
+                      <Icon size={18} className="lg:w-5 lg:h-5" aria-hidden />
                       <span>{type.name}</span>
                     </span>
                   </button>
@@ -336,7 +336,7 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
 
           {/* Purpose Selection */}
           <div className="w-full md:w-auto flex flex-col md:flex-row md:items-center gap-2 justify-start md:justify-center">
-            <span className={cn("font-medium text-black/60 dark:text-white/60 uppercase tracking-wide hidden md:block", isCompact ? "text-xs" : "text-[11px]")}>
+            <span className={cn("font-medium text-black/60 dark:text-white/60 uppercase tracking-wide", isCompact ? "hidden md:block lg:hidden text-xs" : "hidden md:block text-[11px]")}>
               Purpose
             </span>
             <div className="flex rounded-full p-1 bg-black/5 dark:bg-white/10 w-full md:w-auto">
@@ -350,13 +350,13 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
                     key={purpose._id}
                     type="button"
                     onClick={() => setSelectedPurposeId(purpose._id)}
-                    className={cn("flex-1 md:flex-none px-4 py-2.5 md:py-1.5 rounded-full transition-colors", isCompact ? "text-base" : "text-base md:text-sm", isSelected
-                        ? "bg-white dark:bg-black text-black dark:text-white shadow-md md:shadow"
+                    className={cn("flex-1 md:flex-none px-4 py-2.5 md:py-1.5 lg:px-4 lg:py-1.5 rounded-full transition-colors", isCompact ? "text-base md:text-sm lg:text-sm" : "text-base md:text-sm", isSelected
+                        ? "bg-white dark:bg-black text-black dark:text-white shadow-md md:shadow lg:shadow"
                         : "text-black/70 dark:text-white/70")}
                     aria-pressed={isSelected}
                   >
-                    <span className="inline-flex items-center justify-center gap-1.5">
-                      <Icon size={18} aria-hidden />
+                    <span className="inline-flex items-center justify-center gap-1.5 lg:gap-1.5">
+                      <Icon size={18} className="lg:w-5 lg:h-5" aria-hidden />
                       <span>{purpose.name}</span>
                     </span>
                   </button>
@@ -370,16 +370,16 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
       {/* Filter Ranges Section */}
       {(budgetRanges.length > 0 || carpetAreaRanges.length > 0) && (
         <>
-          <div className={cn(isCompact ? "px-4 sm:px-5" : "px-4 sm:px-6")}>
-            <Separator className={cn("bg-black/10 dark:bg-white/10", isCompact ? "my-3 md:my-4" : "my-3 md:my-4")} />
+          <div className={cn(isCompact ? "px-4 sm:px-5 lg:px-4" : "px-4 sm:px-6")}>
+            <Separator className={cn("bg-black/10 dark:bg-white/10", isCompact ? "my-3 md:my-3 lg:my-2" : "my-3 md:my-4")} />
           </div>
 
-          <div className={cn("pb-4", isCompact ? "px-4 sm:px-5" : "px-4 sm:px-6")}>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
+          <div className={cn("pb-4", isCompact ? "px-4 sm:px-5 lg:px-4 lg:pb-3" : "px-4 sm:px-6")}>
+            <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-4 items-start", isCompact && "lg:gap-3")}>
               {/* Budget Range */}
               {budgetRanges.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <label className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm" : "text-xs")}>
+                  <label className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm lg:text-xs" : "text-xs")}>
                     Budget{!isCompact && " (Optional)"}
                   </label>
                   <SingleSelect
@@ -397,7 +397,7 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
               {/* Carpet Area Range */}
               {carpetAreaRanges.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <label className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm" : "text-xs")}>
+                  <label className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm lg:text-xs" : "text-xs")}>
                     Carpet Area{!isCompact && " (Optional)"}
                   </label>
                   <SingleSelect
@@ -568,13 +568,13 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
       )}
 
       {/* Search Button */}
-      <div className={cn("pb-4", isCompact ? "px-4 sm:px-5" : "px-4 sm:px-6")}>
+      <div className={cn("pb-4", isCompact ? "px-4 sm:px-5 lg:px-4 lg:pb-3" : "px-4 sm:px-6")}>
         <Button
           onClick={handleSearch}
-          className={cn("w-full bg-primary hover:bg-primary/90 text-white rounded-2xl md:rounded-xl font-medium group inline-flex items-center justify-center gap-2", isCompact ? "py-5 text-base" : "py-6 text-base")}
+          className={cn("w-full bg-primary hover:bg-primary/90 text-white rounded-2xl md:rounded-xl font-medium group inline-flex items-center justify-center gap-2", isCompact ? "py-5 text-base lg:py-3 lg:text-sm" : "py-6 text-base")}
         >
           <span>Search Properties</span>
-          <IconChevronRight size={isCompact ? 26 : 28} aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5" />
+          <IconChevronRight size={isCompact ? 26 : 28} className={cn(isCompact && "lg:w-5 lg:h-5", "transition-transform duration-300 group-hover:translate-x-0.5")} aria-hidden />
         </Button>
       </div>
     </div>
