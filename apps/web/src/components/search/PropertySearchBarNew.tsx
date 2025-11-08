@@ -299,11 +299,11 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
         </h2>
         <div className={cn("flex flex-col md:flex-row items-center justify-center", isCompact ? "gap-3 md:gap-5" : "gap-3 md:gap-6")}>
           {/* Property Type Selection */}
-          <div className="flex items-center gap-2">
-            <span className={cn("font-medium text-black/60 dark:text-white/60 uppercase tracking-wide", isCompact ? "text-[11px]" : "text-[11px]")}>
+          <div className="w-full md:w-auto flex flex-col md:flex-row md:items-center gap-2">
+            <span className={cn("font-medium text-black/60 dark:text-white/60 uppercase tracking-wide hidden md:block", isCompact ? "text-[11px]" : "text-[11px]")}>
               Type
             </span>
-            <div className="flex rounded-full p-1 bg-black/5 dark:bg-white/10">
+            <div className="flex rounded-full p-1 bg-black/5 dark:bg-white/10 w-full md:w-auto">
               {filterData.propertyTypes.map((type) => {
                 const isResidential = type.name.toLowerCase().includes("residential");
                 const Icon = isResidential ? IconHome2 : IconBuildingSkyscraper;
@@ -314,13 +314,13 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
                     key={type._id}
                     type="button"
                     onClick={() => setSelectedPropertyTypeId(type._id)}
-                    className={cn("px-4 py-1.5 rounded-full transition-colors", isCompact ? "text-base" : "text-sm", isSelected
-                        ? "bg-white dark:bg-black text-black dark:text-white shadow"
+                    className={cn("flex-1 md:flex-none px-4 py-2.5 md:py-1.5 rounded-full transition-colors", isCompact ? "text-base" : "text-base md:text-sm", isSelected
+                        ? "bg-white dark:bg-black text-black dark:text-white shadow-md md:shadow"
                         : "text-black/70 dark:text-white/70")}
                     aria-pressed={isSelected}
                   >
-                    <span className="inline-flex items-center gap-1.5">
-                      <Icon size={isCompact ? 18 : 16} aria-hidden />
+                    <span className="inline-flex items-center justify-center gap-1.5">
+                      <Icon size={18} aria-hidden />
                       <span>{type.name}</span>
                     </span>
                   </button>
@@ -335,11 +335,11 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
           />
 
           {/* Purpose Selection */}
-          <div className="flex items-center gap-2 justify-start md:justify-center">
-            <span className={cn("font-medium text-black/60 dark:text-white/60 uppercase tracking-wide", isCompact ? "text-xs" : "text-[11px]")}>
+          <div className="w-full md:w-auto flex flex-col md:flex-row md:items-center gap-2 justify-start md:justify-center">
+            <span className={cn("font-medium text-black/60 dark:text-white/60 uppercase tracking-wide hidden md:block", isCompact ? "text-xs" : "text-[11px]")}>
               Purpose
             </span>
-            <div className="flex rounded-full p-1 bg-black/5 dark:bg-white/10">
+            <div className="flex rounded-full p-1 bg-black/5 dark:bg-white/10 w-full md:w-auto">
               {filterData.purposes.map((purpose) => {
                 const isRent = purpose.name.toLowerCase().includes("rent");
                 const Icon = isRent ? IconKey : IconHomeDollar;
@@ -350,13 +350,13 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
                     key={purpose._id}
                     type="button"
                     onClick={() => setSelectedPurposeId(purpose._id)}
-                    className={cn("px-4 py-1.5 rounded-full transition-colors", isCompact ? "text-base" : "text-sm", isSelected
-                        ? "bg-white dark:bg-black text-black dark:text-white shadow"
+                    className={cn("flex-1 md:flex-none px-4 py-2.5 md:py-1.5 rounded-full transition-colors", isCompact ? "text-base" : "text-base md:text-sm", isSelected
+                        ? "bg-white dark:bg-black text-black dark:text-white shadow-md md:shadow"
                         : "text-black/70 dark:text-white/70")}
                     aria-pressed={isSelected}
                   >
-                    <span className="inline-flex items-center gap-1.5">
-                      <Icon size={isCompact ? 18 : 16} aria-hidden />
+                    <span className="inline-flex items-center justify-center gap-1.5">
+                      <Icon size={18} aria-hidden />
                       <span>{purpose.name}</span>
                     </span>
                   </button>
