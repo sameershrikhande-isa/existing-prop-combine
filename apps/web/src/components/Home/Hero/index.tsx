@@ -15,7 +15,7 @@ const Hero: React.FC = () => {
             src='/images/hero/hero-mobile.png'
             alt=''
             fill
-            className='object-cover object-center block md:hidden'
+            className='object-cover object-center block md:hidden brightness-95'
             priority
             unoptimized={true}
             aria-hidden='true'
@@ -25,7 +25,7 @@ const Hero: React.FC = () => {
             src='/images/hero/hero-image-1.jpg'
             alt=''
             fill
-            className='object-cover object-center hidden md:block'
+            className='object-cover object-center hidden md:block brightness-95'
             priority
             unoptimized={true}
             aria-hidden='true'
@@ -33,7 +33,9 @@ const Hero: React.FC = () => {
         </div>
         
         {/* Overlay */}
-        <div className='absolute inset-0 z-[1] bg-gradient-to-b from-black/40 via-black/30 to-black/20 dark:from-black/60 dark:via-black/50 dark:to-black/40' />
+        {/* <div className='absolute inset-0 z-[1] bg-gradient-to-b from-black/40 via-black/30 to-black/20 dark:from-black/60 dark:via-black/50 dark:to-black/40' /> */}
+        <div className='absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/50 to-black/40 dark:from-black/70 dark:via-black/60 dark:to-black/50' />
+
         
         <div className='container max-w-8xl mx-auto px-5 2xl:px-0 pt-32 md:pt-60 md:pb-68 relative z-10'>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center relative z-10">
