@@ -29,9 +29,10 @@ type FilterData = {
 
 type PropertySearchBarProps = {
   className?: string;
+  isCompact?: boolean;
 };
 
-export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
+export const PropertySearchBar = ({ className, isCompact = false }: PropertySearchBarProps) => {
   const router = useRouter();
   const [filterData, setFilterData] = useState<FilterData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -289,12 +290,12 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
         [-webkit-mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] [-webkit-mask-composite:xor]  "
       />
 
-      <div className="px-4 sm:px-6 pt-4">
-        <h2 className="text-2xl sm:text-3xl font-bold text-black dark:text-white text-center mb-4 md:mb-6 flex items-center justify-center gap-2">
+      <div className={cn("pt-4", isCompact ? "px-3 sm:px-4" : "px-4 sm:px-6")}>
+        <h2 className={cn("font-bold text-black dark:text-white text-center flex items-center justify-center gap-2", isCompact ? "text-xl sm:text-2xl mb-3 md:mb-4" : "text-2xl sm:text-3xl mb-4 md:mb-6")}>
           Find your dream
-          <IconHome2 className="w-6 h-6 sm:w-7 sm:h-7" aria-hidden />
+          <IconHome2 className={cn(isCompact ? "w-5 h-5 sm:w-6 sm:h-6" : "w-6 h-6 sm:w-7 sm:h-7")} aria-hidden />
         </h2>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6">
+        <div className={cn("flex flex-col md:flex-row items-center justify-center", isCompact ? "gap-2 md:gap-4" : "gap-3 md:gap-6")}>
           {/* Property Type Selection */}
           <div className="flex items-center gap-2">
             <span className="text-[11px] font-medium text-black/60 dark:text-white/60 uppercase tracking-wide">
@@ -371,11 +372,11 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
       {/* Filter Ranges Section */}
       {(budgetRanges.length > 0 || carpetAreaRanges.length > 0) && (
         <>
-          <div className="px-4 sm:px-6">
-            <Separator className="my-3 md:my-4 bg-black/10 dark:bg-white/10" />
+          <div className={cn(isCompact ? "px-3 sm:px-4" : "px-4 sm:px-6")}>
+            <Separator className={cn("bg-black/10 dark:bg-white/10", isCompact ? "my-2 md:my-3" : "my-3 md:my-4")} />
           </div>
 
-          <div className="px-4 sm:px-6 pb-4">
+          <div className={cn("pb-4", isCompact ? "px-3 sm:px-4" : "px-4 sm:px-6")}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
               {/* Budget Range */}
               {budgetRanges.length > 0 && (
@@ -493,10 +494,10 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
       {/* Amenities Section - mobile only */}
       {filterData.amenities.length > 0 && (
         <>
-          <div className="px-4 sm:px-6 md:hidden">
-            <Separator className="my-3 md:my-4 bg-black/10 dark:bg-white/10" />
+          <div className={cn("md:hidden", isCompact ? "px-3 sm:px-4" : "px-4 sm:px-6")}>
+            <Separator className={cn("bg-black/10 dark:bg-white/10", isCompact ? "my-2 md:my-3" : "my-3 md:my-4")} />
           </div>
-          <div className="px-4 sm:px-6 pb-4 md:hidden">
+          <div className={cn("pb-4 md:hidden", isCompact ? "px-3 sm:px-4" : "px-4 sm:px-6")}>
             <Popover open={isAmenitiesOpenMobile} onOpenChange={setIsAmenitiesOpenMobile}>
               <PopoverTrigger asChild>
                 <button
@@ -570,13 +571,13 @@ export const PropertySearchBar = ({ className }: PropertySearchBarProps) => {
       )}
 
       {/* Search Button */}
-      <div className="px-4 sm:px-6 pb-4">
+      <div className={cn("pb-4", isCompact ? "px-3 sm:px-4" : "px-4 sm:px-6")}>
         <Button
           onClick={handleSearch}
-          className="w-full bg-primary hover:bg-primary/90 text-white rounded-2xl md:rounded-xl py-6 text-base font-medium group inline-flex items-center justify-center gap-2"
+          className={cn("w-full bg-primary hover:bg-primary/90 text-white rounded-2xl md:rounded-xl font-medium group inline-flex items-center justify-center gap-2", isCompact ? "py-4 text-sm" : "py-6 text-base")}
         >
           <span>Search Properties</span>
-          <IconChevronRight size={28} aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5" />
+          <IconChevronRight size={isCompact ? 24 : 28} aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5" />
         </Button>
       </div>
     </div>

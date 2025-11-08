@@ -92,17 +92,8 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
             </Link>
           </nav>
           <div className='flex items-center gap-2 sm:gap-6'>
-            <div className="hidden md:block">
-              <Link
-                href="/contactus"
-                className="flex items-center border-r pr-6 text-primary dark:text-white hover:text-dark dark:hover:text-red-400 border-dark dark:border-white transition-colors"
-                aria-label="Go to contact page"
-              >
-                <Icon icon={'ph:phone-bold'} width={24} height={24} />
-              </Link>
-            </div>
             <button
-              className='hover:cursor-pointer'
+              className='hover:cursor-pointer border-r pr-6 border-dark dark:border-white'
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             >
               <Icon
@@ -118,6 +109,15 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
                 className="dark:block hidden text-white"
               />
             </button>
+            <div className="hidden md:block">
+              <Link
+                href="/contactus"
+                className="flex items-center text-primary dark:text-white hover:text-dark dark:hover:text-red-400 transition-colors"
+                aria-label="Go to contact page"
+              >
+                <Icon icon={'ph:phone-bold'} width={24} height={24} />
+              </Link>
+            </div>
             <div className="lg:hidden">
               <button
                 onClick={() => setNavbarOpen(!navbarOpen)}

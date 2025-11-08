@@ -1,49 +1,79 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { IconArrowRight, IconMail } from '@tabler/icons-react'
+import { IconArrowRight, IconMail, IconStar } from '@tabler/icons-react'
 import { PropertySearchBar } from '@/components/search/PropertySearchBarNew'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 
 const Hero: React.FC = () => {
   return (
     <section className='!py-0'>
       <div className='bg-gradient-to-b from-skyblue via-lightskyblue dark:via-[#4298b0] to-white/10 dark:to-black/10 overflow-hidden relative'>
         <div className='container max-w-8xl mx-auto px-5 2xl:px-0 pt-32 md:pt-60 md:pb-68'>
-          <div className='relative text-white dark:text-dark text-center md:text-start z-10'>
-            <div className='flex items-center justify-center md:justify-start gap-2 text-inherit text-xm font-medium'>
-              <Image
-                src={'/images/legal-and-trust/logo-MAHARERA.jpg'}
-                alt='MahaRERA logo'
-                width={24}
-                height={24}
-                className='h-6 w-6 object-contain rounded-sm'
-                unoptimized={true}
-              />
-              <span>MahaRERA-Registered Real Estate Agent</span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center relative z-10">
+            {/* Left Column: Content */}
+            <div className='relative text-white dark:text-dark text-center md:text-start'>
+              <div className='flex items-center justify-center md:justify-start gap-2 text-inherit text-xm font-medium'>
+                <Image
+                  src={'/images/legal-and-trust/logo-MAHARERA.jpg'}
+                  alt='MahaRERA logo'
+                  width={24}
+                  height={24}
+                  className='h-6 w-6 object-contain rounded-sm'
+                  unoptimized={true}
+                />
+                <span>MahaRERA-Registered Real Estate Agent</span>
+              </div>
+              <h1 className='text-inherit text-4xl sm:text-7xl font-bold md:font-semibold -tracking-wider md:max-w-45p mt-4 mb-6'>
+              Smart Choices. Perfect Homes
+              </h1>
+              <p className='text-inherit text-lg sm:text-3xl font-normal md:font-normal -tracking-wider md:max-w-45p mt-4 mb-6'>
+                Expert Guidance with Local knowledge
+              </p>
+              
+              {/* Trust Indicator */}
+              <div className="flex flex-col sm:flex-row items-center gap-4 mb-8">
+                <span className="inline-flex items-center -space-x-4">
+                  {[1,2,3,4,5].map((i) => (
+                    <Avatar key={i} className="size-12 border-2 border-white dark:border-dark">
+                      <AvatarImage src={`/images/users/user${i}.jpg`} alt={`Customer ${i}`} />
+                      <AvatarFallback>U{i}</AvatarFallback>
+                    </Avatar>
+                  ))}
+                </span>
+                <div>
+                  <div className="flex items-center gap-1">
+                    {[1,2,3,4,5].map((i) => (
+                      <IconStar key={i} className="size-5 fill-yellow-400 text-yellow-400" />
+                    ))}
+                    <span className="font-semibold text-inherit ml-1">5.0</span>
+                  </div>
+                  <p className="text-inherit/70 text-left font-medium text-sm">
+                    from 200+ reviews
+                  </p>
+                </div>
+              </div>
+
+              <div className='flex flex-col xs:flex-row justify-center md:justify-start gap-4'>
+                <Link href="/contactus" className='px-8 py-4 border border-white dark:border-dark bg-white dark:bg-dark text-dark dark:text-white duration-300 dark:hover:text-dark hover:bg-transparent hover:text-white text-base font-semibold rounded-full hover:cursor-pointer flex items-center gap-2'>
+                  <IconMail className="w-5 h-5" />
+                  Get in touch
+                </Link>
+                <Link
+                  href="/properties"
+                  className="px-8 py-4 border border-white dark:border-dark bg-transparent text-white dark:text-dark hover:bg-white dark:hover:bg-dark dark:hover:text-white hover:text-dark duration-300 text-base font-semibold rounded-full hover:cursor-pointer flex items-center gap-2"
+                  tabIndex={0}
+                  aria-label="Browse properties"
+                >
+                  Seek Expert Guidance
+                  <IconArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
             </div>
-            <h1 className='text-inherit text-4xl sm:text-7xl font-bold md:font-semibold -tracking-wider md:max-w-45p mt-4 mb-6'>
-            Smart Choices. Perfect Homes
-            </h1>
-            <p className='text-inherit text-lg sm:text-3xl font-normal md:font-normal -tracking-wider md:max-w-45p mt-4 mb-6'>
-              Expert Guidance with Local knowledge
-            </p>
-            <div className='flex flex-col xs:flex-row justify-center md:justify-start gap-4'>
-              <Link href="/contactus" className='px-8 py-4 border border-white dark:border-dark bg-white dark:bg-dark text-dark dark:text-white duration-300 dark:hover:text-dark hover:bg-transparent hover:text-white text-base font-semibold rounded-full hover:cursor-pointer flex items-center gap-2'>
-                <IconMail className="w-5 h-5" />
-                Get in touch
-              </Link>
-              <Link
-                href="/properties"
-                className="px-8 py-4 border border-white dark:border-dark bg-transparent text-white dark:text-dark hover:bg-white dark:hover:bg-dark dark:hover:text-white hover:text-dark duration-300 text-base font-semibold rounded-full hover:cursor-pointer flex items-center gap-2"
-                tabIndex={0}
-                aria-label="Browse properties"
-              >
-                Seek Expert Guidance
-                <IconArrowRight className="w-5 h-5" />
-              </Link>
+
+            {/* Right Column: Compact Search */}
+            <div className='relative z-20'>
+              <PropertySearchBar isCompact className='max-w-full' />
             </div>
-          </div>
-          <div className='mt-8 md:mt-10 relative z-20'>
-            <PropertySearchBar className='max-w-6xl mx-auto md:mx-0' />
           </div>
           <div className='hidden md:block absolute -top-2 -right-68 z-0'>
             <Image
