@@ -63,6 +63,23 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
               />
             </Link>
           </div>
+          {/* Social Links - Desktop only */}
+          {contactInfo?.socialLinks && contactInfo.socialLinks.length > 0 && (
+            <div className="hidden lg:flex items-center gap-3">
+              {contactInfo.socialLinks.map((social, index) => (
+                <Link
+                  key={`${social.url}-${index}`}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-dark dark:text-white hover:text-primary transition-colors"
+                  aria-label={`Visit our ${social.iconName} page`}
+                >
+                  <Icon icon={social.iconName} width={20} height={20} />
+                </Link>
+              ))}
+            </div>
+          )}
           {/* Desktop Navigation - hidden on mobile */}
           <nav className="hidden lg:flex items-center gap-6">
             <Link 
@@ -203,6 +220,22 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
                 <Link href={`tel:${phoneNumbers[0]?.actualNumber.replace(/\s/g, '')}`} className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
                   {phoneDisplay}
                 </Link>
+              )}
+              {contactInfo.socialLinks && contactInfo.socialLinks.length > 0 && (
+                <div className='flex items-center gap-4 mt-6'>
+                  {contactInfo.socialLinks.map((social, index) => (
+                    <Link
+                      key={`${social.url}-${index}`}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white hover:text-primary transition-colors"
+                      aria-label={`Visit our ${social.iconName} page`}
+                    >
+                      <Icon icon={social.iconName} width={24} height={24} />
+                    </Link>
+                  ))}
+                </div>
               )}
             </div>
           )}

@@ -291,7 +291,11 @@ export const queryContactInfo = defineQuery(`
       actualNumber,
       displayNumber
     },
-    email
+    email,
+    "socialLinks": socialLinks[] | order(orderRank asc) {
+      iconName,
+      url
+    }
   }
 `);
 

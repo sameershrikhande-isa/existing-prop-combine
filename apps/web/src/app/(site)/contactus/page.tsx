@@ -95,6 +95,22 @@ export default async function ContactUs() {
                     </div>
                   </Link>
                 )}
+                {contactInfo.socialLinks && contactInfo.socialLinks.length > 0 && (
+                  <div className='flex items-center gap-4 mt-6'>
+                    {contactInfo.socialLinks.map((social, index) => (
+                      <Link
+                        key={`${social.url}-${index}`}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-white hover:text-primary transition-colors"
+                        aria-label={`Visit our ${social.iconName} page`}
+                      >
+                        <Icon icon={social.iconName} width={32} height={32} />
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
             {/* <div className='flex items-center gap-4'>

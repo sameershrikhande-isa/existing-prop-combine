@@ -23,10 +23,10 @@ const Hero: React.FC = () => {
                 />
                 <span>MahaRERA-Registered Real Estate Agent</span>
               </div>
-              <h1 className='text-inherit text-4xl sm:text-7xl font-bold md:font-semibold -tracking-wider md:max-w-45p mt-4 mb-6'>
+              <h1 className='text-inherit text-4xl sm:text-7xl font-bold md:font-semibold -tracking-wider md:max-w-[85%] lg:max-w-[75%] mt-4 mb-6'>
               Smart Choices. Perfect Homes
               </h1>
-              <p className='text-inherit text-lg sm:text-3xl font-normal md:font-normal -tracking-wider md:max-w-45p mt-4 mb-6'>
+              <p className='text-inherit text-lg sm:text-3xl font-normal md:font-normal -tracking-wider md:max-w-[85%] lg:max-w-[75%] mt-4 mb-6'>
                 Expert Guidance with Local knowledge
               </p>
               

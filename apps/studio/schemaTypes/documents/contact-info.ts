@@ -1,5 +1,6 @@
 import { Phone } from "lucide-react";
-import { defineField, defineType } from "sanity";
+import { orderRankField } from "@sanity/orderable-document-list";
+import { defineField, defineType, defineArrayMember } from "sanity";
 
 export const contactInfo = defineType({
   name: "contactInfo",
@@ -63,6 +64,47 @@ export const contactInfo = defineType({
       title: "Email",
       description: "Contact email address",
       validation: (rule) => rule.required().email(),
+    }),
+    defineField({
+      name: "socialLinks",
+      type: "array",
+      title: "Social Media Links",
+      description: "Add social media links with icons. These will appear in the header and contact page.",
+      of: [
+        defineArrayMember({
+          type: "object",
+          name: "socialLink",
+          fields: [
+            orderRankField({ type: "socialLink" }),
+            defineField({
+              name: "iconName",
+              type: "string",
+              title: "Icon Name",
+              description: "Iconify icon name (e.g., 'mdi:facebook', 'mdi:instagram', 'mdi:linkedin', 'mdi:twitter', 'mdi:youtube', 'mdi:whatsapp')",
+              validation: (Rule) => Rule.required().error("Icon name is required"),
+            }),
+            defineField({
+              name: "url",
+              type: "url",
+              title: "URL",
+              description: "Full URL to the social media profile/page",
+              validation: (Rule) => Rule.required().uri({ allowRelative: false }).error("Valid URL is required"),
+            }),
+          ],
+          preview: {
+            select: {
+              icon: "iconName",
+              url: "url",
+            },
+            prepare({ icon, url }) {
+              return {
+                title: icon || "Social Link",
+                subtitle: url || "No URL",
+              };
+            },
+          },
+        }),
+      ],
     }),
   ],
   preview: {
