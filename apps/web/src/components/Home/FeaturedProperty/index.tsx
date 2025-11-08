@@ -35,7 +35,7 @@ const FeaturedProperty: React.FC = () => {
 
 
   return (
-    <section>
+    <section id="properties">
       <div className="container max-w-8xl mx-auto px-5 2xl:px-0">
         <div className="grid lg:grid-cols-2 gap-10">
           <div className="relative">

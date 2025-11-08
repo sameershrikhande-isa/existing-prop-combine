@@ -38,7 +38,7 @@ const Testimonial = ({ testimonials }: TestimonialProps) => {
     };
 
     return (
-        <section className="bg-dark relative overflow-hidden" id="testimonial">
+        <section className="bg-dark relative overflow-hidden pb-32 lg:pb-0" id="testimonial">
             <div className="absolute right-0">
                 <Image
                     src="/images/testimonial/Vector.png"
@@ -64,7 +64,7 @@ const Testimonial = ({ testimonials }: TestimonialProps) => {
                         loop: true,
                     }}
                 >
-                    <CarouselContent>
+                    <CarouselContent className="pb-20 lg:pb-0">
                         {testimonials.map((item, index) => {
                             const imageUrl = item.image ? urlFor(item.image).width(440).height(440).url() : null;
                             const thumbnailUrl = item.image ? urlFor(item.image).width(80).height(80).url() : null;
@@ -73,7 +73,7 @@ const Testimonial = ({ testimonials }: TestimonialProps) => {
                             return (
                                 <CarouselItem key={index} className="mt-9">
                                     <div className="lg:flex items-center gap-11">
-                                        <div className="flex items-start gap-11 lg:pr-20">
+                                        <div className="flex items-start gap-11 lg:pr-20 pb-8 lg:pb-0">
                                             <div>
                                                 <Icon icon="ph:house-simple" width={32} height={32} className="text-primary" />
                                             </div>

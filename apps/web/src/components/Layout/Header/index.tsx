@@ -1,6 +1,7 @@
 'use client'
 import { navLinks } from '@/app/api/navlink'
 import { Icon } from '@iconify/react'
+import { IconSearch } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import NavLink from './Navigation/NavLink'
@@ -62,6 +63,34 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
               />
             </Link>
           </div>
+          {/* Desktop Navigation - hidden on mobile */}
+          <nav className="hidden lg:flex items-center gap-6">
+            <Link 
+              href="#expertise" 
+              className="text-base font-medium text-dark dark:text-white hover:text-primary transition-colors"
+            >
+              Expertise
+            </Link>
+            <Link 
+              href="#testimonial" 
+              className="text-base font-medium text-dark dark:text-white hover:text-primary transition-colors"
+            >
+              Testimonials
+            </Link>
+            <Link 
+              href="#properties" 
+              className="text-base font-medium text-dark dark:text-white hover:text-primary transition-colors flex items-center gap-2"
+            >
+              Properties
+              <IconSearch size={18} className="text-dark dark:text-white" />
+            </Link>
+            <Link 
+              href="#faqs" 
+              className="text-base font-medium text-dark dark:text-white hover:text-primary transition-colors"
+            >
+              FAQ
+            </Link>
+          </nav>
           <div className='flex items-center gap-2 sm:gap-6'>
             <button
               className='hover:cursor-pointer'
@@ -80,17 +109,15 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
                 className="dark:block hidden text-white"
               />
             </button>
-            {phoneNumbers && phoneNumbers.length > 0 && phoneDisplay && (
-              <div className="hidden md:block">
-                <Link
-                  href={`tel:${phoneNumbers[0]?.actualNumber.replace(/\s/g, '')}`}
-                  className="text-base flex items-center gap-2 border-r pr-6 text-dark dark:text-white hover:text-primary border-dark dark:border-white"
-                >
-                  <Icon icon={'ph:phone-bold'} width={24} height={24} />
-                  {phoneDisplay}
-                </Link>
-              </div>
-            )}
+            <div className="hidden md:block">
+              <Link
+                href="/contactus"
+                className="flex items-center border-r pr-6 text-primary dark:text-white hover:text-dark dark:hover:text-red-400 border-dark dark:border-white transition-colors"
+                aria-label="Go to contact page"
+              >
+                <Icon icon={'ph:phone-bold'} width={24} height={24} />
+              </Link>
+            </div>
             <div>
               <button
                 onClick={() => setNavbarOpen(!navbarOpen)}
