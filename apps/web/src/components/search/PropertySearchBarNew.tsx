@@ -8,6 +8,7 @@ import {
   IconKey,
   IconHomeDollar,
   IconChevronRight,
+  IconSearch,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -573,6 +574,7 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
           onClick={handleSearch}
           className={cn("w-full bg-primary hover:bg-primary/90 text-white rounded-2xl md:rounded-xl font-medium group inline-flex items-center justify-center gap-2", isCompact ? "py-5 text-base lg:py-3 lg:text-sm" : "py-6 text-base")}
         >
+          <IconSearch size={isCompact ? 26 : 28} className={cn(isCompact && "lg:w-5 lg:h-5")} aria-hidden="true" />
           <span>Search Properties</span>
           <IconChevronRight size={isCompact ? 26 : 28} className={cn(isCompact && "lg:w-5 lg:h-5", "transition-transform duration-300 group-hover:translate-x-0.5")} aria-hidden />
         </Button>

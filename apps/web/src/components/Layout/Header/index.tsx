@@ -221,14 +221,14 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
           </div>
 
           {contactInfo && (
-            <div className='flex flex-col gap-1 my-16 text-white'>
-              <p className='text-base sm:text-xm font-normal text-white/40'>
-                Contact
-              </p>
+          <div className='flex flex-col gap-1 my-16 text-white'>
+            <p className='text-base sm:text-xm font-normal text-white/40'>
+              Contact
+            </p>
               {contactInfo.contactName && (
-                <span className='text-base sm:text-xm font-normal text-inherit'>
+            <span className='text-base sm:text-xm font-normal text-inherit'>
                   {contactInfo.contactName}
-                </span>
+            </span>
               )}
               {contactInfo.email && (
                 <Link href={`mailto:${contactInfo.email}`} className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
@@ -238,7 +238,7 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
               {phoneNumbers && phoneNumbers.length > 0 && phoneDisplay && (
                 <Link href={`tel:${phoneNumbers[0]?.actualNumber.replace(/\s/g, '')}`} className='text-base sm:text-xm font-medium text-inherit hover:text-primary'>
                   {phoneDisplay}
-                </Link>
+            </Link>
               )}
               {contactInfo.socialLinks && contactInfo.socialLinks.length > 0 && (
                 <div className='flex items-center gap-4 mt-6'>
@@ -252,11 +252,11 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
                       aria-label={`Visit our ${social.iconName} page`}
                     >
                       <Icon icon={convertIconName(social.iconName)} width={24} height={24} />
-                    </Link>
+            </Link>
                   ))}
                 </div>
               )}
-            </div>
+          </div>
           )}
         </div>
       </div>

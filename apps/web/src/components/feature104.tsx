@@ -1,11 +1,66 @@
+"use client";
+
 import { Medal } from "lucide-react";
 import { Icon } from "@iconify/react";
-
- 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectCreative, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-creative";
+import "swiper/css/pagination";
+import "swiper/css/autoplay";
+import Image from "next/image";
 
 const Feature104 = () => {
+  const carouselImages = [
+    {
+      src: "/images/temp/value-added-services-carousal/legal-assistance.jpg",
+      alt: "Legal assistance service",
+    },
+    {
+      src: "/images/temp/value-added-services-carousal/Interior-consulting.jpg",
+      alt: "Interior consulting service",
+    },
+    {
+      src: "/images/temp/value-added-services-carousal/packers-and-movers.jpg",
+      alt: "Packers and movers service",
+    },
+    {
+      src: "/images/temp/value-added-services-carousal/paper-work.jpg",
+      alt: "Paperwork assistance service",
+    },
+    {
+      src: "/images/temp/value-added-services-carousal/possession.jpg",
+      alt: "Possession assistance service",
+    },
+    {
+      src: "/images/temp/value-added-services-carousal/vastu-assistance.jpg",
+      alt: "Vastu assistance service",
+    },
+  ];
+
+  const css = `
+    .feature104-swiper {
+      height: 100%;
+      border-radius: 1rem;
+    }
+
+    .feature104-swiper .swiper-slide {
+      border-radius: 1rem;
+    }
+
+    .feature104-swiper .swiper-pagination-bullet {
+      background-color: #fff;
+      opacity: 0.5;
+    }
+
+    .feature104-swiper .swiper-pagination-bullet-active {
+      opacity: 1;
+    }
+  `;
+
   return (
     <section id="value-added-services" className="py-24">
+      <style>{css}</style>
       <div className="container max-w-8xl mx-auto px-5 2xl:px-0">
         <div className="mx-auto flex flex-col items-center gap-3 mb-10">
           <div className="flex gap-2.5 items-center justify-center">
@@ -58,12 +113,49 @@ const Feature104 = () => {
             </div>
           </div>
 
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
-            alt="placeholder"
-            className="hidden h-full rounded-2xl object-cover shadow-(--shadow-3xl) lg:block"
-          />
+          <div className="hidden h-full rounded-2xl shadow-(--shadow-3xl) lg:block">
+            <Swiper
+              loop={true}
+              grabCursor={true}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              effect="creative"
+              pagination={{
+                clickable: true,
+              }}
+              creativeEffect={{
+                prev: {
+                  shadow: true,
+                  origin: "left center",
+                  translate: ["-5%", 0, -200],
+                  rotate: [0, 100, 0],
+                },
+                next: {
+                  origin: "right center",
+                  translate: ["5%", 0, -200],
+                  rotate: [0, -100, 0],
+                },
+              }}
+              modules={[EffectCreative, Pagination, Autoplay]}
+              className="feature104-swiper h-full"
+            >
+              {carouselImages.map((image, idx) => (
+                <SwiperSlide key={idx}>
+                  <div className="relative h-full w-full rounded-2xl">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className="object-cover rounded-2xl"
+                      sizes="(max-width: 1024px) 0vw, 33vw"
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
           <div className="flex flex-col gap-2.5">
             <div className="relative flex flex-col gap-3 rounded-2xl border border-black/10 dark:border-white/10 bg-white/90 dark:bg-black/80 p-6 shadow-(--shadow-3xl) backdrop-blur">
               <div className="flex items-center gap-2.5">
