@@ -82,14 +82,14 @@ const Hero: React.FC = () => {
                 </div>
               </div>
 
-              <div className='flex flex-col xs:flex-row justify-center md:justify-start gap-4'>
-                <Link href="/contactus" className='px-8 py-4 border border-white dark:border-dark bg-white dark:bg-dark text-dark dark:text-white duration-300 dark:hover:text-dark hover:bg-transparent hover:text-white text-base font-semibold rounded-full hover:cursor-pointer flex items-center gap-2'>
+              <div className='flex flex-col sm:flex-row items-center md:items-start gap-4'>
+                <Link href="/contactus" className='px-6 py-3 sm:px-8 sm:py-4 border border-white dark:border-dark bg-white dark:bg-dark text-dark dark:text-white duration-300 dark:hover:text-dark hover:bg-transparent hover:text-white text-base font-semibold rounded-full hover:cursor-pointer flex items-center gap-2'>
                   <IconMail className="w-5 h-5" />
                   Get in touch
                 </Link>
                 <Link
                   href="/properties"
-                  className="px-8 py-4 border border-white dark:border-dark bg-transparent text-white dark:text-dark hover:bg-white dark:hover:bg-dark dark:hover:text-white hover:text-dark duration-300 text-base font-semibold rounded-full hover:cursor-pointer flex items-center gap-2"
+                  className="px-6 py-3 sm:px-8 sm:py-4 border border-white dark:border-dark bg-transparent text-white dark:text-dark hover:bg-white dark:hover:bg-dark dark:hover:text-white hover:text-dark duration-300 text-base font-semibold rounded-full hover:cursor-pointer flex items-center gap-2"
                   tabIndex={0}
                   aria-label="Browse properties"
                 >
