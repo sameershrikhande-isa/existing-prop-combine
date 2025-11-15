@@ -41,14 +41,14 @@ export default async function Home() {
 
       {/* <BlogSmall /> */}
       <GetInTouch />
-      {homePageContent?.faqsEnabled && (
+      {/* {homePageContent?.faqsEnabled && (
         <FAQ
           title={homePageContent.faqsTitle}
           description={homePageContent.faqsDescription}
           images={homePageContent.faqsImages}
           faqs={homePageContent.faqs}
         />
-      )}
+      )} */}
       <Timeline13 />
     </main>
   )
