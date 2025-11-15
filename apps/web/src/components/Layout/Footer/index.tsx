@@ -5,7 +5,7 @@ import { FooterLinks } from "@/app/api/footerlinks";
 const Footer = () => {
   return (
     <footer className="relative z-10 bg-dark">
-      <div className="container mx-auto max-w-8xl pt-14 px-4 sm:px-6 lg:px-0">
+      <div className="container mx-auto max-w-8xl pt-14 px-5 sm:px-6 md:px-8 lg:px-0 2xl:px-0">
         {/* Newsletter + social icons section commented as requested */}
         {false && (
         <div className="flex lg:items-center justify-between items-end lg:gap-11 pb-14 border-b border-white/10 lg:flex-nowrap flex-wrap gap-6">
@@ -72,10 +72,9 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-between md:flex-nowrap flex-wrap items-center py-6 gap-6">
+        <div className="flex justify-between md:flex-nowrap flex-wrap items-center py-6 gap-6 px-5 sm:px-6 md:px-8 lg:px-0 2xl:px-0">
           <p className="text-white/40 text-sm ">
-            {/* ©2025 Yashasvini Sawant <Link href="https://getnextjstemplates.com/" className="hover:text-primary" target="_blanck">GetNextJs Templates</Link> */}
-            ©2025 Yashasvini Consultancy Services
+            Developer by <Link href="https://isaerpstar.com/" className="hover:text-primary" target="_blank">ISA ERP Pvt. Ltd.</Link>
           </p>
           <div className="flex gap-8 items-center">
             <Link href="#" className="text-white/40 hover:text-primary text-sm">

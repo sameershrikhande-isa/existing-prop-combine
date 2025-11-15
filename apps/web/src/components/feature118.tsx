@@ -59,19 +59,19 @@ const Feature118 = () => {
                     Knowledge of Thane & Nearby Areas
                   </p> */}
                   <ul className="flex flex-col gap-3 text-dark dark:text-white">
-                    <li className="flex gap-2 items-center text-dark/80 dark:text-white/80">
-                      <CheckCircle2 className="shrink-0 text-primary" />
-                      <span>Knowledge of Thane & Nearby Areas</span>
-                    </li>
-                    <li className="flex gap-2 items-center text-dark/80 dark:text-white/80">
-                      <CheckCircle2 className="shrink-0 text-primary" />
+                  <li className="flex gap-2 items-center text-dark/80 dark:text-white/80">
+                    <CheckCircle2 className="shrink-0 text-primary" />
+                    <span>Knowledge of Thane & Nearby Areas</span>
+                  </li>
+                  <li className="flex gap-2 items-center text-dark/80 dark:text-white/80">
+                    <CheckCircle2 className="shrink-0 text-primary" />
                       <span>Liaison services for real estate sector</span>
-                    </li>
-                    <li className="flex gap-2 items-center text-dark/80 dark:text-white/80">
-                      <CheckCircle2 className="shrink-0 text-primary" />
+                  </li>
+                  <li className="flex gap-2 items-center text-dark/80 dark:text-white/80">
+                    <CheckCircle2 className="shrink-0 text-primary" />
                       <span>Slum redevelopment</span>
-                    </li>
-                  </ul>
+                  </li>
+                </ul>
                 </div>
               </div>
               <Image
