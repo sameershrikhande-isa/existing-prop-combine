@@ -180,33 +180,12 @@ export default async function PropertyDetailPage({
                 <div className="grid grid-cols-12 gap-8 mt-10">
                     <div className="lg:col-span-8 col-span-12">
             <h3 className="text-xl font-medium">Property details</h3>
-            <hr className="border-dark/10 dark:border-white/20 my-8"/>
-            {highlights && highlights.length > 0 && (
-                          <div className="pb-8 mb-8 border-b border-dark/10 dark:border-white/20 flex flex-col gap-8">
-                            {highlights.slice(0, 3).map(({ title: ht, description, iconName }, i) => {
-                              const IconCmp = resolveTabler(iconName);
-                              return (
-                                <div key={`${iconName}-${i}`} className="flex items-center gap-6">
-                                  <div>
-                                    <IconCmp size={32} className="text-dark dark:text-white" aria-hidden />
-                                  </div>
-                                  <div>
-                                    <h3 className="text-dark dark:text-white text-xm">{ht}</h3>
-                                    {description && (
-                                      <p className="text-base text-dark/50 dark:text-white/50">{description}</p>
-                                    )}
-                                  </div>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        )}
+            <hr className="border-dark/10 dark:border-white/20 my-4"/>
 
             {/* Address Section - Conditionally shown */}
             {location && (location.address || location.city) && (
-              <div className="mb-8 pb-8 border-b border-dark/10 dark:border-white/20">
-                <h4 className="text-lg font-medium text-dark dark:text-white mb-4">Location</h4>
-                <div className="flex items-start gap-2.5">
+              <>
+                <div className="flex items-start gap-2.5 mb-4">
                   <Icon
                     icon="ph:map-pin"
                     width={24}
@@ -220,15 +199,52 @@ export default async function PropertyDetailPage({
                     {location.country && `, ${location.country}`}
                   </p>
                 </div>
-              </div>
+                {(richText || (highlights && highlights.length > 0) || (amenities && amenities.length > 0)) && (
+                  <hr className="border-dark/10 dark:border-white/20 my-4"/>
+                )}
+              </>
             )}
 
             {/* Rich Text Description */}
-            <RichText richText={richText} />
+            {richText && richText.length > 0 && (
+              <>
+                <RichText richText={richText} />
+                {((highlights && highlights.length > 0) || (amenities && amenities.length > 0)) && (
+                  <hr className="border-dark/10 dark:border-white/20 my-4"/>
+                )}
+              </>
+            )}
+
+            {/* Top Features */}
+            {highlights && highlights.length > 0 && (
+              <>
+                <div className="flex flex-col gap-8">
+                  {highlights.slice(0, 3).map(({ title: ht, description, iconName }, i) => {
+                    const IconCmp = resolveTabler(iconName);
+                    return (
+                      <div key={`${iconName}-${i}`} className="flex items-center gap-6">
+                        <div>
+                          <IconCmp size={32} className="text-dark dark:text-white" aria-hidden />
+                        </div>
+                        <div>
+                          <h3 className="text-dark dark:text-white text-xm">{ht}</h3>
+                          {description && (
+                            <p className="text-base text-dark/50 dark:text-white/50">{description}</p>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                {amenities && amenities.length > 0 && (
+                  <hr className="border-dark/10 dark:border-white/20 my-4"/>
+                )}
+              </>
+            )}
 
             {/* Amenities */}
             {amenities && amenities.length > 0 && (
-              <div className="py-8 mt-8 border-t border-dark/5 dark:border-white/15">
+              <div className="pt-8">
                 <h3 className="text-xl font-medium">What this property offers</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5 gap-6">
                   {amenities
