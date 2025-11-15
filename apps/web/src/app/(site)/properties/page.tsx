@@ -76,11 +76,11 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
           )}
 
           {properties.length === 0 ? (
-            <div className="py-20 text-center">
+            <div className="pt-4 pb-20 text-center">
               <p className="text-dark/50 dark:text-white/50 text-xl">
                 {hasFilters
-                  ? "Try broadening your criteria to discover more matching properties"
-                  : "Use the search above to find what you’re looking for."}
+                  ? "Try broadening your 🔍 criteria to discover more matching properties"
+                  : "Use the search above to find what you’re looking for ⬆️"}
               </p>
             </div>
           ) : (
