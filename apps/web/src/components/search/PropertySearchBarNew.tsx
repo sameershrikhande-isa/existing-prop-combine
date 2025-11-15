@@ -9,6 +9,7 @@ import {
   IconHomeDollar,
   IconChevronRight,
   IconSearch,
+  IconLoader2,
 } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -52,6 +53,9 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
   const [selectedBudgetRangeId, setSelectedBudgetRangeId] = useState<string>("");
   const [selectedCarpetAreaRangeId, setSelectedCarpetAreaRangeId] = useState<string>("");
   const [loadingRanges, setLoadingRanges] = useState(false);
+  
+  // Search loading state
+  const [isSearching, setIsSearching] = useState(false);
 
   // Fetch filter data from API
   useEffect(() => {
@@ -143,6 +147,8 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
   }, []);
 
   const handleSearch = useCallback(() => {
+    setIsSearching(true);
+    
     const params = new URLSearchParams();
 
     if (selectedPropertyTypeId) {
@@ -181,6 +187,11 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
     }
 
     router.push(`/properties?${params.toString()}`);
+    
+    // Reset loading state after a short delay (navigation happens quickly)
+    setTimeout(() => {
+      setIsSearching(false);
+    }, 500);
   }, [
     selectedPropertyTypeId,
     selectedPurposeId,
@@ -572,11 +583,40 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
       <div className={cn("pb-4", isCompact ? "px-4 sm:px-5 lg:px-4 lg:pb-3" : "px-4 sm:px-6")}>
         <Button
           onClick={handleSearch}
-          className={cn("w-full bg-primary hover:bg-primary/90 text-white rounded-2xl md:rounded-xl font-medium group inline-flex items-center justify-center gap-2", isCompact ? "py-5 text-base lg:py-3 lg:text-sm" : "py-6 text-base")}
+          disabled={isSearching}
+          className={cn(
+            "w-full bg-primary hover:bg-primary/90 text-white rounded-2xl md:rounded-xl font-medium group inline-flex items-center justify-center gap-2",
+            isCompact ? "py-5 text-base lg:py-3 lg:text-sm" : "py-6 text-base",
+            isSearching && "opacity-75 cursor-not-allowed"
+          )}
         >
-          <IconSearch size={isCompact ? 26 : 28} className={cn(isCompact && "lg:w-5 lg:h-5")} aria-hidden="true" />
-          <span>Search Properties</span>
-          <IconChevronRight size={isCompact ? 26 : 28} className={cn(isCompact && "lg:w-5 lg:h-5", "transition-transform duration-300 group-hover:translate-x-0.5")} aria-hidden />
+          {isSearching ? (
+            <IconLoader2 
+              size={isCompact ? 26 : 28} 
+              className={cn(
+                isCompact && "lg:w-5 lg:h-5",
+                "animate-spin"
+              )} 
+              aria-hidden="true" 
+            />
+          ) : (
+            <IconSearch 
+              size={isCompact ? 26 : 28} 
+              className={cn(isCompact && "lg:w-5 lg:h-5")} 
+              aria-hidden="true" 
+            />
+          )}
+          <span>{isSearching ? "Searching..." : "Search Properties"}</span>
+          {!isSearching && (
+            <IconChevronRight 
+              size={isCompact ? 26 : 28} 
+              className={cn(
+                isCompact && "lg:w-5 lg:h-5", 
+                "transition-transform duration-300 group-hover:translate-x-0.5"
+              )} 
+              aria-hidden="true" 
+            />
+          )}
         </Button>
       </div>
     </div>
