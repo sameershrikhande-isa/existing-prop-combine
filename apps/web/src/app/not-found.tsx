@@ -35,10 +35,10 @@ const ErrorPage = () => {
             Error 404
           </p>
         </div>
-        <h2 className="text-dark text-52 relative font-bold dark:text-white " >
+        <h2 className="font-bold text-black dark:text-white text-center text-2xl sm:text-3xl mb-4 md:mb-6">
           Lost? Let's Help You Find Home.
         </h2>
-        <p className="text-lg text-dark/50 dark:text-white/50 font-normal w-full mx-auto">
+        <p className="text-base text-dark/50 dark:text-white/50 font-normal max-w-sm mx-auto">
           Looks like you've hit a dead end — but don't worry, we'll help you get back on track
         </p>
         <div className="flex justify-center mt-6">
@@ -46,7 +46,7 @@ const ErrorPage = () => {
             href="/properties" 
             className="flex items-center gap-2 py-4 px-8 rounded-full text-base leading-4 font-semibold bg-primary text-white hover:bg-dark duration-300"
           >
-            Chat Now with an Expert
+            Explore Properties
             <IconChevronsRight className="w-4 h-4" />
           </Link>
         </div>
