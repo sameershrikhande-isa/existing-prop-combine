@@ -2,7 +2,6 @@ import HeroSub from "@/components/shared/HeroSub";
 import PropertyCard from "@/components/Home/Properties/Card/Card";
 import { client } from "@/lib/sanity/client";
 import {
-  queryAllPropertiesData,
   queryFilteredProperties,
 } from "@/lib/sanity/queries";
 import type { PropertyCardData } from "@/types/property";
@@ -49,10 +48,11 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
   // Check if any filters are applied
   const hasFilters = Object.values(filters).some((value) => value !== null);
 
-  // Fetch properties from Sanity
+  // Only fetch properties if search has been performed (filters exist in URL)
+  // Require user to click "Search Properties" button first
   const properties = hasFilters
     ? await client.fetch<PropertyCardData[]>(queryFilteredProperties, filters)
-    : await client.fetch<PropertyCardData[]>(queryAllPropertiesData);
+    : [];
 
     return (
         <>
@@ -79,8 +79,8 @@ const PropertiesPage = async ({ searchParams }: PropertiesPageProps) => {
             <div className="py-20 text-center">
               <p className="text-dark/50 dark:text-white/50 text-xl">
                 {hasFilters
-                  ? "No properties match your search criteria. Try adjusting your filters."
-                  : "No properties available at the moment."}
+                  ? "Try broadening your criteria to discover more matching properties"
+                  : "Use the search above to find what you’re looking for."}
               </p>
             </div>
           ) : (

@@ -66,12 +66,42 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
         const data = await response.json();
         setFilterData(data);
 
-        // Set defaults to first items
+        // Read URL params to sync with current page state
+        if (typeof window !== "undefined") {
+          const urlParams = new URLSearchParams(window.location.search);
+          const propertyTypeId = urlParams.get("propertyTypeId");
+          const purposeId = urlParams.get("purposeId");
+          const amenityIds = urlParams.get("amenityIds");
+
+          // Set from URL if params exist and are valid, otherwise use defaults
+          if (propertyTypeId && data.propertyTypes.some((t) => t._id === propertyTypeId)) {
+            setSelectedPropertyTypeId(propertyTypeId);
+          } else if (data.propertyTypes.length > 0) {
+            setSelectedPropertyTypeId(data.propertyTypes[0]._id);
+          }
+
+          if (purposeId && data.purposes.some((p) => p._id === purposeId)) {
+            setSelectedPurposeId(purposeId);
+          } else if (data.purposes.length > 0) {
+            setSelectedPurposeId(data.purposes[0]._id);
+          }
+
+          if (amenityIds) {
+            const ids = amenityIds.split(",").filter((id) =>
+              data.amenities.some((a) => a._id === id)
+            );
+            if (ids.length > 0) {
+              setSelectedAmenityIds(ids);
+            }
+          }
+        } else {
+          // Fallback: Set defaults if no URL params (client-side only)
         if (data.propertyTypes.length > 0) {
           setSelectedPropertyTypeId(data.propertyTypes[0]._id);
         }
         if (data.purposes.length > 0) {
           setSelectedPurposeId(data.purposes[0]._id);
+          }
         }
       } catch (error) {
         console.error("Error fetching filter data:", error);
@@ -124,12 +154,56 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
 
         const [budgetResponse, carpetAreaResponse] = await Promise.all(promises);
 
-        setBudgetRanges(budgetResponse.ranges || []);
-        setCarpetAreaRanges(carpetAreaResponse.ranges || []);
+        const newBudgetRanges = budgetResponse.ranges || [];
+        const newCarpetAreaRanges = carpetAreaResponse.ranges || [];
 
-        // Reset selections when ranges change
+        setBudgetRanges(newBudgetRanges);
+        setCarpetAreaRanges(newCarpetAreaRanges);
+
+        // Sync with URL params if they exist
+        if (typeof window !== "undefined") {
+          const urlParams = new URLSearchParams(window.location.search);
+          const budgetMin = urlParams.get("budgetMin");
+          const budgetMax = urlParams.get("budgetMax");
+          const carpetAreaMin = urlParams.get("carpetAreaMin");
+          const carpetAreaMax = urlParams.get("carpetAreaMax");
+
+          // Find matching budget range from URL params
+          if (budgetMin || budgetMax) {
+            const matchingBudgetRange = newBudgetRanges.find((r) => {
+              const minMatch = budgetMin ? r.minValue === Number.parseInt(budgetMin, 10) : true;
+              const maxMatch = budgetMax ? r.maxValue === Number.parseInt(budgetMax, 10) : true;
+              return minMatch && maxMatch;
+            });
+            if (matchingBudgetRange) {
+              setSelectedBudgetRangeId(matchingBudgetRange._id);
+            } else {
+              setSelectedBudgetRangeId("");
+            }
+          } else {
+            setSelectedBudgetRangeId("");
+          }
+
+          // Find matching carpet area range from URL params
+          if (carpetAreaMin || carpetAreaMax) {
+            const matchingAreaRange = newCarpetAreaRanges.find((r) => {
+              const minMatch = carpetAreaMin ? r.minValue === Number.parseInt(carpetAreaMin, 10) : true;
+              const maxMatch = carpetAreaMax ? r.maxValue === Number.parseInt(carpetAreaMax, 10) : true;
+              return minMatch && maxMatch;
+            });
+            if (matchingAreaRange) {
+              setSelectedCarpetAreaRangeId(matchingAreaRange._id);
+            } else {
+              setSelectedCarpetAreaRangeId("");
+            }
+          } else {
+            setSelectedCarpetAreaRangeId("");
+          }
+        } else {
+          // Reset selections when ranges change (no URL params)
         setSelectedBudgetRangeId("");
         setSelectedCarpetAreaRangeId("");
+        }
       } catch (error) {
         console.error("Error fetching filter ranges:", error);
       } finally {
@@ -282,9 +356,9 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
         <div className={cn("pb-4", isCompact ? "px-4 sm:px-5 lg:px-4 lg:pb-3" : "px-4 sm:px-6")}>
           <div className={cn("animate-pulse rounded-2xl md:rounded-xl bg-black/10 dark:bg-white/10", isCompact ? "h-12 lg:h-10" : "h-14")} />
         </div>
+        </div>
       </div>
-    </div>
-  );
+    );
 
   if (loading) {
     return <SearchBarSkeleton />;
@@ -480,116 +554,116 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
               </div>
             ) : (
               <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-4 items-start", isCompact && "lg:gap-3")}>
-                {/* Budget Range */}
-                {budgetRanges.length > 0 && (
-                  <div className="flex flex-col gap-2">
+              {/* Budget Range */}
+              {budgetRanges.length > 0 && (
+                <div className="flex flex-col gap-2">
                     <label className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm lg:text-xs" : "text-xs")}>
                       Budget{!isCompact && " (Optional)"}
-                    </label>
-                    <SingleSelect
-                      value={selectedBudgetRangeId}
-                      onChange={setSelectedBudgetRangeId}
-                      placeholder="Any budget"
-                      options={[
-                        { value: "", label: "Any budget" },
-                        ...budgetRanges.map((r) => ({ value: r._id, label: r.label }))
-                      ]}
-                    />
-                  </div>
-                )}
+                  </label>
+                  <SingleSelect
+                    value={selectedBudgetRangeId}
+                    onChange={setSelectedBudgetRangeId}
+                    placeholder="Any budget"
+                    options={[
+                      { value: "", label: "Any budget" },
+                      ...budgetRanges.map((r) => ({ value: r._id, label: r.label }))
+                    ]}
+                  />
+                </div>
+              )}
 
-                {/* Carpet Area Range */}
-                {carpetAreaRanges.length > 0 && (
-                  <div className="flex flex-col gap-2">
+              {/* Carpet Area Range */}
+              {carpetAreaRanges.length > 0 && (
+                <div className="flex flex-col gap-2">
                     <label className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm lg:text-xs" : "text-xs")}>
                       Carpet Area{!isCompact && " (Optional)"}
-                    </label>
-                    <SingleSelect
-                      value={selectedCarpetAreaRangeId}
-                      onChange={setSelectedCarpetAreaRangeId}
-                      placeholder="Any size"
-                      options={[
-                        { value: "", label: "Any size" },
-                        ...carpetAreaRanges.map((r) => ({ value: r._id, label: r.label }))
-                      ]}
-                    />
-                  </div>
-                )}
+                  </label>
+                  <SingleSelect
+                    value={selectedCarpetAreaRangeId}
+                    onChange={setSelectedCarpetAreaRangeId}
+                    placeholder="Any size"
+                    options={[
+                      { value: "", label: "Any size" },
+                      ...carpetAreaRanges.map((r) => ({ value: r._id, label: r.label }))
+                    ]}
+                  />
+                </div>
+              )}
 
-                {/* Amenities inline on md+ */}
-                <div className="hidden md:flex flex-col gap-2">
+              {/* Amenities inline on md+ */}
+              <div className="hidden md:flex flex-col gap-2">
                   <span className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm" : "text-xs")}>Amenities</span>
-                  <Popover open={isAmenitiesOpenInline} onOpenChange={setIsAmenitiesOpenInline}>
-                    <PopoverTrigger asChild>
-                      <button
-                        type="button"
-                        aria-expanded={isAmenitiesOpenInline}
+                <Popover open={isAmenitiesOpenInline} onOpenChange={setIsAmenitiesOpenInline}>
+                  <PopoverTrigger asChild>
+                    <button
+                      type="button"
+                      aria-expanded={isAmenitiesOpenInline}
                         className={cn("w-full flex items-center justify-between gap-2 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 transition-colors hover:bg-black/5 dark:hover:bg-white/5", isCompact ? "text-base" : "text-sm")}
-                      >
-                        <span className="text-black dark:text-white">Amenities</span>
+                    >
+                      <span className="text-black dark:text-white">Amenities</span>
                         <span className="inline-flex items-center gap-2">
                           {selectedAmenityIds.length > 0 && (
-                            <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/90 text-white text-xs px-1">
-                              {selectedAmenityIds.length}
+                        <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/90 text-white text-xs px-1">
+                          {selectedAmenityIds.length}
                             </span>
                           )}
                           <ChevronsUpDown className={cn("shrink-0 opacity-50", isCompact ? "size-5" : "size-4")} />
                         </span>
-                      </button>
-                    </PopoverTrigger>
-                    <PopoverContent 
-                      align="start" 
-                      className={cn(
-                        "z-[1000] w-[280px] p-0 !bg-white dark:!bg-black shadow-xl border border-black/10 dark:border-white/10"
-                      )}
-                    >
-                      <Command>
-                        <CommandList className="max-h-64 overflow-auto">
-                          <CommandGroup>
-                            {filterData.amenities.map((amenity) => {
-                              const checked = selectedAmenityIds.includes(amenity._id);
-                              const AmenityIcon = resolveTabler(amenity.iconName || "IconCircle");
-                              return (
-                                <CommandItem
-                                  key={amenity._id}
-                                  value={amenity.name}
-                                  onSelect={() => handleToggleAmenity(amenity._id)}
-                                  className="flex items-center justify-between gap-3 px-3 py-2"
-                                >
-                                  <span className="flex items-center gap-2 text-sm">
-                                    <AmenityIcon size={16} className="text-black/70 dark:text-white/70" aria-hidden />
-                                    <span className="text-black dark:text-white">{amenity.name}</span>
-                                  </span>
-                                  <Checkbox
-                                    checked={checked}
-                                    className="pointer-events-none data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=checked]:text-white"
-                                  />
-                                </CommandItem>
-                              );
-                            })}
-                          </CommandGroup>
-                        </CommandList>
-                      </Command>
-                      <div className="flex items-center justify-between p-3 border-t border-black/10 dark:border-white/10">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => setSelectedAmenityIds([])}
-                        >
-                          Clear
-                        </Button>
-                        <Button
-                          size="sm"
-                          onClick={() => setIsAmenitiesOpenInline(false)}
-                          className="bg-primary text-white hover:bg-primary/90 dark:bg-primary dark:text-white"
-                        >
-                          Done
-                        </Button>
-                      </div>
-                    </PopoverContent>
-                  </Popover>
-                </div>
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent 
+                    align="start" 
+                    className={cn(
+                      "z-[1000] w-[280px] p-0 !bg-white dark:!bg-black shadow-xl border border-black/10 dark:border-white/10"
+                    )}
+                  >
+                    <Command>
+                      <CommandList className="max-h-64 overflow-auto">
+                        <CommandGroup>
+                          {filterData.amenities.map((amenity) => {
+                            const checked = selectedAmenityIds.includes(amenity._id);
+                            const AmenityIcon = resolveTabler(amenity.iconName || "IconCircle");
+                            return (
+                              <CommandItem
+                                key={amenity._id}
+                                value={amenity.name}
+                                onSelect={() => handleToggleAmenity(amenity._id)}
+                                className="flex items-center justify-between gap-3 px-3 py-2"
+                              >
+                                <span className="flex items-center gap-2 text-sm">
+                                  <AmenityIcon size={16} className="text-black/70 dark:text-white/70" aria-hidden />
+                                  <span className="text-black dark:text-white">{amenity.name}</span>
+                                </span>
+                                <Checkbox
+                                  checked={checked}
+                                  className="pointer-events-none data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=checked]:text-white"
+                                />
+                              </CommandItem>
+                            );
+                          })}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                    <div className="flex items-center justify-between p-3 border-t border-black/10 dark:border-white/10">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setSelectedAmenityIds([])}
+                      >
+                        Clear
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={() => setIsAmenitiesOpenInline(false)}
+                        className="bg-primary text-white hover:bg-primary/90 dark:bg-primary dark:text-white"
+                      >
+                        Done
+                      </Button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </div>
+            </div>
             )}
           </div>
         </>
@@ -609,10 +683,10 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
                   <span className="text-black dark:text-white">Amenities</span>
                   <span className="inline-flex items-center gap-2">
                     {selectedAmenityIds.length > 0 && (
-                      <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/90 text-white text-xs px-1">
-                        {selectedAmenityIds.length}
-                      </span>
-                    )}
+                    <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/90 text-white text-xs px-1">
+                      {selectedAmenityIds.length}
+                    </span>
+                  )}
                     <ChevronsUpDown className={cn("shrink-0 opacity-50", isCompact ? "size-5" : "size-4")} />
                   </span>
                 </button>
