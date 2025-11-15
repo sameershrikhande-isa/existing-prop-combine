@@ -94,18 +94,30 @@ const richTextFragment = /* groq */ `
 /**
  * Query to get all properties for the listing page
  * Ordered by orderRank for manual sorting in Sanity Studio
+ * Only includes properties with visible property types and purposes
  */
 export const queryAllPropertiesData = defineQuery(`
-  *[_type == "property" && status == "available"] | order(orderRank asc){
+  *[
+    _type == "property" 
+    && status == "available"
+    && (!defined(propertyType->isVisible) || propertyType->isVisible != false)
+    && (!defined(purpose->isVisible) || purpose->isVisible != false)
+  ] | order(orderRank asc){
     ${propertyCardFragment}
   }
 `);
 
 /**
  * Query to get a single property by slug with full details
+ * Only returns properties with visible property types and purposes
  */
 export const queryPropertyBySlugData = defineQuery(`
-  *[_type == "property" && slug.current == $slug][0]{
+  *[
+    _type == "property" 
+    && slug.current == $slug
+    && (!defined(propertyType->isVisible) || propertyType->isVisible != false)
+    && (!defined(purpose->isVisible) || purpose->isVisible != false)
+  ][0]{
     _id,
     _type,
     title,
@@ -177,11 +189,14 @@ export const queryPropertySlugs = defineQuery(`
 /**
  * Query to get filtered properties based on search criteria
  * Supports filtering by propertyType, purpose, budget range, carpet area range, and amenities
+ * Only includes properties with visible property types and purposes
  */
 export const queryFilteredProperties = defineQuery(`
   *[
     _type == "property" 
     && status == "available"
+    && (!defined(propertyType->isVisible) || propertyType->isVisible != false)
+    && (!defined(purpose->isVisible) || purpose->isVisible != false)
     && (!defined($propertyTypeId) || propertyType._ref == $propertyTypeId)
     && (!defined($purposeId) || purpose._ref == $purposeId)
     && (!defined($budgetMin) || budgetMax >= $budgetMin || budgetMin >= $budgetMin)
@@ -228,10 +243,10 @@ export const queryFilterRanges = defineQuery(`
 `);
 
 /**
- * Query to get all property types
+ * Query to get all visible property types
  */
 export const queryAllPropertyTypes = defineQuery(`
-  *[_type == "propertyType"] | order(orderRank asc) {
+  *[_type == "propertyType" && (!defined(isVisible) || isVisible != false)] | order(orderRank asc) {
     _id,
     name,
     "slug": slug.current,
@@ -240,10 +255,10 @@ export const queryAllPropertyTypes = defineQuery(`
 `);
 
 /**
- * Query to get all purposes
+ * Query to get all visible purposes
  */
 export const queryAllPurposes = defineQuery(`
-  *[_type == "purpose"] | order(orderRank asc) {
+  *[_type == "purpose" && (!defined(isVisible) || isVisible != false)] | order(orderRank asc) {
     _id,
     name,
     "slug": slug.current

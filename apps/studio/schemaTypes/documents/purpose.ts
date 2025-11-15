@@ -20,6 +20,16 @@ export const purpose = defineType({
   fields: [
     orderRankField({ type: "purpose" }),
     defineField({
+      name: "isVisible",
+      type: "boolean",
+      title: "Visible",
+      description:
+        "Toggle to show/hide this purpose. When hidden, properties with this purpose won't appear in listings, filters, or be accessible individually.",
+      group: GROUP.MAIN_CONTENT,
+      initialValue: true,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "name",
       type: "string",
       title: "Name",
@@ -35,11 +45,13 @@ export const purpose = defineType({
     select: {
       title: "name",
       slug: "slug.current",
+      isVisible: "isVisible",
     },
-    prepare: ({ title, slug }: { title: string; slug: string }) => {
+    prepare: ({ title, slug, isVisible }: { title: string; slug: string; isVisible?: boolean }) => {
+      const visibilityEmoji = isVisible !== false ? "✅" : "🚫";
       return {
         title: title || "Unnamed Purpose",
-        subtitle: `🔗 ${slug || "no-slug"}`,
+        subtitle: `${visibilityEmoji} 🔗 ${slug || "no-slug"}`,
       };
     },
   },

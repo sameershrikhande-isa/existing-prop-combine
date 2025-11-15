@@ -20,6 +20,16 @@ export const propertyType = defineType({
   fields: [
     orderRankField({ type: "propertyType" }),
     defineField({
+      name: "isVisible",
+      type: "boolean",
+      title: "Visible",
+      description:
+        "Toggle to show/hide this property type. When hidden, properties of this type won't appear in listings, filters, or be accessible individually.",
+      group: GROUP.MAIN_CONTENT,
+      initialValue: true,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "name",
       type: "string",
       title: "Name",
@@ -47,19 +57,23 @@ export const propertyType = defineType({
       title: "name",
       slug: "slug.current",
       description: "description",
+      isVisible: "isVisible",
     },
     prepare: ({
       title,
       slug,
       description,
+      isVisible,
     }: {
       title: string;
       slug: string;
       description?: string;
+      isVisible?: boolean;
     }) => {
+      const visibilityEmoji = isVisible !== false ? "✅" : "🚫";
       return {
         title: title || "Unnamed Property Type",
-        subtitle: `🔗 ${slug || "no-slug"}${description ? ` | ${description.substring(0, 50)}...` : ""}`,
+        subtitle: `${visibilityEmoji} 🔗 ${slug || "no-slug"}${description ? ` | ${description.substring(0, 50)}...` : ""}`,
       };
     },
   },
