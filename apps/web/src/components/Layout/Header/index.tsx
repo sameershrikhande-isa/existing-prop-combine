@@ -5,7 +5,8 @@ import { IconSearch } from '@tabler/icons-react'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import NavLink from './Navigation/NavLink'
-import { useTheme } from 'next-themes'
+// Theme toggle disabled - forced to light theme
+// import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import type { ContactInfo } from '@/types/contact'
 
@@ -17,7 +18,8 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
   const phoneNumbers = contactInfo?.phoneNumbers;
   const phoneDisplay = phoneNumbers?.map((phone) => phone.displayNumber).join(" / ");
   const [navbarOpen, setNavbarOpen] = useState(false)
-  const { theme, setTheme } = useTheme()
+  // Theme toggle disabled - forced to light theme
+  // const { theme, setTheme } = useTheme()
 
   // Convert Tabler icon names (e.g., "IconBrandFacebook") to iconify format (e.g., "tabler:brand-facebook")
   const convertIconName = (iconName: string): string => {
@@ -96,7 +98,7 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
               Testimonials
             </Link>
             <Link 
-              href="#properties" 
+              href="properties" 
               className="text-base font-medium text-dark dark:text-white hover:text-primary transition-colors flex items-center gap-2"
             >
               Properties
@@ -127,7 +129,8 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
                 ))}
               </div>
             )}
-            <button
+            {/* Theme toggle disabled - forced to light theme */}
+            {/* <button
               className='hover:cursor-pointer border-r pr-6 border-dark dark:border-white'
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             >
@@ -143,7 +146,7 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
                 height={32}
                 className="dark:block hidden text-white"
               />
-            </button>
+            </button> */}
 
             <div className="hidden md:block">
               <Link

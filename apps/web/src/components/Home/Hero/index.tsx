@@ -53,7 +53,7 @@ const Hero: React.FC = () => {
                 <span>MahaRERA-Registered</span>
             </div>
               <h1 className='text-inherit text-4xl sm:text-7xl font-bold md:font-semibold -tracking-wider md:max-w-[85%] lg:max-w-[75%] mt-4 mb-6'>
-              Smart Choices. Perfect Homes in Thane
+              Find your dream home in Thane.
             </h1>
               <p className='text-inherit text-lg sm:text-3xl font-normal md:font-normal -tracking-wider md:max-w-[85%] lg:max-w-[75%] mt-4 mb-6'>
               Expert Guidance with Local knowledge

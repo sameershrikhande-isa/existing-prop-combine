@@ -29,13 +29,13 @@ const Categories = () => {
           <div className="lg:col-span-6 col-span-12">
             <p className="text-dark/75 dark:text-white/75 text-base font-semibold flex gap-2.5">
               <Icon icon="ph:house-simple-fill" className="text-2xl text-primary " />
-              Categories
+              Find your dream home in Thane.
             </p>
             <h2 className="lg:text-52 text-40 mt-4 mb-2 lg:max-w-full font-medium leading-[1.2] text-dark dark:text-white ">
               Explore best properties based on local knowledge.
             </h2>
             <p className="text-dark/50 dark:text-white/50 text-lg lg:max-w-full leading-[1.3] md:max-w-3/4">
-              Discover a diverse range of portfolio, tailored to your needs
+              Discover a diverse range of properties, tailored to your needs
             </p>
             <Link href="/properties" className="py-4 px-8 bg-primary text-base leading-4 inline-flex items-center gap-2 w-fit text-white rounded-full font-semibold mt-8 hover:bg-dark duration-300 group">
               <span>View properties</span>
@@ -127,7 +127,7 @@ const Categories = () => {
                   </p>
                 </div>
               </Link>
-              
+
             </div>
           </div>
           <div className="lg:col-span-3 col-span-6">

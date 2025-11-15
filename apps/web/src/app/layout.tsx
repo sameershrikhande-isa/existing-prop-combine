@@ -42,8 +42,9 @@ export default async function RootLayout({
         <SessionProviderComp>
           <ThemeProvider
             attribute='class'
-            enableSystem={true}
-            defaultTheme='light'>
+            forcedTheme="light"
+            enableSystem={false}
+            disableTransitionOnChange>
             <Header contactInfo={contactInfo} />
             {children}
             <Footer />
