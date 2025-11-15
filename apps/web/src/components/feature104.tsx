@@ -59,7 +59,7 @@ const Feature104 = () => {
   `;
 
   return (
-    <section id="value-added-services" className="py-24">
+    <section id="value-added-services" className="!pt-8 !pb-8">
       <style>{css}</style>
       <div className="container max-w-8xl mx-auto px-5 2xl:px-0">
         <div className="mx-auto flex flex-col items-center gap-3 mb-10">

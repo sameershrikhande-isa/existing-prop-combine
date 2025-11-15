@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const GetInTouch: React.FC = () => {
     return (
-        <section className="pb-0">
+        <section className="!pt-0 !pb-8">
             <div className='container max-w-8xl mx-auto px-5 2xl:px-0'>
                 <div className="relative rounded-t-2xl overflow-hidden">
                     <Image
