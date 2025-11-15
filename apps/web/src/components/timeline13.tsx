@@ -25,16 +25,18 @@ const Timeline13 = () => {
             [mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] mask-exclude
             [-webkit-mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] [-webkit-mask-composite:xor]"
           />
-          <div className="contents items-center justify-between sm:flex">
-            <h2 className="mt-4 flex items-center gap-2 text-2xl font-medium md:text-3xl text-dark dark:text-white tracking-tighter">
-              <span>From</span>
-              <IconHomeSearch className="w-5 h-5 md:w-6 md:h-6 text-primary shrink-0" />
-              <span>Discovery to Possession</span>
-              <IconKey className="w-5 h-5 md:w-6 md:h-6 text-primary shrink-0" />
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <h2 className="mt-4 flex flex-wrap items-center gap-2 text-xl font-medium sm:text-2xl md:text-3xl text-dark dark:text-white tracking-tighter">
+              <span className="whitespace-nowrap">From</span>
+              <IconHomeSearch className="w-5 h-5 sm:w-5 md:w-6 md:h-6 text-primary shrink-0" />
+              <span className="whitespace-nowrap">Discovery</span>
+              <span className="whitespace-nowrap">to</span>
+              <span className="whitespace-nowrap">Possession</span>
+              <IconKey className="w-5 h-5 sm:w-5 md:w-6 md:h-6 text-primary shrink-0" />
             </h2>
-            <Link href="/properties" className="order-last flex items-center gap-2 py-4 px-8 rounded-full text-base leading-4 font-semibold bg-primary text-white hover:bg-dark duration-300">
+            <Link href="/properties" className="order-last flex items-center justify-center gap-2 py-3 px-6 sm:py-4 sm:px-8 rounded-full text-sm sm:text-base leading-4 font-semibold bg-primary text-white hover:bg-dark duration-300 whitespace-nowrap">
               Chat Now with an Expert
-              <IconChevronsRight className="w-4 h-4" />
+              <IconChevronsRight className="w-4 h-4 shrink-0" />
             </Link>
           </div>
           <div className="mt-3 flex gap-4 sm:flex-col">
