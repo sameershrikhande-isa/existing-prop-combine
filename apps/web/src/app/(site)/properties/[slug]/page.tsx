@@ -80,6 +80,7 @@ export default async function PropertyDetailPage({
 
   const {
     title,
+    subtitle,
     location,
     features,
     images,
@@ -118,18 +119,11 @@ export default async function PropertyDetailPage({
             <h1 className="lg:text-52 text-40 font-semibold text-dark dark:text-white">
               {title}
             </h1>
-                        <div className="flex gap-2.5">
-              <Icon
-                icon="ph:map-pin"
-                width={24}
-                height={24}
-                className="text-dark/50 dark:text-white/50"
-              />
-              <p className="text-dark/50 dark:text-white/50 text-xm">
-                {location.address}, {location.city}
-                {location.state && `, ${location.state}`}
+                        {subtitle && (
+              <p className="text-dark/50 dark:text-white/50 text-xm mt-2">
+                {subtitle}
               </p>
-                        </div>
+            )}
                     </div>
                     <div className="lg:col-span-4 col-span-12">
             <div className="flex">
@@ -207,6 +201,27 @@ export default async function PropertyDetailPage({
                             })}
                           </div>
                         )}
+
+            {/* Address Section - Conditionally shown */}
+            {location && (location.address || location.city) && (
+              <div className="mb-8 pb-8 border-b border-dark/10 dark:border-white/20">
+                <h4 className="text-lg font-medium text-dark dark:text-white mb-4">Location</h4>
+                <div className="flex items-start gap-2.5">
+                  <Icon
+                    icon="ph:map-pin"
+                    width={24}
+                    height={24}
+                    className="text-dark/50 dark:text-white/50 shrink-0 mt-0.5"
+                  />
+                  <p className="text-base text-dark/70 dark:text-white/70">
+                    {location.address && `${location.address}, `}
+                    {location.city}
+                    {location.state && `, ${location.state}`}
+                    {location.country && `, ${location.country}`}
+                  </p>
+                </div>
+              </div>
+            )}
 
             {/* Rich Text Description */}
             <RichText richText={richText} />

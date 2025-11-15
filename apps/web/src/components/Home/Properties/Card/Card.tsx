@@ -85,9 +85,15 @@ const PropertyCard: React.FC<{ item: PropertyCardItem }> = ({ item }) => {
                   {title}
                 </h3>
               </Link>
-              <p className="text-base font-normal text-black/50 dark:text-white/50">
-                {locationText}
-              </p>
+              {isSanityItem(item) && item.subtitle ? (
+                <p className="text-base font-normal text-black/50 dark:text-white/50">
+                  {item.subtitle}
+                </p>
+              ) : (
+                <p className="text-base font-normal text-black/50 dark:text-white/50">
+                  {locationText}
+                </p>
+              )}
             </div>
             <div>
               <button

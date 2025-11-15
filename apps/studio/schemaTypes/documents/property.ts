@@ -28,6 +28,16 @@ export const property = defineType({
       group: GROUP.MAIN_CONTENT,
       validation: (Rule) => Rule.required().error("Property title is required"),
     }),
+    defineField({
+      name: "subtitle",
+      type: "string",
+      title: "Subtitle",
+      description:
+        "A short subtitle that appears below the property title on listing cards and detail pages",
+      group: GROUP.MAIN_CONTENT,
+      validation: (Rule) =>
+        Rule.max(100).warning("Keep subtitle under 100 characters for better display"),
+    }),
     documentSlugField("property", {
       group: GROUP.MAIN_CONTENT,
     }),

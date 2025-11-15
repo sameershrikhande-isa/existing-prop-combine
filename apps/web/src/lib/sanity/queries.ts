@@ -29,6 +29,7 @@ const propertyCardFragment = /* groq */ `
   _id,
   _type,
   title,
+  subtitle,
   "slug": slug.current,
   description,
   budgetMin,
@@ -46,7 +47,7 @@ const propertyCardFragment = /* groq */ `
     bedrooms,
     bathrooms
   },
-  "mainImage": images[0] ${imageFragment},
+  "mainImage": coalesce(thumbnailImage ${imageFragment}, images[0] ${imageFragment}),
   propertyType->{
     _id,
     name,
@@ -107,6 +108,7 @@ export const queryPropertyBySlugData = defineQuery(`
     _id,
     _type,
     title,
+    subtitle,
     "slug": slug.current,
     description,
     ${richTextFragment},

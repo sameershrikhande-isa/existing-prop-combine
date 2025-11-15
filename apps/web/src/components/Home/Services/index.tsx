@@ -127,6 +127,7 @@ const Categories = () => {
                   </p>
                 </div>
               </Link>
+              
             </div>
           </div>
           <div className="lg:col-span-3 col-span-6">

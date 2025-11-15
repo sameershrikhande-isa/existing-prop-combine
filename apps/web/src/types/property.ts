@@ -53,6 +53,7 @@ export type PropertyCardData = {
   _id: string;
   _type: string;
   title: string;
+  subtitle?: string;
   slug: string;
   description?: string;
   budgetMin: number;
