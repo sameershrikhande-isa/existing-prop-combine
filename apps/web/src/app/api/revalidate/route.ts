@@ -1,6 +1,9 @@
 import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
+// Mark route as dynamic since it uses searchParams
+export const dynamic = 'force-dynamic';
+
 /**
  * Webhook endpoint for Sanity CMS to trigger revalidation
  * 

@@ -3,6 +3,9 @@ import { queryFilterRanges } from "@/lib/sanity/queries";
 import type { FilterRange } from "@/types/filters";
 import { NextRequest, NextResponse } from "next/server";
 
+// Mark route as dynamic since it uses searchParams
+export const dynamic = 'force-dynamic';
+
 export const revalidate = 3600; // Cache for 1 hour
 
 export async function GET(request: NextRequest) {
