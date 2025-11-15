@@ -1,10 +1,9 @@
 import type { NextConfig } from "next";
-import path from "node:path";
 
 const nextConfig: NextConfig = {
-  // Silence "inferred workspace root" warnings in monorepos by telling Next
-  // where the root of the repo is for output file tracing.
-  outputFileTracingRoot: path.join(__dirname, "../../.."),
+  // Removed outputFileTracingRoot - Vercel handles monorepo path resolution automatically
+  // when Root Directory is set to "apps/web" in Vercel dashboard settings.
+  // This prevents the "path0/path0" double path issue during build traces.
   
   images: {
     remotePatterns: [
