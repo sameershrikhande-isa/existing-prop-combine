@@ -54,9 +54,25 @@ const Feature118 = () => {
                     A Decade of Expertise in Real Estate
                   </h3>
                 </div>
-                <p className="text-dark/60 dark:text-white/60">
-                  Knowledge of Thane & Nearby Areas // make it better
-                  </p>
+                <div className="flex flex-col gap-4">
+                  {/* <p className="text-dark/60 dark:text-white/60">
+                    Knowledge of Thane & Nearby Areas
+                  </p> */}
+                  <ul className="flex flex-col gap-3 text-dark dark:text-white">
+                    <li className="flex gap-2 items-center text-dark/80 dark:text-white/80">
+                      <CheckCircle2 className="shrink-0 text-primary" />
+                      <span>Knowledge of Thane & Nearby Areas</span>
+                    </li>
+                    <li className="flex gap-2 items-center text-dark/80 dark:text-white/80">
+                      <CheckCircle2 className="shrink-0 text-primary" />
+                      <span>Liaison services for real estate sector</span>
+                    </li>
+                    <li className="flex gap-2 items-center text-dark/80 dark:text-white/80">
+                      <CheckCircle2 className="shrink-0 text-primary" />
+                      <span>Slum redevelopment</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
               <Image
                 src="/images/legal-and-trust/person-holding-hands-trust.jpg"
