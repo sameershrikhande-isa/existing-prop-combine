@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 // import { Progress } from "@/components/ui/progress";
 // import { Button } from "@/components/ui/button";
 import Link from "next/link";

@@ -75,7 +75,7 @@ async function seedProperties() {
     name: 'Sarah Johnson',
     slug: { _type: 'slug', current: 'sarah-johnson' },
     position: 'Senior Property Consultant',
-    email: 'sarah.johnson@homely.com',
+    email: 'sarah.johnson@example.com',
     phone: '+1 555-0123',
     bio: 'With over 10 years of experience in luxury real estate...',
     // image: { _type: 'image', asset: { _ref: 'image-ASSET_ID_HERE' } },

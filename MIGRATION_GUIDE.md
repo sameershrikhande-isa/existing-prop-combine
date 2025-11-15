@@ -74,7 +74,7 @@ Create 2-3 sample agents with:
 **Example Agent:**
 - Name: "Sarah Johnson"
 - Position: "Senior Property Consultant"
-- Email: "sarah.johnson@homely.com"
+- Email: "sarah.johnson@example.com"
 - Phone: "+1 555-0123"
 - Bio: "With over 10 years of experience in luxury real estate..."
 
@@ -186,7 +186,7 @@ Once all properties are created:
 
 ```bash
 cd /Users/apple/Sameer/1-Projects/new/property-website/existing
-pnpm --filter homely-nextjs dev
+pnpm --filter example-nextjs dev
 ```
 
 1. Navigate to `http://localhost:3000/properties`

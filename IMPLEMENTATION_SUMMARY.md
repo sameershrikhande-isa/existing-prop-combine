@@ -242,7 +242,7 @@ Use the detailed property data in `MIGRATION_GUIDE.md` to create all 9 propertie
 ### 7. Test Frontend (10 minutes)
 
 ```bash
-pnpm --filter homely-nextjs dev
+pnpm --filter example-nextjs dev
 ```
 
 Visit:

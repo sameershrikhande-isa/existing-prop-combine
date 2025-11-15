@@ -397,6 +397,7 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
             type="button"
             role="combobox"
             aria-expanded={open}
+            aria-controls="property-type-listbox"
             className={cn(
               "w-full flex items-center justify-between gap-2 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 text-left transition-colors hover:bg-black/5 dark:hover:bg-white/5",
               isCompact ? "text-base" : "text-sm",

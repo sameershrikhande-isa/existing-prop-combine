@@ -7,7 +7,7 @@ import { queryContactInfo } from '@/lib/sanity/queries'
 import type { ContactInfo } from '@/types/contact'
 
 export const metadata: Metadata = {
-    title: "Contact Us | Homely",
+    title: "Contact Us | Yashashvini Consultancy Services",
 };
 
 // Cache for 24 hours (86400 seconds) - content rarely changes
@@ -28,7 +28,7 @@ export default async function ContactUs() {
     }
     // Convert Tabler icon name to iconify format
     // "IconBrandFacebook" -> "tabler:brand-facebook"
-    let withoutIcon = iconName.replace(/^Icon/, '');
+    const withoutIcon = iconName.replace(/^Icon/, '');
     // Convert camelCase to kebab-case
     const kebabCase = withoutIcon
       .replace(/([a-z])([A-Z])/g, '$1-$2')

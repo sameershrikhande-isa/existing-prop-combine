@@ -3,6 +3,7 @@
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useEffect, useId, useRef } from "react";
 import React from "react";
+import Image from "next/image";
 import { Autoplay, EffectCreative, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -129,11 +130,13 @@ const Hero211 = () => {
             modules={[EffectCreative, Pagination, Autoplay]}
           >
             {images.map((image, idx) => (
-              <SwiperSlide key={idx}>
-                <img
+              <SwiperSlide key={idx} className="relative">
+                <Image
                   className="h-full w-full object-cover"
                   src={image.src}
                   alt={image.alt}
+                  fill
+                  unoptimized
                 />
               </SwiperSlide>
             ))}

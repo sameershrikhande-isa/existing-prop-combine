@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
     }
     // Convert Tabler icon name to iconify format
     // "IconBrandFacebook" -> "tabler:brand-facebook"
-    let withoutIcon = iconName.replace(/^Icon/, '');
+    const withoutIcon = iconName.replace(/^Icon/, '');
     // Convert camelCase to kebab-case
     const kebabCase = withoutIcon
       .replace(/([a-z])([A-Z])/g, '$1-$2')

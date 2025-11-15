@@ -1,4 +1,5 @@
 import { ArrowDownRight, Star } from "lucide-react";
+import Image from "next/image";
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -7,11 +8,14 @@ const Hero4 = () => {
   return (
     <section className="py-32">
       <div className="container grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
-        <div className="bg-muted flex justify-end">
-          <img
+        <div className="bg-muted flex justify-end relative">
+          <Image
             src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg"
             alt="placeholder hero"
+            width={800}
+            height={800}
             className="max-h-[600px] w-full rounded-md object-cover lg:max-h-[800px]"
+            unoptimized
           />
         </div>
         <div className="flex flex-col items-center text-center lg:max-w-3xl lg:items-start lg:text-left">

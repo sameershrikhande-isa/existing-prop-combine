@@ -8,7 +8,7 @@ import type { PropertyCardData } from "@/types/property";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Property List | Homely",
+    title: "Property List | Yashashvini Consultancy Services",
 };
 
 // Enable ISR with 1 hour revalidation

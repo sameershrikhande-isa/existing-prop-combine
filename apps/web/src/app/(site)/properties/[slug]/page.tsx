@@ -12,7 +12,6 @@ import {
 } from "@/lib/sanity/queries";
 import type { PropertyDetailData } from "@/types/property";
 import { RichText } from "@/components/shared/RichText";
-import { testimonials } from "@/app/api/testimonial";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ViewgallaryCarousal } from "@/components/ViewgallaryCarousal";
 import { formatBudgetRange } from "@/lib/utils";
@@ -52,12 +51,12 @@ export async function generateMetadata({
 
   if (!property) {
     return {
-      title: "Property Not Found | Homely",
+      title: "Property Not Found | Yashashvini Consultancy Services",
     };
   }
 
   return {
-    title: `${property.title} | Homely`,
+    title: `${property.title} | Yashashvini Consultancy Services`,
     description:
       property.description || `View details for ${property.title}`,
   };

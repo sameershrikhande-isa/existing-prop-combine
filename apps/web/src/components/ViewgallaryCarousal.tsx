@@ -20,6 +20,7 @@ type ViewgallaryCarousalProps = {
 };
 
 const ViewgallaryCarousal = ({ images, propertyTitle = "Property" }: ViewgallaryCarousalProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const lightGalleryRef = useRef<any>(null);
   const rows: string[][] = (() => {
     if (!images || images.length === 0) return [[], []];
@@ -57,6 +58,7 @@ const ViewgallaryCarousal = ({ images, propertyTitle = "Property" }: Viewgallary
                 transition={{ duration: 0.3 }}
               >
                 {image && (
+                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={image}
                   alt={`Gallery image ${imageIndex + 1}`}
@@ -131,6 +133,7 @@ const ViewgallaryCarousal = ({ images, propertyTitle = "Property" }: Viewgallary
                         className="gallery-item"
                         data-src={fullImageUrl}
                       >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           alt={image.alt || `${propertyTitle} - Image ${index + 1}`}
                           src={thumbImageUrl}

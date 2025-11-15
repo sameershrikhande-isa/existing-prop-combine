@@ -3,7 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
     title:
-        "Sign In | Homely",
+        "Sign In | Yashashvini Consultancy Services",
 };
 
 const SigninPage = () => {

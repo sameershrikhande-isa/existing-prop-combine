@@ -36,10 +36,10 @@ const ErrorPage = () => {
           </p>
         </div>
         <h2 className="font-bold text-black dark:text-white text-center text-2xl sm:text-3xl mb-4 md:mb-6">
-          Lost? Let's Help You Find Home.
+          Lost? Let&apos;s Help You Find Home.
         </h2>
         <p className="text-base text-dark/50 dark:text-white/50 font-normal max-w-sm mx-auto">
-          Looks like you've hit a dead end — but don't worry, we'll help you get back on track
+          Looks like you&apos;ve hit a dead end — but don&apos;t worry, we&apos;ll help you get back on track
         </p>
         <div className="flex justify-center mt-6">
           <Link 
