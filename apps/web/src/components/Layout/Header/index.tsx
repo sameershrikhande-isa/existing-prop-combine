@@ -86,26 +86,26 @@ const Header: React.FC<HeaderProps> = ({ contactInfo }) => {
           {/* Desktop Navigation - hidden on mobile */}
           <nav className="hidden lg:flex items-center gap-6">
             <Link 
-              href="#expertise" 
+              href="/#expertise" 
               className="text-base font-medium text-dark dark:text-white hover:text-primary transition-colors"
             >
               Expertise
             </Link>
             <Link 
-              href="#testimonial" 
+              href="/#testimonial" 
               className="text-base font-medium text-dark dark:text-white hover:text-primary transition-colors"
             >
               Testimonials
             </Link>
             <Link 
-              href="properties" 
+              href="/properties" 
               className="text-base font-medium text-dark dark:text-white hover:text-primary transition-colors flex items-center gap-2"
             >
               Properties
               <IconSearch size={18} className="text-dark dark:text-white" />
             </Link>
             <Link 
-              href="#value-added-services" 
+              href="/#value-added-services" 
               className="text-base font-medium text-dark dark:text-white hover:text-primary transition-colors"
             >
               Value Added Services

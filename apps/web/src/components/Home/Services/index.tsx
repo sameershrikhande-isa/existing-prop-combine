@@ -43,7 +43,8 @@ const Categories = () => {
             </Link>
           </div>
           <div className="lg:col-span-6 col-span-12">
-            <div className="relative rounded-2xl overflow-hidden group">
+            <div className="relative rounded-2xl overflow-hidden">
+              {/* Removed 'group' class - no longer needed for hover overlay */}
               <Link href="/properties">
                 <Image
                   src="/images/categories/skyscrapers.jpg"
@@ -54,7 +55,8 @@ const Categories = () => {
                   unoptimized={true}
                 />
               </Link>
-              <Link href="/properties" className="absolute w-full h-full bg-linear-to-b from-black/0 to-black/80 top-full flex flex-col justify-between pl-10 pb-10 group-hover:top-0 duration-500">
+              {/* OVERLAY COMMENTED OUT - Responsive overlay with title, description, and arrow icon */}
+              {/* <Link href="/properties" className="absolute w-full h-full bg-linear-to-b from-black/0 to-black/80 top-full flex flex-col justify-between pl-10 pb-10 group-hover:top-0 duration-500">
                 <div className="flex justify-end mt-6 mr-6">
                   <div className="bg-white text-dark rounded-full w-fit p-4">
                     <Icon icon="ph:arrow-right" width={24} height={24} />
@@ -68,11 +70,12 @@ const Categories = () => {
                     Experience elegance and comfort with our exclusive luxury villas, designed  for sophisticated living.
                   </p>
                 </div>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="lg:col-span-6 col-span-12">
-            <div className="relative rounded-2xl overflow-hidden group">
+            <div className="relative rounded-2xl overflow-hidden">
+              {/* Removed 'group' class - no longer needed for hover overlay */}
               <Link href="/properties">
                 <Image
                   src="/images/categories/house-interior.jpg"
@@ -83,7 +86,8 @@ const Categories = () => {
                   unoptimized={true}
                 />
               </Link>
-              <Link href="/properties" className="absolute w-full h-full bg-linear-to-b from-black/0 to-black/80 top-full flex flex-col justify-between pl-10 pb-10 group-hover:top-0 duration-500">
+              {/* OVERLAY COMMENTED OUT - Responsive overlay with title, description, and arrow icon */}
+              {/* <Link href="/properties" className="absolute w-full h-full bg-linear-to-b from-black/0 to-black/80 top-full flex flex-col justify-between pl-10 pb-10 group-hover:top-0 duration-500">
                 <div className="flex justify-end mt-6 mr-6">
                   <div className="bg-white text-dark rounded-full w-fit p-4">
                     <Icon icon="ph:arrow-right" width={24} height={24} />
@@ -97,11 +101,12 @@ const Categories = () => {
                     Experience elegance and comfort with our exclusive luxury villas, designed for sophisticated living.
                   </p>
                 </div>
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="lg:col-span-3 col-span-6">
-            <div className="relative rounded-2xl overflow-hidden group">
+            <div className="relative rounded-2xl overflow-hidden">
+              {/* Removed 'group' class - no longer needed for hover overlay */}
               <Link href="/properties">
                 <Image
                   src="/images/categories/tower.jpg"
@@ -112,7 +117,8 @@ const Categories = () => {
                   unoptimized={true}
                 />
               </Link>
-              <Link href="/properties" className="absolute w-full h-full bg-linear-to-b from-black/0 to-black/80 top-full flex flex-col justify-between pl-10 pb-10 group-hover:top-0 duration-500">
+              {/* OVERLAY COMMENTED OUT - Responsive overlay with title, description, and arrow icon */}
+              {/* <Link href="/properties" className="absolute w-full h-full bg-linear-to-b from-black/0 to-black/80 top-full flex flex-col justify-between pl-10 pb-10 group-hover:top-0 duration-500">
                 <div className="flex justify-end mt-6 mr-6">
                   <div className="bg-white text-dark rounded-full w-fit p-4">
                     <Icon icon="ph:arrow-right" width={24} height={24} />
@@ -126,12 +132,12 @@ const Categories = () => {
                     Experience elegance and comfort with our exclusive luxury villas, designed  for sophisticated living.
                   </p>
                 </div>
-              </Link>
-
+              </Link> */}
             </div>
           </div>
           <div className="lg:col-span-3 col-span-6">
-            <div className="relative rounded-2xl overflow-hidden group">
+            <div className="relative rounded-2xl overflow-hidden">
+              {/* Removed 'group' class - no longer needed for hover overlay */}
               <Link href="/properties">
                 <Image
                   src="/images/categories/bunglow.jpg"
@@ -142,7 +148,8 @@ const Categories = () => {
                   unoptimized={true}
                 />
               </Link>
-              <Link href="/properties" className="absolute w-full h-full bg-linear-to-b from-black/0 to-black/80 top-full flex flex-col justify-between pl-10 pb-10 group-hover:top-0 duration-500">
+              {/* OVERLAY COMMENTED OUT - Responsive overlay with title, description, and arrow icon */}
+              {/* <Link href="/properties" className="absolute w-full h-full bg-linear-to-b from-black/0 to-black/80 top-full flex flex-col justify-between pl-10 pb-10 group-hover:top-0 duration-500">
                 <div className="flex justify-end mt-6 mr-6">
                   <div className="bg-white text-dark rounded-full w-fit p-4">
                     <Icon icon="ph:arrow-right" width={24} height={24} />
@@ -156,7 +163,7 @@ const Categories = () => {
                     Experience elegance and comfort with our exclusive luxury villas, designed  for sophisticated living.
                   </p>
                 </div>
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
