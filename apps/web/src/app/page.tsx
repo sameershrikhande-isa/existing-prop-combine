@@ -31,7 +31,7 @@ export default async function Home() {
       <Feature118 />
 
       {/* <Properties /> */}
-      <FeaturedProperty />
+      {/* <FeaturedProperty /> */}
       {homePageContent?.testimonialsEnabled && homePageContent?.testimonials && (
         <Testimonial testimonials={homePageContent.testimonials} />
       )}

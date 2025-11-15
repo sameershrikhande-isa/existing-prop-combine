@@ -96,9 +96,9 @@ const PropertyCard: React.FC<{ item: PropertyCardItem }> = ({ item }) => {
                   {item.subtitle}
                 </p>
               ) : (
-                <p className="text-base font-normal text-black/50 dark:text-white/50">
+              <p className="text-base font-normal text-black/50 dark:text-white/50">
                   {locationText}
-                </p>
+              </p>
               )}
             </div>
             <div>
@@ -127,18 +127,18 @@ const PropertyCard: React.FC<{ item: PropertyCardItem }> = ({ item }) => {
             {/* Legacy items - fallback to beds/baths */}
             {!isSanityItem(item) && (
               <>
-                <div className="flex flex-col gap-2 border-e border-black/10 dark:border-white/20 pr-2 xs:pr-4 mobile:pr-8">
-                  <Icon icon="solar:bed-linear" width={20} height={20} />
-                  <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
+            <div className="flex flex-col gap-2 border-e border-black/10 dark:border-white/20 pr-2 xs:pr-4 mobile:pr-8">
+              <Icon icon="solar:bed-linear" width={20} height={20} />
+              <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
                     {item.beds} Bedrooms
-                  </p>
-                </div>
+              </p>
+            </div>
                 <div className="flex flex-col gap-2 border-e border-black/10 dark:border-white/20 px-2 xs:px-4 mobile:pr-8">
-                  <Icon icon="solar:bath-linear" width={20} height={20} />
-                  <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
+              <Icon icon="solar:bath-linear" width={20} height={20} />
+              <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
                     {item.baths} Bathrooms
-                  </p>
-                </div>
+              </p>
+            </div>
               </>
             )}
             {/* Always show area */}
@@ -162,8 +162,8 @@ const PropertyCard: React.FC<{ item: PropertyCardItem }> = ({ item }) => {
                 )}
                 <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
                   {item.constructionStatus === "ready" ? "Ready" : "Under Construction"}
-                </p>
-              </div>
+              </p>
+            </div>
             )}
           </div>
         </div>

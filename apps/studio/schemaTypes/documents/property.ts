@@ -21,12 +21,39 @@ export const property = defineType({
   fields: [
     orderRankField({ type: "property" }),
     defineField({
+      name: "isVisible",
+      type: "boolean",
+      title: "Visible",
+      description:
+        "Toggle to show/hide this property. When hidden, the property won't appear in listings, filters, or be accessible via its individual page.",
+      group: GROUP.MAIN_CONTENT,
+      initialValue: true,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "title",
       type: "string",
       title: "Title",
       description: "The name or title of the property",
       group: GROUP.MAIN_CONTENT,
       validation: (Rule) => Rule.required().error("Property title is required"),
+    }),
+    defineField({
+      name: "status",
+      type: "string",
+      title: "Status",
+      description: "The current availability status of the property",
+      group: GROUP.MAIN_CONTENT,
+      options: {
+        list: [
+          { title: "Available", value: "available" },
+          { title: "Sold", value: "sold" },
+          { title: "Pending", value: "pending" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "available",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "subtitle",
@@ -89,23 +116,6 @@ export const property = defineType({
           }
           return true;
         }).min(0),
-    }),
-    defineField({
-      name: "status",
-      type: "string",
-      title: "Status",
-      description: "The current availability status of the property",
-      group: GROUP.MAIN_CONTENT,
-      options: {
-        list: [
-          { title: "Available", value: "available" },
-          { title: "Sold", value: "sold" },
-          { title: "Pending", value: "pending" },
-        ],
-        layout: "radio",
-      },
-      initialValue: "available",
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "constructionStatus",
@@ -486,12 +496,11 @@ export const property = defineType({
   preview: {
     select: {
       title: "title",
+      isVisible: "isVisible",
       budgetMin: "budgetMin",
       budgetMax: "budgetMax",
       status: "status",
       city: "location.city",
-      bedrooms: "features.bedrooms",
-      bathrooms: "features.bathrooms",
       carpetAreaMin: "carpetAreaMin",
       carpetAreaMax: "carpetAreaMax",
       mediaThumb: "thumbnailImage",
@@ -500,12 +509,11 @@ export const property = defineType({
     },
     prepare: ({
       title,
+      isVisible,
       budgetMin,
       budgetMax,
       status,
       city,
-      bedrooms,
-      bathrooms,
       carpetAreaMin,
       carpetAreaMax,
       mediaThumb,
@@ -513,18 +521,20 @@ export const property = defineType({
       slug,
     }: {
       title: string;
+      isVisible?: boolean;
       budgetMin: number;
       budgetMax?: number;
       status: string;
       city: string;
-      bedrooms: number;
-      bathrooms: number;
       carpetAreaMin: number;
       carpetAreaMax?: number;
       mediaThumb: unknown;
       mediaGallery: unknown;
       slug: string;
     }) => {
+      // Visibility badge
+      const visibilityEmoji = isVisible !== false ? "✅" : "🚫";
+      
       // Status badge
       const statusEmoji =
         status === "available" ? "✅" : status === "sold" ? "🔴" : "🟡";
@@ -542,14 +552,13 @@ export const property = defineType({
           ? `📐 ${carpetAreaMin}-${carpetAreaMax}m²`
           : `📐 ${carpetAreaMin || 0}m²`;
 
-      // Location and features
+      // Location
       const locationText = city ? `📍 ${city}` : "📍 Location not set";
-      const featuresText = `🛏️ ${bedrooms || 0} | 🛁 ${bathrooms || 0} | ${areaDisplay}`;
 
       return {
         title: title || "Untitled Property",
         media: (mediaThumb || mediaGallery) as never,
-        subtitle: `${statusEmoji} ${statusText} | ${budgetDisplay} | ${locationText} | ${featuresText} | 🔗 ${slug || "no-slug"}`,
+        subtitle: `${visibilityEmoji} ${statusEmoji} ${statusText} | ${budgetDisplay} | ${locationText} | ${areaDisplay} | 🔗 ${slug || "no-slug"}`,
       };
     },
   },

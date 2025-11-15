@@ -101,6 +101,7 @@ export const queryAllPropertiesData = defineQuery(`
   *[
     _type == "property" 
     && status == "available"
+    && (!defined(isVisible) || isVisible != false)
     && (!defined(propertyType->isVisible) || propertyType->isVisible != false)
     && (!defined(purpose->isVisible) || purpose->isVisible != false)
   ] | order(orderRank asc){
@@ -116,6 +117,7 @@ export const queryPropertyBySlugData = defineQuery(`
   *[
     _type == "property" 
     && slug.current == $slug
+    && (!defined(isVisible) || isVisible != false)
     && (!defined(propertyType->isVisible) || propertyType->isVisible != false)
     && (!defined(purpose->isVisible) || purpose->isVisible != false)
   ][0]{
@@ -185,7 +187,11 @@ export const queryPropertyBySlugData = defineQuery(`
  * Query to get all property slugs for generateStaticParams
  */
 export const queryPropertySlugs = defineQuery(`
-  *[_type == "property" && defined(slug.current)].slug.current
+  *[
+    _type == "property" 
+    && defined(slug.current)
+    && (!defined(isVisible) || isVisible != false)
+  ].slug.current
 `);
 
 /**
@@ -197,6 +203,7 @@ export const queryFilteredProperties = defineQuery(`
   *[
     _type == "property" 
     && status == "available"
+    && (!defined(isVisible) || isVisible != false)
     && (!defined(propertyType->isVisible) || propertyType->isVisible != false)
     && (!defined(purpose->isVisible) || purpose->isVisible != false)
     && (!defined($propertyTypeId) || propertyType._ref == $propertyTypeId)

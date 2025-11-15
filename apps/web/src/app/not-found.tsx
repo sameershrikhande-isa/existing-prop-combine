@@ -1,6 +1,8 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Metadata } from "next";
-import { Icon } from "@iconify/react/dist/iconify.js"
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { IconChevronsRight } from "@tabler/icons-react";
 
 export const metadata: Metadata = {
   title: "404 Page | Property ",
@@ -13,8 +15,9 @@ const ErrorPage = () => {
         <Image
           src="/images/404.png"
           alt="404"
-          width={490}
-          height={450}
+          width={300}
+          height={275}
+          className="w-auto h-auto max-w-[300px]"
           unoptimized={true}
         />
       </section>
@@ -33,11 +36,20 @@ const ErrorPage = () => {
           </p>
         </div>
         <h2 className="text-dark text-52 relative font-bold dark:text-white " >
-          Lost? Let’s Help You Find Home.
+          Lost? Let's Help You Find Home.
         </h2>
         <p className="text-lg text-dark/50 dark:text-white/50 font-normal w-full mx-auto">
-          Looks like you’ve hit a dead end — but don’t worry, we’ll help you get back on track
+          Looks like you've hit a dead end — but don't worry, we'll help you get back on track
         </p>
+        <div className="flex justify-center mt-6">
+          <Link 
+            href="/properties" 
+            className="flex items-center gap-2 py-4 px-8 rounded-full text-base leading-4 font-semibold bg-primary text-white hover:bg-dark duration-300"
+          >
+            Chat Now with an Expert
+            <IconChevronsRight className="w-4 h-4" />
+          </Link>
+        </div>
       </section>
     </>
   );
