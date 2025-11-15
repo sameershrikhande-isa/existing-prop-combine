@@ -64,6 +64,7 @@ export type PropertyCardData = {
   carpetAreaMin: number;
   carpetAreaMax?: number;
   status: "available" | "sold" | "pending";
+  constructionStatus?: "ready" | "under-construction";
   location: PropertyLocation;
   features: PropertyFeatures;
   mainImage?: PropertyImage;

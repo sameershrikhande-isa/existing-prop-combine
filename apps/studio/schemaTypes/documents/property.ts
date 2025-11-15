@@ -108,6 +108,20 @@ export const property = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "constructionStatus",
+      type: "string",
+      title: "Construction Status",
+      description: "Optional: The construction status of the property. Leave empty to hide this field on the frontend.",
+      group: GROUP.MAIN_CONTENT,
+      options: {
+        list: [
+          { title: "Ready", value: "ready" },
+          { title: "Under Construction", value: "under-construction" },
+        ],
+        layout: "radio",
+      },
+    }),
+    defineField({
       name: "propertyType",
       type: "reference",
       title: "Property Type",
@@ -193,12 +207,12 @@ export const property = defineType({
     defineField({
       name: "features",
       type: "array",
-      title: "Features",
+      title: "Feature",
       description:
-        "Add key property features (e.g., Bedrooms, Bathrooms, BHK). Keep values ultra short (e.g., '2-5 BHK', '3', '2+1').",
+        "Add a property feature (e.g., BHK type like '2-3 BHK'). Keep value ultra short. Currently limited to 1, but can be increased later if needed.",
       group: GROUP.MAIN_CONTENT,
       validation: (Rule) =>
-        Rule.max(5).warning("Limit to 5 features for better display"),
+        Rule.max(1).warning("Currently limited to 1 feature. Can be increased later if needed."),
       of: [
         defineArrayMember({
           type: "object",

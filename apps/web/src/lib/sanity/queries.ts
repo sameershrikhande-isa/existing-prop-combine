@@ -37,6 +37,7 @@ const propertyCardFragment = /* groq */ `
   carpetAreaMin,
   carpetAreaMax,
   status,
+  constructionStatus,
   location {
     address,
     city,
@@ -130,6 +131,7 @@ export const queryPropertyBySlugData = defineQuery(`
     carpetAreaMin,
     carpetAreaMax,
     status,
+    constructionStatus,
     location {
       address,
       city,

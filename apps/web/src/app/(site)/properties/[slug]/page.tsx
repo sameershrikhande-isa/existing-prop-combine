@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import * as Tabler from "@tabler/icons-react";
-import { IconExternalLink, IconFileText, IconPlayerPlay, IconMapPin, IconPhoneCall } from "@tabler/icons-react";
+import { IconExternalLink, IconFileText, IconPlayerPlay, IconMapPin, IconPhoneCall, IconCheck, IconHammer } from "@tabler/icons-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -83,6 +83,7 @@ export default async function PropertyDetailPage({
     subtitle,
     location,
     features,
+    constructionStatus,
     images,
     thumbnailImage,
     richText,
@@ -127,26 +128,21 @@ export default async function PropertyDetailPage({
                     </div>
                     <div className="lg:col-span-4 col-span-12">
             <div className="flex">
-              {/* Dynamic Features */}
-              {features && features.length > 0 && features.map((feature, index) => {
+              {/* Single Feature - conditionally shown */}
+              {features && features.length > 0 && features[0] && (() => {
+                const feature = features[0];
                 const FeatureIcon = resolveTabler(feature.iconName || "IconCircle");
-                const isLast = index === features.length - 1;
                 return (
-                  <div
-                    key={`${feature.title}-${index}`}
-                    className={`flex flex-col gap-2 ${
-                      !isLast ? "border-e border-black/10 dark:border-white/20 pr-2 xs:pr-4 mobile:pr-8" : "pl-2 xs:pl-4 mobile:pr-8"
-                    }`}
-                  >
+                  <div className="flex flex-col gap-2 border-e border-black/10 dark:border-white/20 pr-2 xs:pr-4 mobile:pr-8">
                     <FeatureIcon size={20} className="text-black dark:text-white" />
                     <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
                       {feature.value} {feature.title}
                     </p>
                   </div>
                 );
-              })}
-              {/* Always show area as last item */}
-              <div className="flex flex-col gap-2 pl-2 xs:pl-4 mobile:pl-8">
+              })()}
+              {/* Always show area */}
+              <div className={`flex flex-col gap-2 ${features && features.length > 0 && features[0] ? "border-e border-black/10 dark:border-white/20 px-2 xs:px-4 mobile:px-8" : "pr-2 xs:pr-4 mobile:pr-8"}`}>
                 <Icon
                   icon="lineicons:arrow-all-direction"
                   width={20}
@@ -156,6 +152,19 @@ export default async function PropertyDetailPage({
                   {areaDisplay}
                 </p>
               </div>
+              {/* Conditionally show construction status */}
+              {constructionStatus && (
+                <div className="flex flex-col gap-2 pl-2 xs:pl-4 mobile:pl-8">
+                  {constructionStatus === "ready" ? (
+                    <IconCheck size={20} className="text-black dark:text-white" />
+                  ) : (
+                    <IconHammer size={20} className="text-black dark:text-white" />
+                  )}
+                  <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
+                    {constructionStatus === "ready" ? "Ready" : "Under Construction"}
+                  </p>
+                </div>
+              )}
             </div>
                     </div>
                 </div>
