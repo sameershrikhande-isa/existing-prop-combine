@@ -203,16 +203,91 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
     router,
   ]);
 
-  if (loading) {
-    return (
-      <div className={cn("rounded-2xl bg-black/10 dark:bg-white/5 p-2 backdrop-blur-md", className)}>
-        <div
-          className="relative w-full rounded-3xl bg-white/90 dark:bg-black/80 backdrop-blur border-[0.5px] border-black/10 dark:border-white/10 p-4"
-        >
-          <div className="text-center text-black/50 dark:text-white/50">Loading filters...</div>
+  // Skeleton component for initial loading
+  const SearchBarSkeleton = () => (
+    <div className={cn("rounded-3xl bg-black/10 dark:bg-white/5 p-2 backdrop-blur-md", className)}>
+      <div className="relative z-0 w-full overflow-hidden rounded-2xl bg-gray-50 dark:bg-gray-900 border-[0.5px] border-black/8 dark:border-white/8 shadow-2xl shadow-black/10">
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0 rounded-2xl p-px content-['']
+          [background:linear-gradient(135deg,rgba(255,255,255,0.7),rgba(255,255,255,0)_35%),linear-gradient(315deg,rgba(255,255,255,0.55),rgba(255,255,255,0)_35%)]
+          dark:[background:linear-gradient(135deg,rgba(255,255,255,0.14),rgba(255,255,255,0)_35%),linear-gradient(315deg,rgba(255,255,255,0.12),rgba(255,255,255,0)_35%)]
+          [mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] mask-exclude
+          [-webkit-mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] [-webkit-mask-composite:xor]"
+        />
+        
+        {/* Title skeleton */}
+        <div className={cn("pt-4", isCompact ? "px-4 sm:px-5 lg:px-4 lg:pt-3" : "px-4 sm:px-6")}>
+          <div className={cn("flex items-center justify-center gap-2", isCompact ? "mb-4 md:mb-4 lg:mb-3" : "mb-4 md:mb-6")}>
+            <div className="h-8 w-40 sm:h-9 sm:w-48 animate-pulse rounded bg-black/10 dark:bg-white/10" />
+            <div className={cn("animate-pulse rounded-full bg-black/10 dark:bg-white/10", isCompact ? "h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 lg:h-6 lg:w-6" : "h-7 w-7 sm:h-8 sm:w-8")} />
+          </div>
+          
+          {/* Property Type & Purpose skeleton */}
+          <div className={cn("flex flex-col md:flex-row items-center justify-center", isCompact ? "gap-1 md:gap-1 lg:gap-1" : "gap-3 md:gap-6")}>
+            {/* Property Type skeleton */}
+            <div className="w-full md:w-auto flex flex-col md:flex-row md:items-center gap-2">
+              <div className={cn("h-3 w-12 animate-pulse rounded bg-black/10 dark:bg-white/10 hidden md:block", isCompact ? "text-[11px]" : "")} />
+              <div className="flex rounded-full p-1 bg-black/5 dark:bg-white/10 w-full md:w-auto">
+                <div className={cn("animate-pulse rounded-full bg-black/10 dark:bg-white/10 mr-2", isCompact ? "h-10 w-24 md:h-8 md:w-20 lg:h-7 lg:w-16" : "h-10 w-24 md:h-8 md:w-20")} />
+                <div className={cn("animate-pulse rounded-full bg-black/10 dark:bg-white/10", isCompact ? "h-10 w-32 md:h-8 md:w-28 lg:h-7 lg:w-24" : "h-10 w-32 md:h-8 md:w-28")} />
+              </div>
+            </div>
+            
+            {/* Separator skeleton */}
+            <div className="hidden md:block h-6 w-px animate-pulse bg-black/10 dark:bg-white/10 mx-1" />
+            
+            {/* Purpose skeleton */}
+            <div className="w-full md:w-auto flex flex-col md:flex-row md:items-center gap-2 justify-start md:justify-center">
+              <div className={cn("h-3 w-16 animate-pulse rounded bg-black/10 dark:bg-white/10 hidden md:block", isCompact ? "text-xs" : "text-[11px]")} />
+              <div className="flex rounded-full p-1 bg-black/5 dark:bg-white/10 w-full md:w-auto">
+                <div className={cn("animate-pulse rounded-full bg-black/10 dark:bg-white/10 mr-2", isCompact ? "h-10 w-20 md:h-8 md:w-16 lg:h-7 lg:w-14" : "h-10 w-20 md:h-8 md:w-16")} />
+                <div className={cn("animate-pulse rounded-full bg-black/10 dark:bg-white/10", isCompact ? "h-10 w-20 md:h-8 md:w-16 lg:h-7 lg:w-14" : "h-10 w-20 md:h-8 md:w-16")} />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Filter ranges skeleton */}
+        <div className={cn(isCompact ? "px-4 sm:px-5 lg:px-4" : "px-4 sm:px-6")}>
+          <div className={cn("h-px w-full animate-pulse bg-black/10 dark:bg-white/10", isCompact ? "my-3 md:my-3 lg:my-2" : "my-3 md:my-4")} />
+        </div>
+        
+        <div className={cn("pb-4", isCompact ? "px-4 sm:px-5 lg:px-4 lg:pb-3" : "px-4 sm:px-6")}>
+          <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-4", isCompact && "lg:gap-3")}>
+            {/* Budget skeleton */}
+            <div className="flex flex-col gap-2">
+              <div className={cn("h-4 w-20 animate-pulse rounded bg-black/10 dark:bg-white/10", isCompact ? "text-sm lg:text-xs" : "text-xs")} />
+              <div className="h-10 w-full animate-pulse rounded-lg bg-black/10 dark:bg-white/10" />
+            </div>
+            {/* Carpet Area skeleton */}
+            <div className="flex flex-col gap-2">
+              <div className={cn("h-4 w-24 animate-pulse rounded bg-black/10 dark:bg-white/10", isCompact ? "text-sm lg:text-xs" : "text-xs")} />
+              <div className="h-10 w-full animate-pulse rounded-lg bg-black/10 dark:bg-white/10" />
+            </div>
+            {/* Amenities skeleton (desktop) */}
+            <div className="hidden md:flex flex-col gap-2">
+              <div className={cn("h-4 w-20 animate-pulse rounded bg-black/10 dark:bg-white/10", isCompact ? "text-sm" : "text-xs")} />
+              <div className="h-10 w-full animate-pulse rounded-lg bg-black/10 dark:bg-white/10" />
+            </div>
+          </div>
+        </div>
+        
+        {/* Amenities skeleton (mobile) */}
+        <div className={cn("pb-4 md:hidden", isCompact ? "px-4 sm:px-5" : "px-4 sm:px-6")}>
+          <div className="h-10 w-full animate-pulse rounded-lg bg-black/10 dark:bg-white/10" />
+        </div>
+        
+        {/* Search button skeleton */}
+        <div className={cn("pb-4", isCompact ? "px-4 sm:px-5 lg:px-4 lg:pb-3" : "px-4 sm:px-6")}>
+          <div className={cn("animate-pulse rounded-2xl md:rounded-xl bg-black/10 dark:bg-white/10", isCompact ? "h-12 lg:h-10" : "h-14")} />
         </div>
       </div>
-    );
+    </div>
+  );
+
+  if (loading) {
+    return <SearchBarSkeleton />;
   }
 
   if (!filterData) {
@@ -380,124 +455,142 @@ export const PropertySearchBar = ({ className, isCompact = false }: PropertySear
       </div>
 
       {/* Filter Ranges Section */}
-      {(budgetRanges.length > 0 || carpetAreaRanges.length > 0) && (
+      {(loadingRanges || budgetRanges.length > 0 || carpetAreaRanges.length > 0) && (
         <>
           <div className={cn(isCompact ? "px-4 sm:px-5 lg:px-4" : "px-4 sm:px-6")}>
             <Separator className={cn("bg-black/10 dark:bg-white/10", isCompact ? "my-3 md:my-3 lg:my-2" : "my-3 md:my-4")} />
           </div>
 
           <div className={cn("pb-4", isCompact ? "px-4 sm:px-5 lg:px-4 lg:pb-3" : "px-4 sm:px-6")}>
-            <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-4 items-start", isCompact && "lg:gap-3")}>
-              {/* Budget Range */}
-              {budgetRanges.length > 0 && (
+            {loadingRanges ? (
+              // Skeleton for filter ranges while loading
+              <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-4", isCompact && "lg:gap-3")}>
                 <div className="flex flex-col gap-2">
-                  <label className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm lg:text-xs" : "text-xs")}>
-                    Budget{!isCompact && " (Optional)"}
-                  </label>
-                  <SingleSelect
-                    value={selectedBudgetRangeId}
-                    onChange={setSelectedBudgetRangeId}
-                    placeholder="Any budget"
-                    options={[
-                      { value: "", label: "Any budget" },
-                      ...budgetRanges.map((r) => ({ value: r._id, label: r.label }))
-                    ]}
-                  />
+                  <div className={cn("h-4 w-20 animate-pulse rounded bg-black/10 dark:bg-white/10", isCompact ? "text-sm lg:text-xs" : "text-xs")} />
+                  <div className="h-10 w-full animate-pulse rounded-lg bg-black/10 dark:bg-white/10" />
                 </div>
-              )}
-
-              {/* Carpet Area Range */}
-              {carpetAreaRanges.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <label className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm lg:text-xs" : "text-xs")}>
-                    Carpet Area{!isCompact && " (Optional)"}
-                  </label>
-                  <SingleSelect
-                    value={selectedCarpetAreaRangeId}
-                    onChange={setSelectedCarpetAreaRangeId}
-                    placeholder="Any size"
-                    options={[
-                      { value: "", label: "Any size" },
-                      ...carpetAreaRanges.map((r) => ({ value: r._id, label: r.label }))
-                    ]}
-                  />
+                  <div className={cn("h-4 w-24 animate-pulse rounded bg-black/10 dark:bg-white/10", isCompact ? "text-sm lg:text-xs" : "text-xs")} />
+                  <div className="h-10 w-full animate-pulse rounded-lg bg-black/10 dark:bg-white/10" />
                 </div>
-              )}
-
-              {/* Amenities inline on md+ */}
-              <div className="hidden md:flex flex-col gap-2">
-                <span className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm" : "text-xs")}>Amenities</span>
-                <Popover open={isAmenitiesOpenInline} onOpenChange={setIsAmenitiesOpenInline}>
-                  <PopoverTrigger asChild>
-                    <button
-                      type="button"
-                      aria-expanded={isAmenitiesOpenInline}
-                      className={cn("w-full flex items-center justify-between gap-2 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 transition-colors hover:bg-black/5 dark:hover:bg-white/5", isCompact ? "text-base" : "text-sm")}
-                    >
-                      <span className="text-black dark:text-white">Amenities</span>
-                      <span className="inline-flex items-center gap-2">
-                        {selectedAmenityIds.length > 0 && (
-                          <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/90 text-white text-xs px-1">
-                            {selectedAmenityIds.length}
-                          </span>
-                        )}
-                        <ChevronsUpDown className={cn("shrink-0 opacity-50", isCompact ? "size-5" : "size-4")} />
-                      </span>
-                    </button>
-                  </PopoverTrigger>
-                  <PopoverContent 
-                    align="start" 
-                    className={cn(
-                      "z-[1000] w-[280px] p-0 !bg-white dark:!bg-black shadow-xl border border-black/10 dark:border-white/10"
-                    )}
-                  >
-                    <Command>
-                      <CommandList className="max-h-64 overflow-auto">
-                        <CommandGroup>
-                          {filterData.amenities.map((amenity) => {
-                            const checked = selectedAmenityIds.includes(amenity._id);
-                            const AmenityIcon = resolveTabler(amenity.iconName || "IconCircle");
-                            return (
-                              <CommandItem
-                                key={amenity._id}
-                                value={amenity.name}
-                                onSelect={() => handleToggleAmenity(amenity._id)}
-                                className="flex items-center justify-between gap-3 px-3 py-2"
-                              >
-                                <span className="flex items-center gap-2 text-sm">
-                                  <AmenityIcon size={16} className="text-black/70 dark:text-white/70" aria-hidden />
-                                  <span className="text-black dark:text-white">{amenity.name}</span>
-                                </span>
-                                <Checkbox
-                                  checked={checked}
-                                  className="pointer-events-none data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=checked]:text-white"
-                                />
-                              </CommandItem>
-                            );
-                          })}
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                    <div className="flex items-center justify-between p-3 border-t border-black/10 dark:border-white/10">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setSelectedAmenityIds([])}
-                      >
-                        Clear
-                      </Button>
-                      <Button
-                        size="sm"
-                        onClick={() => setIsAmenitiesOpenInline(false)}
-                        className="bg-primary text-white hover:bg-primary/90 dark:bg-primary dark:text-white"
-                      >
-                        Done
-                      </Button>
-                    </div>
-                  </PopoverContent>
-                </Popover>
+                <div className="hidden md:flex flex-col gap-2">
+                  <div className={cn("h-4 w-20 animate-pulse rounded bg-black/10 dark:bg-white/10", isCompact ? "text-sm" : "text-xs")} />
+                  <div className="h-10 w-full animate-pulse rounded-lg bg-black/10 dark:bg-white/10" />
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className={cn("grid grid-cols-1 md:grid-cols-3 gap-4 items-start", isCompact && "lg:gap-3")}>
+                {/* Budget Range */}
+                {budgetRanges.length > 0 && (
+                  <div className="flex flex-col gap-2">
+                    <label className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm lg:text-xs" : "text-xs")}>
+                      Budget{!isCompact && " (Optional)"}
+                    </label>
+                    <SingleSelect
+                      value={selectedBudgetRangeId}
+                      onChange={setSelectedBudgetRangeId}
+                      placeholder="Any budget"
+                      options={[
+                        { value: "", label: "Any budget" },
+                        ...budgetRanges.map((r) => ({ value: r._id, label: r.label }))
+                      ]}
+                    />
+                  </div>
+                )}
+
+                {/* Carpet Area Range */}
+                {carpetAreaRanges.length > 0 && (
+                  <div className="flex flex-col gap-2">
+                    <label className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm lg:text-xs" : "text-xs")}>
+                      Carpet Area{!isCompact && " (Optional)"}
+                    </label>
+                    <SingleSelect
+                      value={selectedCarpetAreaRangeId}
+                      onChange={setSelectedCarpetAreaRangeId}
+                      placeholder="Any size"
+                      options={[
+                        { value: "", label: "Any size" },
+                        ...carpetAreaRanges.map((r) => ({ value: r._id, label: r.label }))
+                      ]}
+                    />
+                  </div>
+                )}
+
+                {/* Amenities inline on md+ */}
+                <div className="hidden md:flex flex-col gap-2">
+                  <span className={cn("font-medium text-black/70 dark:text-white/70", isCompact ? "text-sm" : "text-xs")}>Amenities</span>
+                  <Popover open={isAmenitiesOpenInline} onOpenChange={setIsAmenitiesOpenInline}>
+                    <PopoverTrigger asChild>
+                      <button
+                        type="button"
+                        aria-expanded={isAmenitiesOpenInline}
+                        className={cn("w-full flex items-center justify-between gap-2 rounded-lg border border-black/10 dark:border-white/10 bg-white dark:bg-black px-3 py-2 transition-colors hover:bg-black/5 dark:hover:bg-white/5", isCompact ? "text-base" : "text-sm")}
+                      >
+                        <span className="text-black dark:text-white">Amenities</span>
+                        <span className="inline-flex items-center gap-2">
+                          {selectedAmenityIds.length > 0 && (
+                            <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary/90 text-white text-xs px-1">
+                              {selectedAmenityIds.length}
+                            </span>
+                          )}
+                          <ChevronsUpDown className={cn("shrink-0 opacity-50", isCompact ? "size-5" : "size-4")} />
+                        </span>
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent 
+                      align="start" 
+                      className={cn(
+                        "z-[1000] w-[280px] p-0 !bg-white dark:!bg-black shadow-xl border border-black/10 dark:border-white/10"
+                      )}
+                    >
+                      <Command>
+                        <CommandList className="max-h-64 overflow-auto">
+                          <CommandGroup>
+                            {filterData.amenities.map((amenity) => {
+                              const checked = selectedAmenityIds.includes(amenity._id);
+                              const AmenityIcon = resolveTabler(amenity.iconName || "IconCircle");
+                              return (
+                                <CommandItem
+                                  key={amenity._id}
+                                  value={amenity.name}
+                                  onSelect={() => handleToggleAmenity(amenity._id)}
+                                  className="flex items-center justify-between gap-3 px-3 py-2"
+                                >
+                                  <span className="flex items-center gap-2 text-sm">
+                                    <AmenityIcon size={16} className="text-black/70 dark:text-white/70" aria-hidden />
+                                    <span className="text-black dark:text-white">{amenity.name}</span>
+                                  </span>
+                                  <Checkbox
+                                    checked={checked}
+                                    className="pointer-events-none data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=checked]:text-white"
+                                  />
+                                </CommandItem>
+                              );
+                            })}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                      <div className="flex items-center justify-between p-3 border-t border-black/10 dark:border-white/10">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setSelectedAmenityIds([])}
+                        >
+                          Clear
+                        </Button>
+                        <Button
+                          size="sm"
+                          onClick={() => setIsAmenitiesOpenInline(false)}
+                          className="bg-primary text-white hover:bg-primary/90 dark:bg-primary dark:text-white"
+                        >
+                          Done
+                        </Button>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              </div>
+            )}
           </div>
         </>
       )}
