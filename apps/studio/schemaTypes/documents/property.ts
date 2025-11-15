@@ -192,26 +192,78 @@ export const property = defineType({
     }),
     defineField({
       name: "features",
-      type: "object",
+      type: "array",
       title: "Features",
-      description: "Key property features like bedrooms and bathrooms",
+      description:
+        "Add key property features (e.g., Bedrooms, Bathrooms, BHK). Keep values ultra short (e.g., '2-5 BHK', '3', '2+1').",
       group: GROUP.MAIN_CONTENT,
-      fields: [
-        defineField({
-          name: "bedrooms",
-          type: "number",
-          title: "Bedrooms",
-          description: "Number of bedrooms",
-          validation: (Rule) =>
-            Rule.required().min(0).error("Number of bedrooms is required"),
-        }),
-        defineField({
-          name: "bathrooms",
-          type: "number",
-          title: "Bathrooms",
-          description: "Number of bathrooms",
-          validation: (Rule) =>
-            Rule.required().min(0).error("Number of bathrooms is required"),
+      validation: (Rule) =>
+        Rule.max(5).warning("Limit to 5 features for better display"),
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              type: "string",
+              title: "Title",
+              description: "Feature label (e.g., 'Bedrooms', 'BHK', 'Parking')",
+              validation: (Rule) =>
+                Rule.required()
+                  .max(20)
+                  .error("Title is required and must be under 20 characters"),
+            }),
+            defineField({
+              name: "iconName",
+              type: "string",
+              title: "Tabler Icon Name",
+              description: "e.g., IconBed, IconBath, IconHome, IconCar",
+              validation: (Rule) => Rule.required(),
+              components: {
+                field: (props) =>
+                  React.createElement(
+                    "div",
+                    null,
+                    props.renderDefault(props),
+                    React.createElement(
+                      "div",
+                      { style: { marginTop: 6 } },
+                      React.createElement(
+                        "a",
+                        {
+                          href: "https://tabler.io/icons",
+                          target: "_blank",
+                          rel: "noopener noreferrer",
+                          style: {
+                            color: "var(--card-link-color, #0ea5e9)",
+                            textDecoration: "underline",
+                            fontSize: 12,
+                          },
+                        },
+                        "Choose an Icon from here · https://tabler.io/icons ↗"
+                      )
+                    )
+                  ),
+              },
+            }),
+            defineField({
+              name: "value",
+              type: "string",
+              title: "Value",
+              description: "Keep it ultra short (e.g., '2-5 BHK', '3', '2+1', 'Yes')",
+              validation: (Rule) =>
+                Rule.required()
+                  .max(15)
+                  .warning("Keep value ultra short (max 15 characters) for better display"),
+            }),
+          ],
+          preview: {
+            select: { title: "title", subtitle: "value", iconName: "iconName" },
+            prepare: ({ title, subtitle, iconName }) => ({
+              title: title || "Untitled Feature",
+              subtitle: `${subtitle || "No value"} • ${iconName || "No icon"}`,
+            }),
+          },
         }),
       ],
     }),

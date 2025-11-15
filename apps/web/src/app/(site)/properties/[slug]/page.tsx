@@ -127,29 +127,36 @@ export default async function PropertyDetailPage({
                     </div>
                     <div className="lg:col-span-4 col-span-12">
             <div className="flex">
-              <div className="flex flex-col gap-2 border-e border-black/10 dark:border-white/20 pr-2 xs:pr-4 mobile:pr-8">
-                <Icon icon="solar:bed-linear" width={20} height={20} />
-                <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
-                  {features.bedrooms} Bedrooms
-                                </p>
-                            </div>
-              <div className="flex flex-col gap-2 border-e border-black/10 dark:border-white/20 px-2 xs:px-4 mobile:px-8">
-                <Icon icon="solar:bath-linear" width={20} height={20} />
-                <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
-                  {features.bathrooms} Bathrooms
-                                </p>
-                            </div>
+              {/* Dynamic Features */}
+              {features && features.length > 0 && features.map((feature, index) => {
+                const FeatureIcon = resolveTabler(feature.iconName || "IconCircle");
+                const isLast = index === features.length - 1;
+                return (
+                  <div
+                    key={`${feature.title}-${index}`}
+                    className={`flex flex-col gap-2 ${
+                      !isLast ? "border-e border-black/10 dark:border-white/20 pr-2 xs:pr-4 mobile:pr-8" : "pl-2 xs:pl-4 mobile:pr-8"
+                    }`}
+                  >
+                    <FeatureIcon size={20} className="text-black dark:text-white" />
+                    <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
+                      {feature.value} {feature.title}
+                    </p>
+                  </div>
+                );
+              })}
+              {/* Always show area as last item */}
               <div className="flex flex-col gap-2 pl-2 xs:pl-4 mobile:pl-8">
-                                <Icon
+                <Icon
                   icon="lineicons:arrow-all-direction"
-                                    width={20}
-                                    height={20}
-                                />
+                  width={20}
+                  height={20}
+                />
                 <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
                   {areaDisplay}
-                                </p>
-                            </div>
-                        </div>
+                </p>
+              </div>
+            </div>
                     </div>
                 </div>
 

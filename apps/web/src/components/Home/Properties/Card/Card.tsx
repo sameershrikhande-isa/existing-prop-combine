@@ -3,8 +3,15 @@ import type { PropertyHomes } from "@/types/properyHomes";
 import { urlFor } from "@/lib/sanity/client";
 import { formatBudgetRange } from "@/lib/utils";
 import { Icon } from "@iconify/react";
+import * as Tabler from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
+
+type IconComponent = React.ComponentType<{ size?: number; className?: string }>;
+const resolveTabler = (name: string): IconComponent => {
+  const map = Tabler as unknown as Record<string, IconComponent>;
+  return map[name] ?? map["IconCircle"];
+};
 
 type PropertyCardItem = PropertyCardData | PropertyHomes;
 
@@ -14,8 +21,6 @@ const isSanityItem = (i: PropertyCardItem): i is PropertyCardData =>
 const PropertyCard: React.FC<{ item: PropertyCardItem }> = ({ item }) => {
   const title = isSanityItem(item) ? item.title : item.name;
   const slug = item.slug;
-  const bedrooms = isSanityItem(item) ? item.features.bedrooms : item.beds;
-  const bathrooms = isSanityItem(item) ? item.features.bathrooms : item.baths;
 
   // Handle price/budget display
   const price = isSanityItem(item)
@@ -105,18 +110,42 @@ const PropertyCard: React.FC<{ item: PropertyCardItem }> = ({ item }) => {
             </div>
           </div>
           <div className="flex">
-            <div className="flex flex-col gap-2 border-e border-black/10 dark:border-white/20 pr-2 xs:pr-4 mobile:pr-8">
-              <Icon icon="solar:bed-linear" width={20} height={20} />
-              <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
-                {bedrooms} Bedrooms
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 border-e border-black/10 dark:border-white/20 px-2 xs:px-4 mobile:px-8">
-              <Icon icon="solar:bath-linear" width={20} height={20} />
-              <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
-                {bathrooms} Bathrooms
-              </p>
-            </div>
+            {/* Dynamic Features - only for Sanity items */}
+            {isSanityItem(item) && item.features && item.features.length > 0 && item.features.map((feature, index) => {
+              const FeatureIcon = resolveTabler(feature.iconName || "IconCircle");
+              const isLast = index === item.features.length - 1;
+              return (
+                <div
+                  key={`${feature.title}-${index}`}
+                  className={`flex flex-col gap-2 ${
+                    !isLast ? "border-e border-black/10 dark:border-white/20 pr-2 xs:pr-4 mobile:pr-8" : "pl-2 xs:pl-4 mobile:pr-8"
+                  }`}
+                >
+                  <FeatureIcon size={20} className="text-black dark:text-white" />
+                  <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
+                    {feature.value} {feature.title}
+                  </p>
+                </div>
+              );
+            })}
+            {/* Legacy items - fallback to beds/baths */}
+            {!isSanityItem(item) && (
+              <>
+                <div className="flex flex-col gap-2 border-e border-black/10 dark:border-white/20 pr-2 xs:pr-4 mobile:pr-8">
+                  <Icon icon="solar:bed-linear" width={20} height={20} />
+                  <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
+                    {item.beds} Bedrooms
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2 border-e border-black/10 dark:border-white/20 px-2 xs:px-4 mobile:pr-8">
+                  <Icon icon="solar:bath-linear" width={20} height={20} />
+                  <p className="text-sm mobile:text-base font-normal text-black dark:text-white">
+                    {item.baths} Bathrooms
+                  </p>
+                </div>
+              </>
+            )}
+            {/* Always show area as last item */}
             <div className="flex flex-col gap-2 pl-2 xs:pl-4 mobile:pl-8">
               <Icon
                 icon="lineicons:arrow-all-direction"

@@ -43,9 +43,10 @@ const propertyCardFragment = /* groq */ `
     state,
     country
   },
-  features {
-    bedrooms,
-    bathrooms
+  "features": features[]{
+    title,
+    iconName,
+    value
   },
   "mainImage": coalesce(thumbnailImage ${imageFragment}, images[0] ${imageFragment}),
   propertyType->{
@@ -123,9 +124,10 @@ export const queryPropertyBySlugData = defineQuery(`
       state,
       country
     },
-    features {
-      bedrooms,
-      bathrooms
+    "features": features[]{
+      title,
+      iconName,
+      value
     },
     "amenities": amenities[]->{
       _id,

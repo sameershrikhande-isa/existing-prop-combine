@@ -36,10 +36,13 @@ export type PropertyLocation = {
   country?: string;
 };
 
-export type PropertyFeatures = {
-  bedrooms: number;
-  bathrooms: number;
+export type PropertyFeature = {
+  title: string;
+  iconName: string;
+  value: string;
 };
+
+export type PropertyFeatures = PropertyFeature[];
 
 export type PropertyAmenity = {
   _id: string;
