@@ -1,22 +1,24 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 const GetInTouch: React.FC = () => {
     return (
-        <section>
+        <section className="pb-0">
             <div className='container max-w-8xl mx-auto px-5 2xl:px-0'>
                 <div className="relative rounded-t-2xl overflow-hidden">
-                    <video
-                        className="w-full absolute top-0 left-0 object-cover -z-10"
-                        // autoPlay
-                        loop
-                        muted
-                        // controls
-                        aria-label="Video background showing luxurious real estate"
-                    >
-                        <source src="https://videos.pexels.com/video-files/7233782/7233782-hd_1920_1080_25fps.mp4" type="video/mp4" />
-                    </video>
+                    <Image
+                        src="/images/categories/pexels-amit-baokar-1895455-5050812.jpg"
+                        alt="Luxurious real estate property"
+                        fill
+                        className="object-cover -z-10 brightness-95"
+                        priority
+                        unoptimized
+                    />
 
-                    <div className="bg-black/30 lg:py-64 md:py-28 py-10">
+                    {/* Gradient Overlay - Similar to Hero section */}
+                    <div className='absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-black/50 to-black/40 dark:from-black/70 dark:via-black/60 dark:to-black/50' />
+
+                    <div className="relative z-10 lg:py-64 md:py-28 py-10">
                         <div className="flex flex-col items-center gap-8">
                             <h2 className='text-white lg:text-52 md:text-40 text-3xl max-w-3/4 text-center font-medium'>
                                 Find Your Dream Home

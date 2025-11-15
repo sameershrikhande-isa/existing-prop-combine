@@ -6,7 +6,7 @@ import { IconChevronsRight, IconHomeSearch, IconKey } from "@tabler/icons-react"
 
 const Timeline13 = () => {
   return (
-    <section className="py-24">
+    <section className="pt-0 pb-24">
       <div className="container max-w-8xl mx-auto px-5 2xl:px-0">
         <div className="flex flex-col">
           {/* <h1 className="mb-2 text-3xl font-semibold md:text-5xl text-dark dark:text-white tracking-tighter">
