@@ -46,7 +46,7 @@ const Categories = () => {
             <div className="relative rounded-2xl overflow-hidden group">
               <Link href="/properties">
                 <Image
-                  src="/images/categories/villas.jpg"
+                  src="/images/categories/skyscrapers.jpg"
                   alt="villas"
                   width={680}
                   height={386}
@@ -75,7 +75,7 @@ const Categories = () => {
             <div className="relative rounded-2xl overflow-hidden group">
               <Link href="/properties">
                 <Image
-                  src="/images/categories/luxury-villa.jpg"
+                  src="/images/categories/house-interior.jpg"
                   alt="villas"
                   width={680}
                   height={386}
@@ -104,7 +104,7 @@ const Categories = () => {
             <div className="relative rounded-2xl overflow-hidden group">
               <Link href="/properties">
                 <Image
-                  src="/images/categories/appartment.jpg"
+                  src="/images/categories/tower.jpg"
                   alt="villas"
                   width={320}
                   height={386}
@@ -134,7 +134,7 @@ const Categories = () => {
             <div className="relative rounded-2xl overflow-hidden group">
               <Link href="/properties">
                 <Image
-                  src="/images/categories/office.jpg"
+                  src="/images/categories/bunglow.jpg"
                   alt="office"
                   width={320}
                   height={386}
